@@ -37,7 +37,7 @@ const Footer = () => {
             playsInline
             className="absolute inset-0 w-full h-full object-cover hidden sm:block"
           >
-            <source src="/Joyzen_glass_footer.mp4" type="video/mp4" />
+            <source src="/joyzen_glass_footer.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
