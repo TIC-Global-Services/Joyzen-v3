@@ -37,7 +37,7 @@ const DoctorGrowthGrid = () => {
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: section,
-                    start: "top 10%", // Trigger animation later, when top of section reaches 30% down the viewport
+                    start: "top 20%", // Trigger animation later, when top of section reaches 30% down the viewport
                     toggleActions: "play none none reverse",
                 }
             });
@@ -62,7 +62,7 @@ const DoctorGrowthGrid = () => {
                     opacity: 0,
                     scale: 0.2,
                     duration: 1.2,
-                    ease: "back.out(1.2)"
+                    ease: "power3.out"
                 }, 0); // 0 start time = explode simultaneously
             });
         });
@@ -251,7 +251,7 @@ const DoctorGrowthGrid = () => {
 
                         {/* Logo in the middle row (transparent orange SVG logo) */}
                         <div className="relative w-full flex items-center justify-center pointer-events-none py-2 z-50">
-                            <div className="relative w-12 h-18 md:w-16 md:h-24 lg:w-20 lg:h-30 drop-shadow-xl bg-white/20 rounded-full p-2 backdrop-blur-sm">
+                            <div className="relative w-12 h-18 md:w-16 md:h-24 lg:w-20 lg:h-30 drop-shadow-xl">
                                 <svg width="100%" height="100%" viewBox="0 0 134 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M55.9273 93.8987C25.6612 93.8987 5.99071 80.9128 0 57.1953L133.333 57.2785V93.8987H55.9273Z" fill="#EF8F60" />
                                     <path d="M66.476 44.9891C54.1905 44.9891 43.8145 34.7734 43.8145 22.6859C43.8145 10.5984 54.1989 0 66.476 0C78.7532 0 89.5179 10.1741 89.5179 22.6859C89.5179 35.1977 78.9644 44.9891 66.476 44.9891Z" fill="#EF8F60" />
