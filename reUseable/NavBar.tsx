@@ -65,18 +65,18 @@ const NavBar = () => {
 
 
 
-                <div className="flex items-center gap-2">
-                    <Link href={`https://calendly.com/joyzen-system/15min?date=${formattedDate}`} target='_blank'>
-                        <button className={`hidden px-3 lg:px-6 md:flex gap-2 text-xs lg:text-base items-center justify-center py-1.5 lg:py-2.5 rounded-[2.625rem] border border-white/10 backdrop-blur-xs shadow-md font-satoshi font-medium hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer group ${isHome ? 'bg-white/10 hover:bg-[#F9F9F9]' : 'bg-white/20 hover:bg-white/30'}`}>
-                            <span className={inactiveTextColor}>Consultation Now</span>
-                            <span className="ml-1 font-mono text-lg leading-none transition-transform duration-300 group-hover:translate-x-1">→</span>
-                        </button>
-                    </Link>
+                    <div className="flex items-center gap-2">
+                        <Link href={`https://calendly.com/joyzen-system/15min?date=${formattedDate}`} target='_blank'>
+                            <button className="hidden px-3 lg:px-6 md:flex gap-2 text-xs lg:text-base items-center justify-center py-1.5 lg:py-2.5 rounded-[2.625rem] bg-[#1A1A1A] text-white hover:bg-[#036132] shadow-md font-satoshi font-medium hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer group tracking-tight">
+                                <span>Consultation Now</span>
+                                <span className="inline-block transition-transform group-hover:translate-x-1 duration-300">→</span>
+                            </button>
+                        </Link>
 
-                    {/* Mobile Hamburger Menu (Removed) */}
-                </div>
-            </nav>
-        </div>
+                        {/* Mobile Hamburger Menu (Removed) */}
+                    </div>
+                </nav>
+            </div>
 
             {/* Mobile Menu Dropdown (Removed) */}
         </div>

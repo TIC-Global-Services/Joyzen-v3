@@ -99,10 +99,10 @@ const IntegrationSection = () => {
 
                 {/* Header */}
                 <div className="mb-6 lg:mb-20">
-                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-medium tracking-tight mb-2 md:mb-4">
+                    <h2 className="text-2xl md:text-5xl lg:text-6xl font-medium tracking-tight mb-2 md:mb-4">
                         How We Integrate With Clinics
                     </h2>
-                    <p className="text-lg md:text-2xl max-w-3xl leading-tight">
+                    <p className="text-base md:text-2xl max-w-3xl leading-tight">
                         We fit into your clinic, without taking control. Your clinic continues to operate under your medical expertise. Joyzen adds the system around you:
                     </p>
                 </div>
@@ -111,7 +111,7 @@ const IntegrationSection = () => {
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-20">
 
                     {/* Left Column: Fixed aspect stacked images */}
-                    <div className="w-full lg:w-1/2 relative aspect-[4/3] max-w-[500px] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
+                    <div className="w-full lg:w-1/2 relative aspect-[4/3] max-w-[600px] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
                         {steps.map((step, idx) => (
                             <div
                                 key={`img-${idx}`}
@@ -137,7 +137,7 @@ const IntegrationSection = () => {
                                     className="border-b border-gray-200 pb-2 md:pb-6"
                                 >
                                     {/* Title */}
-                                    <h3 className="integration-item text-xl md:text-3xl font-medium">
+                                    <h3 className="integration-item text-lg md:text-3xl font-medium">
                                         {step.title}
                                     </h3>
 

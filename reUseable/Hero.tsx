@@ -72,7 +72,7 @@ const Hero = ({
                     formElement.scrollIntoView({ behavior: 'smooth' });
                   }
                 }}
-                className="px-6 py-3 rounded-[2.625rem] backdrop-blur-xs shadow-md font-satoshi font-medium transition-all duration-300 bg-[#FFFFFFCC] hover:bg-[#F9F9F9] text-black hover:scale-105 active:scale-95 cursor-pointer text-center"
+                className="group bg-[#1A1A1A] text-white hover:bg-[#036132] transition-all duration-300 tracking-tight px-6 py-3 rounded-[2.625rem] font-medium shadow-md hover:scale-105 active:scale-95 flex items-center justify-center gap-2 cursor-pointer w-fit"
               >
                 Apply to partner with Joyzen
               </button>

@@ -106,13 +106,13 @@ const CareTimeline = () => {
     }, []);
 
     return (
-        <section ref={containerRef} className="relative w-full py-12 md:py-36 px-4 md:px-12 bg-white font-satoshi overflow-hidden">
+        <section ref={containerRef} className="relative w-full py-16 md:py-36 px-4 md:px-12 bg-white font-satoshi overflow-hidden">
             <div className="max-w-[1440px] mx-auto relative">
 
                 {/* Header */}
                 <div className="text-center mb-24 md:mb-32">
 
-                    <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-[#1A1A1A] max-w-5xl mx-auto leading-tight">
+                    <h2 className="text-2xl md:text-5xl font-medium tracking-tight text-[#1A1A1A] max-w-5xl mx-auto leading-tight">
                         The Challenge in healthcare is no longer medical expertise. It's fragmentation
                     </h2>
                 </div>
@@ -137,10 +137,10 @@ const CareTimeline = () => {
                         >
                             {/* Text Column */}
                             <div className="w-full md:w-[42%] step-text flex flex-col justify-center">
-                                <h3 className="text-2xl md:text-3xl font-medium mb-4">
+                                <h3 className="text-xl md:text-3xl font-medium mb-4">
                                     {idx + 1}. {step.title}
                                 </h3>
-                                <p className="text-xl md:text-2xl leading-tight tracking-tight font-normal">
+                                <p className="text-base md:text-2xl leading-tight tracking-tight font-normal">
                                     {step.description}
                                 </p>
                             </div>

@@ -33,14 +33,14 @@ const IntakeForm = () => {
     }
 
     return (
-        <section id="intake-form" className="relative w-full py-10 md:py-16 px-6 md:px-12 bg-white font-satoshi overflow-hidden">
+        <section id="intake-form" className="relative w-full pt-10 pb-16 md:pt-24 md:pb-36 px-6 md:px-12 bg-white font-satoshi overflow-hidden">
             <Toaster position="bottom-right" />
 
             <div className="max-w-[620px] mx-auto">
 
                 {/* Header */}
                 <div className="text-left mb-8">
-                    <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-[#1A1A1A] mb-3">
+                    <h2 className="text-2xl md:text-4xl font-medium tracking-tight text-[#1A1A1A] mb-3">
                         Why This Is The Future
                     </h2>
                     <p className="text-base md:text-lg max-w-3xl leading-tight font-normal">
@@ -52,7 +52,7 @@ const IntakeForm = () => {
                 <div className="relative w-full">
 
                     {/* Faded Orange Logo Watermark */}
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 select-none opacity-[0.08]">
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 select-none opacity-[0.20]">
                         <div className="relative w-[240px] h-[360px] md:w-[280px] md:h-[420px]">
                             <svg width="100%" height="100%" viewBox="0 0 134 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M55.9273 93.8987C25.6612 93.8987 5.99071 80.9128 0 57.1953L133.333 57.2785V93.8987H55.9273Z" fill="#EF8F60" />
@@ -72,7 +72,7 @@ const IntakeForm = () => {
                                 type="text"
                                 placeholder="Doctor/Clinic Name"
                                 {...register("name", { required: "Name is required" })}
-                                className={`w-full py-3.5 px-6 rounded-full backdrop-blur-md border focus:outline-none transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.02)] text-gray-800 placeholder-gray-400 text-sm md:text-base ${errors.name ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
+                                className={`w-full py-3.5 px-6 rounded-full backdrop-blur-sm border focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-gray-400 text-sm md:text-base ${errors.name ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
                                     }`}
                             />
                         </div>
@@ -83,7 +83,7 @@ const IntakeForm = () => {
                                 type="text"
                                 placeholder="Speciality"
                                 {...register("specialty", { required: "Speciality is required" })}
-                                className={`w-full py-3.5 px-6 rounded-full backdrop-blur-md border focus:outline-none transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.02)] text-gray-800 placeholder-gray-400 text-sm md:text-base ${errors.specialty ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
+                                className={`w-full py-3.5 px-6 rounded-full backdrop-blur-sm border focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-gray-400 text-sm md:text-base ${errors.specialty ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
                                     }`}
                             />
                         </div>
@@ -94,7 +94,7 @@ const IntakeForm = () => {
                                 type="text"
                                 placeholder="City"
                                 {...register("city", { required: "City is required" })}
-                                className={`w-full py-3.5 px-6 rounded-full  backdrop-blur-md border focus:outline-none transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.02)] text-gray-800 placeholder-gray-400 text-sm md:text-base ${errors.city ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
+                                className={`w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-gray-400 text-sm md:text-base ${errors.city ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
                                     }`}
                             />
                         </div>
@@ -105,7 +105,7 @@ const IntakeForm = () => {
                                 type="text"
                                 placeholder="Clinic Address"
                                 {...register("address")}
-                                className="w-full py-3.5 px-6 rounded-full  backdrop-blur-md border border-gray-100 focus:outline-none focus:border-[#036132]/30 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.02)] text-gray-800 placeholder-gray-400 text-sm md:text-base"
+                                className="w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border border-gray-100 focus:outline-none focus:border-[#036132]/30 transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-gray-400 text-sm md:text-base"
                             />
                         </div>
 
@@ -115,7 +115,7 @@ const IntakeForm = () => {
                                 type="tel"
                                 placeholder="Phone Number"
                                 {...register("phone", { required: "Phone number is required" })}
-                                className={`w-full py-3.5 px-6 rounded-full  backdrop-blur-md border focus:outline-none transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.02)] text-gray-800 placeholder-gray-400 text-sm md:text-base ${errors.phone ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
+                                className={`w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-gray-400 text-sm md:text-base ${errors.phone ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
                                     }`}
                             />
                         </div>
@@ -129,7 +129,7 @@ const IntakeForm = () => {
                                     required: "Email is required",
                                     pattern: { value: /^\S+@\S+$/i, message: "Invalid email address" }
                                 })}
-                                className={`w-full py-3.5 px-6 rounded-full  backdrop-blur-md border focus:outline-none transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.02)] text-gray-800 placeholder-gray-400 text-sm md:text-base ${errors.email ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
+                                className={`w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-gray-400 text-sm md:text-base ${errors.email ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
                                     }`}
                             />
                         </div>
@@ -140,7 +140,7 @@ const IntakeForm = () => {
                                 type="text"
                                 placeholder="Current monthly patient volume"
                                 {...register("patientVolume")}
-                                className="w-full py-3.5 px-6 rounded-full  backdrop-blur-md border border-gray-100 focus:outline-none focus:border-[#036132]/30 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.02)] text-gray-800 placeholder-gray-400 text-sm md:text-base"
+                                className="w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border border-gray-100 focus:outline-none focus:border-[#036132]/30 transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-gray-400 text-sm md:text-base"
                             />
                         </div>
 
@@ -150,7 +150,7 @@ const IntakeForm = () => {
                                 type="text"
                                 placeholder="Why do you want to partner with Joyzen?"
                                 {...register("comments")}
-                                className="w-full py-3.5 px-6 rounded-full  backdrop-blur-md border border-gray-100 focus:outline-none focus:border-[#036132]/30 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.02)] text-gray-800 placeholder-gray-400 text-sm md:text-base"
+                                className="w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border border-gray-100 focus:outline-none focus:border-[#036132]/30 transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-gray-400 text-sm md:text-base"
                             />
                         </div>
 
@@ -159,8 +159,7 @@ const IntakeForm = () => {
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="text-sm md:text-base bg-white border border-gray-100 text-gray-900 shadow-[0_8px_24px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.08)] hover:bg-gray-50 hover:scale-105 active:scale-95 transition-all duration-300 px-8 py-3 rounded-full font-medium flex items-center justify-center gap-2 cursor-pointer disabled:bg-gray-100 disabled:text-gray-400"
-                                style={{ paddingTop: '12px', paddingBottom: '12px' }}
+                                className="group text-sm md:text-base bg-[#1A1A1A] text-white hover:bg-[#036132] transition-all duration-300 tracking-tight px-8 py-3 rounded-full font-medium shadow-md hover:scale-105 active:scale-95 flex items-center justify-center gap-2 cursor-pointer disabled:bg-gray-100 disabled:text-gray-400"
                             >
                                 {isSubmitting ? (
                                     <>
@@ -170,7 +169,12 @@ const IntakeForm = () => {
                                         </svg>
                                         Submitting...
                                     </>
-                                ) : "Submit Partnership Application"}
+                                ) : (
+                                    <>
+                                        Submit Partnership Application
+
+                                    </>
+                                )}
                             </button>
                         </div>
 

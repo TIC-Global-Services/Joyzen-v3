@@ -53,7 +53,7 @@ const WhyJoyzenBadge = () => {
     }, [])
 
     return (
-        <section className="relative w-full py-12 md:py-44 flex items-center justify-center bg-white font-satoshi overflow-hidden">
+        <section className="relative w-full py-16 md:py-36 flex items-center justify-center bg-white font-satoshi overflow-hidden">
 
             {/* Visual Loader & Faded Logo Container (Background Layer) */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
@@ -96,16 +96,16 @@ const WhyJoyzenBadge = () => {
             {/* Foreground Content (Wider wrapper, can extend outside the loader circle) */}
             <div className="relative z-10 text-center max-w-5xl px-6 flex flex-col items-center justify-center">
 
-                <h3 className="text-3xl md:text-3xl font-medium tracking-tight text-[#1A1A1A] mb-2">
+                <h3 className="text-2xl md:text-3xl font-medium tracking-tight text-[#1A1A1A] mb-2">
                     What <span className="text-[#036132]">Joyzen</span> Is
                 </h3>
 
-                <span className="text-base md:text-lg font-normal tracking-tight mb-8 font-mono">
+                <span className="text-base md:text-lg font-normal tracking-tight mb-4 font-mono">
                     Joyzen is more than technology.
                 </span>
 
                 {/* Paragraph is 32px on desktop and extends outside the loader circle */}
-                <p className="text-lg md:text-[32px] text-gray-800 leading-[1.35] font-normal max-w-4xl tracking-tight">
+                <p className="text-base md:text-[32px] text-gray-800 leading-[1.35] font-normal max-w-4xl tracking-tight">
                     It is a healthcare ecosystem built around your practice. By integrating technology, patient engagement, care coordination, diagnostics, and operational support, we help clinics transform fragmented healthcare journeys into connected care experiences. The result is better efficiency, stronger patient relationships, and improved long-term outcomes. You bring the expertise. Joyzen provides the system that helps it scale.
                 </p>
 

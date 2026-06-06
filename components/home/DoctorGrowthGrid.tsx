@@ -130,19 +130,22 @@ const DoctorGrowthGrid = () => {
 
         if (idx === 0) {
             return (
-                <div className={`relative w-full ${isMobile ? 'h-[300px]' : aspectClass} rounded-2xl overflow-hidden group border border-white/60 bg-gradient-to-b from-white/75 to-white/45 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,0.6)] hover:shadow-[0_24px_50px_rgb(0,0,0,0.08),inset_0_1px_1px_rgba(255,255,255,0.8)] hover:-translate-y-1 hover:border-white/90 transition-all duration-500 ease-out flex-shrink-0 flex flex-col justify-between p-6 ${className || ''}`}>
+                <div className={`relative w-full ${isMobile ? 'h-[300px]' : aspectClass} rounded-3xl overflow-hidden group border border-white/60 bg-gradient-to-b from-white/75 to-white/45 backdrop-blur-xl shadow-[10px_10px_20px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,0.6)] hover:shadow-[16px_16px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.8)] hover:-translate-y-1 hover:-translate-x-1 hover:border-white/90 transition-all duration-500 ease-out flex-shrink-0 flex flex-col justify-between p-6 ${className || ''}`}>
                     {/* Scaled down inline image placed above the text */}
                     <div className="relative w-full flex-1 flex items-center justify-center p-2 mb-2">
-                        <div className="relative w-[180px] h-[90px] md:w-[200px] md:h-[100px] transition-transform duration-500 group-hover:scale-103">
+                        <div className="relative w-[300px] h-[150px] md:w-[380px] md:h-[190px] -ml-6 md:-ml-8 transition-transform duration-500 group-hover:scale-103">
                             <Image
                                 src={item.image!}
                                 alt={item.title}
                                 fill
                                 className="object-contain"
-                                sizes="(max-width: 768px) 180px, 200px"
+                                sizes="(max-width: 768px) 300px, 380px"
                             />
                         </div>
                     </div>
+                    {/* Vignette Overlay */}
+                    <div className="absolute inset-0 shadow-[inset_4px_4px_12px_rgba(0,0,0,0.05)] z-0 pointer-events-none rounded-3xl" />
+
                     {/* Text content below */}
                     <div className="relative z-20 text-[#1A1A1A]">
                         <h3 className="text-xl font-medium leading-tight tracking-tighter">
@@ -154,7 +157,7 @@ const DoctorGrowthGrid = () => {
         }
 
         return (
-            <div className={`relative w-full ${isMobile ? 'h-[300px]' : aspectClass} rounded-2xl overflow-hidden group border border-white/60 bg-gradient-to-b from-white/75 to-white/45 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,0.6)] hover:shadow-[0_24px_50px_rgb(0,0,0,0.08),inset_0_1px_1px_rgba(255,255,255,0.8)] hover:-translate-y-1 hover:border-white/90 transition-all duration-500 ease-out flex-shrink-0 ${className || ''}`}>
+            <div className={`relative w-full ${isMobile ? 'h-[300px]' : aspectClass} rounded-3xl overflow-hidden group border border-white/60 bg-gradient-to-b from-white/75 to-white/45 backdrop-blur-xl shadow-[10px_10px_20px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,0.6)] hover:shadow-[16px_16px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.8)] hover:-translate-y-1 hover:-translate-x-1 hover:border-white/90 transition-all duration-500 ease-out flex-shrink-0 ${className || ''}`}>
 
                 {/* Visual background */}
                 {item.image ? (
@@ -174,6 +177,9 @@ const DoctorGrowthGrid = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/10 to-transparent z-10" />
                 )}
 
+                {/* Vignette Overlay on all edges */}
+                <div className="absolute inset-0 shadow-[inset_4px_4px_12px_rgba(0,0,0,0.07)] z-10 pointer-events-none rounded-3xl" />
+
                 {/* Text Overlay */}
                 <div className={`absolute bottom-0 left-0 p-6 z-20 ${item.image ? 'text-white' : 'text-[#1A1A1A]'}`}>
                     <h3 className="text-xl font-medium mb-1 md:mb-2 leading-tight tracking-tight">
@@ -188,7 +194,7 @@ const DoctorGrowthGrid = () => {
     };
 
     return (
-        <section id="doctor-growth" className="relative pt-16 pb-12 md:pt-16 md:pb-36 px-4 md:px-14 overflow-hidden font-satoshi bg-white">
+        <section id="doctor-growth" className="relative pt-8 pb-16 md:pt-20 md:pb-36 px-4 md:px-14 overflow-hidden font-satoshi bg-white">
             {/* Background Gradients */}
             <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none transform-gpu">
                 <div className="absolute -bottom-[5%] -left-[40%] md:left-[-50%] w-[80%] h-[40%] bg-[#b4def7]/30 rounded-[100%] md:blur-[80px]" />
@@ -198,11 +204,11 @@ const DoctorGrowthGrid = () => {
             <div className="max-w-[1440px] mx-auto">
 
                 {/* Header */}
-                <div className="text-center mb-20 md:mb-28">
-                    <h2 className="text-3xl md:text-5xl font-medium tracking-tight leading-tight mb-4">
+                <div className="text-center mb-12 md:mb-16">
+                    <h2 className="text-2xl md:text-5xl font-medium tracking-tight leading-tight mb-4">
                         Doctor Growth & Personal Brand
                     </h2>
-                    <p className="max-w-2xl mx-auto text-xl md:text-2xl font-normal leading-tight">
+                    <p className="max-w-2xl mx-auto text-base md:text-2xl font-normal leading-tight">
                         Doctors don't just practice medicine. They build trust, impact, and a lasting legacy
                     </p>
                 </div>
