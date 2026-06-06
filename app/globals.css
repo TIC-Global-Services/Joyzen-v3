@@ -1,0 +1,177 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #0f0f0f;
+}
+
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-satoshi);
+  --font-mono: var(--font-satoshi);
+  --font-epilogue: var(--font-epilogue);
+  --animate-scaleIn: scaleIn 0.3s ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: translateX(-50%) scale(0);
+  }
+  to {
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+/* ===================================================================
+   GLASS PILL INDICATOR — Sliding liquid glass bubble
+   Follows the active nav link with smooth transitions
+   =================================================================== */
+.glass-pill-indicator {
+  background:
+    linear-gradient(155deg,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0.05) 52%,
+      rgba(248, 252, 255, 0.015) 100%
+    ),
+    radial-gradient(circle at 84% 84%, rgba(176, 208, 255, 0.09) 0%, rgba(176, 208, 255, 0) 46%);
+  backdrop-filter: blur(14px) saturate(180%) contrast(1.10) brightness(1.02);
+  -webkit-backdrop-filter: blur(14px) saturate(180%) contrast(1.10) brightness(1.02);
+  border: 0;
+  box-shadow:
+    0 8px 18px rgba(78, 96, 122, 0.11),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30),
+    inset 0 -1px 0 rgba(20, 32, 50, 0.08);
+}
+
+/* Glass button — nav pills and CTA buttons */
+.glass-button {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0.045) 52%,
+      rgba(255, 255, 255, 0.015) 100%
+    ),
+    radial-gradient(circle at 84% 84%, rgba(176, 208, 255, 0.09) 0%, rgba(176, 208, 255, 0) 46%),
+    radial-gradient(circle at 12% 8%, rgba(255, 230, 200, 0.05) 0%, rgba(255, 230, 200, 0) 42%);
+  border: 0;
+  box-shadow:
+    0 10px 22px rgba(78, 96, 122, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30),
+    inset 0 -1px 0 rgba(20, 32, 50, 0.08);
+}
+
+.glass-button:hover {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0.06) 52%,
+      rgba(255, 255, 255, 0.02) 100%
+    ),
+    radial-gradient(circle at 84% 84%, rgba(176, 208, 255, 0.12) 0%, rgba(176, 208, 255, 0) 46%),
+    radial-gradient(circle at 12% 8%, rgba(255, 230, 200, 0.08) 0%, rgba(255, 230, 200, 0) 42%);
+}
+
+/* Glass card — Figma-style glass effect */
+.glass-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #ffffff;
+    --foreground: #000000;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-epilogue);
+}
+
+/* Lenis smooth scroll — recommended styles */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Scrolling text animation */
+@keyframes scroll-text {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-scroll-text {
+  animation: scroll-text 15s linear infinite;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.preloader-path {
+  stroke: #ff5a1f;
+  stroke-width: 1.5px;
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  fill-opacity: 0;
+  animation: draw-svg 3.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes draw-svg {
+  0% { stroke-dashoffset: 300; fill-opacity: 0; stroke-opacity: 1; stroke: #ff5a1f; }
+  72% { stroke-dashoffset: 0; fill-opacity: 0; stroke-opacity: 1; stroke: #ff5a1f; }
+  100% { stroke-dashoffset: 0; fill-opacity: 1; stroke-opacity: 0; }
+}
+
+/* @keyframes liquidMove {
+  0% {
+    transform: translate(0px, 0px) scale(1) rotate(0deg);
+  }
+
+  25% {
+    transform: translate(40px, -30px) scale(1.1) rotate(8deg);
+  }
+
+  50% {
+    transform: translate(-30px, 20px) scale(0.95) rotate(-6deg);
+  }
+
+  75% {
+    transform: translate(20px, 40px) scale(1.05) rotate(4deg);
+  }
+
+  100% {
+    transform: translate(0px, 0px) scale(1) rotate(0deg);
+  }
+}
+
+.liquid-gradient {
+  animation: liquidMove 18s ease-in-out infinite alternate;
+  will-change: transform;
+  transform-origin: center;
+  backface-visibility: hidden;
+} */
