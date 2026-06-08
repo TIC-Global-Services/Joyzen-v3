@@ -56,7 +56,7 @@ const IntakeForm = () => {
     };
 
     return (
-        <section id="intake-form" className="relative w-full py-16 md:py-24 px-6 md:px-12 bg-white font-satoshi overflow-hidden">
+        <section id="intake-form" className="relative w-full py-10 md:py-14 px-6 md:px-12 bg-white font-satoshi overflow-hidden">
             <Toaster position="bottom-right" />
 
             <div className="max-w-[800px] mx-auto">
