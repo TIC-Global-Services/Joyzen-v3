@@ -107,7 +107,7 @@ const BetterForDoctors = () => {
 
                 <div
                     ref={scrollContainerRef}
-                    className="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory no-scrollbar scroll-smooth w-full"
+                    className="flex overflow-x-auto gap-2 pb-8 snap-x snap-mandatory no-scrollbar scroll-smooth w-full"
                 >
                     {cardData.map((card, idx) => (
                         <div

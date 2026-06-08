@@ -105,7 +105,7 @@ const WhyJoyzenBadge = () => {
                 </span>
 
                 {/* Paragraph is 32px on desktop and extends outside the loader circle */}
-                <p className="text-xl md:text-[32px] leading-[1.35] font-medium max-w-4xl">
+                <p className="text-xl md:text-[32px] leading-[1.2] font-medium max-w-4xl">
                     It is a healthcare ecosystem built around your practice. By integrating technology, patient engagement, care coordination, diagnostics, and operational support, we help clinics transform fragmented healthcare journeys into connected care experiences. The result is better efficiency, stronger patient relationships, and improved long-term outcomes. You bring the expertise. Joyzen provides the system that helps it scale.
                 </p>
 

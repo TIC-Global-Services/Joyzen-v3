@@ -208,7 +208,7 @@ const DoctorGrowthGrid = () => {
                     <h2 className="text-2xl md:text-5xl font-medium tracking-tight leading-tight mb-4">
                         Doctor Growth & Personal Brand
                     </h2>
-                    <p className="font-epilogue max-w-2xl mx-auto text-xl md:text-2xl font-normal leading-tight">
+                    <p className="font-epilogue max-w-2xl mx-auto text-xl md:text-2xl font-normal leading-[1.2]">
                         Doctors don't just practice medicine. They build trust, impact, and a lasting legacy
                     </p>
                 </div>

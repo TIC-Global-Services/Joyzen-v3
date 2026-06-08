@@ -102,7 +102,7 @@ const IntegrationSection = () => {
                     <h2 className="text-2xl md:text-5xl lg:text-6xl font-medium tracking-normal mb-2 md:mb-6">
                         How We Integrate With Clinics
                     </h2>
-                    <p className="font-epilogue text-lg md:text-2xl max-w-3xl leading-tight mb-6">
+                    <p className="font-epilogue text-lg md:text-2xl max-w-3xl leading-[1.2] mb-6">
                         We fit into your clinic, without taking control. Your clinic continues to operate under your medical expertise. Joyzen adds the system around you:
                     </p>
                 </div>

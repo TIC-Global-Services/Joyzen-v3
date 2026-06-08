@@ -59,15 +59,15 @@ const IntakeForm = () => {
         <section id="intake-form" className="relative w-full py-16 md:py-24 px-6 md:px-12 bg-white font-satoshi overflow-hidden">
             <Toaster position="bottom-right" />
 
-            <div className="max-w-[620px] mx-auto">
+            <div className="max-w-[800px] mx-auto">
 
                 {/* Header */}
                 <div className="text-left mb-8">
                     <h2 className="text-2xl md:text-4xl font-medium tracking-tight mb-6">
                         Why This Is The Future
                     </h2>
-                    <p className="font-epilogue text-lg md:text-lg max-w-3xl leading-tight font-normal">
-                        Healthcare is shifting from reactive treatment to continuous, preventive care. Moving beyond isolated visits and short-term fixes, Joyzen is building a connected healthcare system that supports long-term outcomes through ongoing care, technology, and patient engagemen, starting with reproductive health.
+                    <p className="font-epilogue text-lg md:text-lg max-w-3xl leading-[1.2] font-normal">
+                        Healthcare is shifting from reactive treatment to continuous, preventive care. Moving beyond isolated visits and short-term fixes, Joyzen is building a connected healthcare system that supports long-term outcomes through ongoing care, technology, and patient engagement, starting with reproductive health.
                     </p>
                 </div>
 

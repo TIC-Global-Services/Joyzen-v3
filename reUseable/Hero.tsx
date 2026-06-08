@@ -26,11 +26,12 @@ const Hero = ({
   const pathname = usePathname()
   const isOnlyHome = pathname === '/'
   const textColorClass = isOnlyHome ? 'text-black' : 'text-white'
+  const [isHovered, setIsHovered] = React.useState(false)
 
   return (
     <div className={`relative w-full min-h-screen flex items-end ${className}`}>
       {/* Background Media */}
-      <div className="absolute inset-0 z-10 overflow-hidden">
+      <div className={`absolute inset-0 z-10 overflow-hidden transition-all duration-700 ease-in-out ${isHovered ? 'opacity-40' : 'opacity-100'}`}>
         {backgroundVideo ? (
           <video
             autoPlay
@@ -56,9 +57,27 @@ const Hero = ({
       <div className="relative w-full flex justify-start items-end px-6 md:px-12 xl:px-16 pb-16 md:pb-32 z-15">
         <div className="max-w-[1440px] mx-auto w-full flex justify-start">
           <div className={`${contentMaxWidth} ${textColorClass}`}>
-            <h1 className="text-4xl sm:text-5xl lg:text-[3.750rem] font-epilogue font-normal md:font-normal leading-[1.1] tracking-normal mb-6 drop-shadow-md">
-              {title}
-            </h1>
+            <div
+              onMouseLeave={() => setIsHovered(false)}
+              className="flex flex-col"
+            >
+              <h1
+                onMouseEnter={() => setIsHovered(true)}
+                className={`text-4xl sm:text-5xl lg:text-[3.750rem] font-epilogue font-normal md:font-normal leading-[1.1] tracking-normal mb-6 drop-shadow-md cursor-pointer transition-all duration-700 ease-in-out ${isHovered ? '-translate-y-3' : 'translate-y-0'}`}
+              >
+                {title}
+              </h1>
+
+              <div
+                className={`transition-all duration-700 ease-in-out overflow-hidden ${isHovered ? 'max-h-[500px] opacity-100 mb-6' : 'max-h-0 opacity-0 mb-0'
+                  }`}
+              >
+                <p className={`font-epilogue text-lg sm:text-xl lg:text-xl leading-[1.2] max-w-4xl font-normal tracking-normal ${textColorClass} opacity-85`}>
+                  The future of healthcare is not isolated treatment. It is connected, continuous, and designed around long-term human health. Joyzen is building an integrated healthcare ecosystem where doctors, technology, diagnostics, wellness, and patient care work together seamlessly, beyond the walls of a clinic. Designed to support every specialty and every stage of life, Joyzen enables modern healthcare experiences focused on prevention, recovery, longevity, and lifelong wellbeing.
+                </p>
+              </div>
+            </div>
+
             <div className="text-lg sm:text-xl font-epilogue lg:text-xl font-normal drop-shadow-md leading-[1.1] tracking-normal whitespace-pre-wrap">
               {description1}
               <br />
