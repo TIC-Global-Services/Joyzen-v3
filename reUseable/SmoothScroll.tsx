@@ -29,6 +29,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     });
 
     lenisRef.current = lenis;
+    (window as any).lenis = lenis;
 
     lenis.on("scroll", ScrollTrigger.update);
 
@@ -64,6 +65,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("load", handleLoad);
       gsap.ticker.remove(rafCallback);
+      delete (window as any).lenis;
       lenis.destroy();
     };
   }, []);

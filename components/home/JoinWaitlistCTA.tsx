@@ -105,9 +105,13 @@ const JoinWaitlistCTA = () => {
 
                     <button
                         onClick={() => {
-                            const formElement = document.getElementById('intake-form');
-                            if (formElement) {
-                                formElement.scrollIntoView({ behavior: 'smooth' });
+                            if (typeof window !== "undefined" && (window as any).lenis) {
+                                (window as any).lenis.scrollTo('#intake-form');
+                            } else {
+                                const formElement = document.getElementById('intake-form');
+                                if (formElement) {
+                                    formElement.scrollIntoView({ behavior: 'smooth' });
+                                }
                             }
                         }}
                         className="group text-[16px] md:text-[17px] bg-[#1A1A1A] text-white hover:bg-[#036132] transition-all duration-300 tracking-tight px-12 py-4 rounded-full font-medium shadow-md hover:scale-105 active:scale-95 flex items-center gap-2"

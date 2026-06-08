@@ -86,9 +86,13 @@ const Hero = ({
             <div className="mt-8 flex">
               <button
                 onClick={() => {
-                  const formElement = document.getElementById('intake-form');
-                  if (formElement) {
-                    formElement.scrollIntoView({ behavior: 'smooth' });
+                  if (typeof window !== "undefined" && (window as any).lenis) {
+                    (window as any).lenis.scrollTo('#intake-form');
+                  } else {
+                    const formElement = document.getElementById('intake-form');
+                    if (formElement) {
+                      formElement.scrollIntoView({ behavior: 'smooth' });
+                    }
                   }
                 }}
                 className="group bg-[#1A1A1A] text-white hover:bg-[#036132] transition-all duration-300 tracking-tight px-6 py-3 rounded-[2.625rem] font-medium shadow-md hover:scale-105 active:scale-95 flex items-center justify-center gap-2 cursor-pointer w-fit"

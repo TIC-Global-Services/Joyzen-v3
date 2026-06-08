@@ -136,7 +136,7 @@ const CareTimeline = () => {
                                 }`}
                         >
                             {/* Text Column */}
-                            <div className="w-full md:w-[40%] step-text flex flex-col justify-center">
+                            <div className="w-full md:w-[45%] step-text flex flex-col justify-center">
                                 <h3 className="text-xl md:text-3xl font-medium mb-4">
                                     {idx + 1}. {step.title}
                                 </h3>
