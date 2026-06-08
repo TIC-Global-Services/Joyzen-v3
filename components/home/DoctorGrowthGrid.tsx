@@ -200,7 +200,7 @@ const DoctorGrowthGrid = () => {
 
                 {/* Text Overlay */}
                 <div className={`absolute bottom-0 left-0 p-6 z-20 ${item.image ? 'text-white' : 'text-black'}`}>
-                    <h3 className="text-xl md:text-2xl font-medium mb-1 md:mb-2 leading-tight tracking-tight">
+                    <h3 className="text-xl md:text-2xl font-medium mb-1 md:mb-2 leading-[1.2] tracking-tight">
                         {item.title}
                     </h3>
                     <p className="text-xs md:text-sm opacity-90 leading-tight">
