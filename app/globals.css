@@ -14,6 +14,7 @@
   --font-satoshi: var(--font-satoshi);
   --font-epilogue: var(--font-epilogue);
   --animate-scaleIn: scaleIn 0.3s ease-out;
+  --animate-fadeIn: fadeIn 0.35s ease-out;
 }
 
 @keyframes scaleIn {
@@ -22,6 +23,17 @@
   }
   to {
     transform: translateX(-50%) scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

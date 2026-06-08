@@ -7,7 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import grid1 from '@/assets/home/doctorgrowthgrid/grid1.png'
 import grid2 from '@/assets/home/doctorgrowthgrid/grid2.png'
 import grid3 from '@/assets/home/doctorgrowthgrid/grid3.png'
-
+import logo from '@/assets/home/general/logo.svg'
 
 interface GrowthItem {
     title: string;
@@ -168,6 +168,24 @@ const DoctorGrowthGrid = () => {
                         sizes="(max-width: 768px) 200px, 50vw"
                         className="object-cover transition-transform duration-700 group-hover:scale-103"
                     />
+                ) : isMobile ? (
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none p-12 select-none">
+                        <div className="relative w-[100px] h-[100px]">
+                            <Image
+                                src={
+                                    idx === 1
+                                        ? "/logo_purple.svg"
+                                        : idx === 3
+                                            ? "/logo_transparent.svg"
+                                            : logo
+                                }
+                                alt="Joyzen Logo"
+                                fill
+                                className="object-contain transition-all duration-500 group-hover:scale-105 group-hover:opacity-50"
+                                sizes="100px"
+                            />
+                        </div>
+                    </div>
                 ) : item.customGraphic ? (
                     item.customGraphic
                 ) : null}

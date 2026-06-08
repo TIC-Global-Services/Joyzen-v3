@@ -1,8 +1,9 @@
 "use client"
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 import biggestChallenge from '@/assets/home/caretimeline/biggestChallenge.png'
 import impact from '@/assets/home/caretimeline/impactClinic.png'
@@ -37,6 +38,7 @@ const timelineSteps = [
 ]
 
 const CareTimeline = () => {
+    const [activeStep, setActiveStep] = useState(0)
     const containerRef = useRef<HTMLDivElement>(null)
     const lineProgressRef = useRef<HTMLDivElement>(null)
     const stepsRef = useRef<HTMLDivElement[]>([])
@@ -106,14 +108,13 @@ const CareTimeline = () => {
     }, []);
 
     return (
-        <section ref={containerRef} className="relative w-full py-16 md:py-36 px-4 md:px-12 bg-white font-satoshi overflow-hidden">
+        <section ref={containerRef} className="relative w-full py-16 md:py-28 px-4 md:px-12 bg-white font-satoshi overflow-hidden">
             <div className="max-w-[1440px] mx-auto relative">
 
                 {/* Header */}
-                <div className="text-center mb-24 md:mb-32">
-
+                <div className="text-center mb-12 md:mb-32">
                     <h2 className="text-2xl md:text-4xl font-medium tracking-normal max-w-3xl mx-auto leading-tight">
-                        The challenge in healthcare is no longer medical expertise. It's fragmentation
+                        The challenge in healthcare is no longer medical expertise. It's fragmentation.
                     </h2>
                 </div>
 
@@ -126,8 +127,8 @@ const CareTimeline = () => {
                     />
                 </div>
 
-                {/* Steps */}
-                <div className="space-y-12 md:space-y-36 relative z-10">
+                {/* Steps (Desktop View) */}
+                <div className="hidden md:block space-y-36 relative z-10">
                     {timelineSteps.map((step, idx) => (
                         <div
                             key={`step-${idx}`}
@@ -163,6 +164,55 @@ const CareTimeline = () => {
                             </div>
                         </div>
                     ))}
+                </div>
+
+                {/* Steps (Mobile Slider View) */}
+                <div className="block md:hidden relative z-10 max-w-md mx-auto px-4">
+                    {/* Active Step Content */}
+                    <div key={activeStep} className="animate-fadeIn flex flex-col items-center">
+                        {/* Image */}
+                        <div className="w-full aspect-[4/3] relative rounded-2xl overflow-hidden shadow-md mb-8">
+                            <Image
+                                src={timelineSteps[activeStep].image}
+                                alt={timelineSteps[activeStep].title}
+                                fill
+                                className="object-cover"
+                                priority
+                                sizes="100vw"
+                            />
+                        </div>
+
+                        {/* Text Container with fixed height to prevent layout shifts */}
+                        <div className="flex flex-col items-center min-h-[240px] sm:min-h-[180px]">
+                            {/* Title */}
+                            <h3 className="text-2xl font-medium text-center mb-4 font-satoshi leading-tight">
+                                {activeStep + 1}. {timelineSteps[activeStep].title}
+                            </h3>
+
+                            {/* Description */}
+                            <p className="font-epilogue text-base text-center leading-[1.4] tracking-normal font-normal opacity-85">
+                                {timelineSteps[activeStep].description}
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Controls */}
+                    <div className="flex justify-center items-center gap-4 mt-6">
+                        <button
+                            onClick={() => setActiveStep(prev => (prev === 0 ? timelineSteps.length - 1 : prev - 1))}
+                            className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center hover:scale-105 active:scale-95 transition-transform cursor-pointer"
+                            aria-label="Previous step"
+                        >
+                            <ArrowLeft className="w-5 h-5" />
+                        </button>
+                        <button
+                            onClick={() => setActiveStep(prev => (prev === timelineSteps.length - 1 ? 0 : prev + 1))}
+                            className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center hover:scale-105 active:scale-95 transition-transform cursor-pointer"
+                            aria-label="Next step"
+                        >
+                            <ArrowRight className="w-5 h-5" />
+                        </button>
+                    </div>
                 </div>
 
             </div>

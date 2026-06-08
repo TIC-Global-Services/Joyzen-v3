@@ -26,19 +26,18 @@ const Hero = ({
   const pathname = usePathname()
   const isOnlyHome = pathname === '/'
   const textColorClass = isOnlyHome ? 'text-black' : 'text-white'
-  const [isHovered, setIsHovered] = React.useState(false)
 
   return (
     <div className={`relative w-full min-h-screen flex items-end ${className}`}>
       {/* Background Media */}
-      <div className={`absolute inset-0 z-10 overflow-hidden transition-all duration-700 ease-in-out ${isHovered ? 'opacity-40' : 'opacity-100'}`}>
+      <div className="absolute inset-0 z-10 overflow-hidden opacity-100">
         {backgroundVideo ? (
           <video
             autoPlay
             loop
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover object-[25%_50%]"
           >
             <source src={backgroundVideo} type="video/mp4" />
             Your browser does not support the video tag.
@@ -49,41 +48,32 @@ const Hero = ({
             alt={typeof title === 'string' ? title : "Hero background"}
             fill
             priority
-            className="object-cover"
+            className="object-cover object-[30%_50%]"
           />
         ) : null}
         <div className={`absolute inset-x-0 bottom-0 h-32 ${isOnlyHome ? 'bg-gradient-to-t from-white via-white/50 to-transparent' : 'bg-gradient-to-t from-white via-white/30 to-transparent'}`}></div>
       </div>
-      <div className="relative w-full flex justify-start items-end px-6 md:px-12 xl:px-16 pb-16 md:pb-32 z-15">
+      <div className="relative w-full flex justify-start items-end px-6 md:px-12 xl:px-16 pb-10 md:pb-16 z-15">
         <div className="max-w-[1440px] mx-auto w-full flex justify-start">
           <div className={`${contentMaxWidth} ${textColorClass}`}>
-            <div
-              onMouseLeave={() => setIsHovered(false)}
-              className="flex flex-col"
-            >
+            <div className="flex flex-col">
               <h1
-                onMouseEnter={() => setIsHovered(true)}
-                className={`text-4xl sm:text-5xl lg:text-[3.750rem] font-epilogue font-normal md:font-normal leading-[1.1] tracking-normal mb-6 drop-shadow-md cursor-pointer transition-all duration-700 ease-in-out ${isHovered ? '-translate-y-3' : 'translate-y-0'}`}
+                className="text-4xl sm:text-5xl lg:text-[3.750rem] font-epilogue font-normal md:font-normal leading-[1.2] tracking-tight mb-2 drop-shadow-md"
               >
                 {title}
               </h1>
 
-              <div
-                className={`transition-all duration-700 ease-in-out overflow-hidden ${isHovered ? 'max-h-[500px] opacity-100 mb-6' : 'max-h-0 opacity-0 mb-0'
-                  }`}
-              >
-                <p className={`font-epilogue text-lg sm:text-xl lg:text-xl leading-[1.2] max-w-4xl font-normal tracking-normal ${textColorClass} opacity-85`}>
-                  The future of healthcare is not isolated treatment. It is connected, continuous, and designed around long-term human health. Joyzen is building an integrated healthcare ecosystem where doctors, technology, diagnostics, wellness, and patient care work together seamlessly, beyond the walls of a clinic. Designed to support every specialty and every stage of life, Joyzen enables modern healthcare experiences focused on prevention, recovery, longevity, and lifelong wellbeing.
-                </p>
-              </div>
+              <p className={`font-epilogue text-base leading-[1.2] max-w-4xl font-normal tracking-normal ${textColorClass} opacity-85 mb-2`}>
+                The future of healthcare is not isolated treatment. It is connected, continuous, and designed around long-term human health. Joyzen is building an integrated healthcare ecosystem where doctors, technology, diagnostics, wellness, and patient care work together seamlessly, beyond the walls of a clinic. Designed to support every specialty and every stage of life, Joyzen enables modern healthcare experiences focused on prevention, recovery, longevity, and lifelong wellbeing.
+                <span className='mt-4 block'>
+                  {description1}
+                  <br />
+                  {description2}
+                </span>
+              </p>
             </div>
 
-            <div className="text-lg sm:text-xl font-epilogue lg:text-xl font-normal drop-shadow-md leading-[1.1] tracking-normal whitespace-pre-wrap">
-              {description1}
-              <br />
-              {description2}
-            </div>
-            <div className="mt-8 flex">
+            <div className="mt-2 flex">
               <button
                 onClick={() => {
                   if (typeof window !== "undefined" && (window as any).lenis) {
