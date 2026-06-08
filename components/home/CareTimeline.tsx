@@ -112,7 +112,7 @@ const CareTimeline = () => {
                 {/* Header */}
                 <div className="text-center mb-24 md:mb-32">
 
-                    <h2 className="text-2xl md:text-4xl font-medium tracking-tight max-w-3xl mx-auto leading-tight">
+                    <h2 className="text-2xl md:text-4xl font-medium tracking-normal max-w-3xl mx-auto leading-tight">
                         The challenge in healthcare is no longer medical expertise. It's fragmentation
                     </h2>
                 </div>
@@ -127,12 +127,12 @@ const CareTimeline = () => {
                 </div>
 
                 {/* Steps */}
-                <div className="space-y-24 md:space-y-36 relative z-10">
+                <div className="space-y-12 md:space-y-36 relative z-10">
                     {timelineSteps.map((step, idx) => (
                         <div
                             key={`step-${idx}`}
                             ref={el => { if (el) stepsRef.current[idx] = el; }}
-                            className={`flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16 w-full ${step.alignLeft ? '' : 'md:flex-row-reverse'
+                            className={`flex flex-col md:flex-row items-center justify-between gap-4 md:gap-16 w-full ${step.alignLeft ? '' : 'md:flex-row-reverse'
                                 }`}
                         >
                             {/* Text Column */}
@@ -140,7 +140,7 @@ const CareTimeline = () => {
                                 <h3 className="text-xl md:text-3xl font-medium mb-4">
                                     {idx + 1}. {step.title}
                                 </h3>
-                                <p className="font-epilogue text-lg md:text-2xl leading-tight tracking-tight font-normal">
+                                <p className="font-epilogue text-base md:text-2xl leading-tight tracking-tight font-normal">
                                     {step.description}
                                 </p>
                             </div>

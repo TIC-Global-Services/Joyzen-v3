@@ -69,16 +69,16 @@ const BetterForDoctors = () => {
     }
 
     return (
-        <section className="relative w-full py-16 md:py-36 px-4 md:px-12 bg-white font-satoshi overflow-hidden">
+        <section className="relative w-full pt-12 pb-8 md:pt-36 md:pb-20 px-4 md:px-12 bg-white font-satoshi overflow-hidden">
             <div className="max-w-[1440px] mx-auto">
 
                 {/* Header and Carousel Controls */}
                 <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 md:mb-24 gap-6">
                     <div className="text-left">
-                        <h2 className="text-xl md:text-5xl font-medium tracking-normal">
+                        <h2 className="text-2xl md:text-5xl font-medium tracking-normal">
                             Why This Is Better For Doctors
                         </h2>
-                        <p className="font-epilogue text-lg md:text-2xl leading-tight mt-4">
+                        <p className="font-epilogue text-xl md:text-2xl leading-tight mt-4">
                             More time. Better structure. Stronger outcomes.
                         </p>
                     </div>

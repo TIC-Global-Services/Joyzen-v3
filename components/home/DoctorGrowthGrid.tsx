@@ -37,7 +37,7 @@ const DoctorGrowthGrid = () => {
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: section,
-                    start: "top 20%", // Trigger animation later, when top of section reaches 30% down the viewport
+                    start: "top 10%",
                     toggleActions: "play none none reverse",
                 }
             });
@@ -148,7 +148,7 @@ const DoctorGrowthGrid = () => {
 
                     {/* Text content below */}
                     <div className="relative z-20 ">
-                        <h3 className="text-lg md:text-2xl font-medium leading-tight tracking-tighter">
+                        <h3 className="text-xl md:text-2xl font-medium leading-tight tracking-tighter">
                             {item.title}
                         </h3>
                     </div>
@@ -182,7 +182,7 @@ const DoctorGrowthGrid = () => {
 
                 {/* Text Overlay */}
                 <div className={`absolute bottom-0 left-0 p-6 z-20 ${item.image ? 'text-white' : 'text-black'}`}>
-                    <h3 className="text-lg md:text-2xl font-medium mb-1 md:mb-2 leading-tight tracking-tight">
+                    <h3 className="text-xl md:text-2xl font-medium mb-1 md:mb-2 leading-tight tracking-tight">
                         {item.title}
                     </h3>
                     <p className="text-xs md:text-sm opacity-90 leading-tight">
@@ -194,7 +194,7 @@ const DoctorGrowthGrid = () => {
     };
 
     return (
-        <section id="doctor-growth" className="relative pt-8 pb-16 md:pt-20 md:pb-36 px-4 md:px-14 overflow-hidden font-satoshi bg-white">
+        <section id="doctor-growth" className="relative pt-12 pb-16 md:pt-20 md:pb-36 px-4 md:px-14 overflow-hidden font-satoshi bg-white">
             {/* Background Gradients */}
             <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none transform-gpu">
                 <div className="absolute -bottom-[5%] -left-[40%] md:left-[-50%] w-[80%] h-[40%] bg-[#b4def7]/30 rounded-[100%] md:blur-[80px]" />
@@ -205,10 +205,10 @@ const DoctorGrowthGrid = () => {
 
                 {/* Header */}
                 <div className="text-center mb-12 md:mb-16">
-                    <h2 className="text-xl md:text-5xl font-medium tracking-tight leading-tight mb-4">
+                    <h2 className="text-2xl md:text-5xl font-medium tracking-tight leading-tight mb-4">
                         Doctor Growth & Personal Brand
                     </h2>
-                    <p className="font-epilogue max-w-2xl mx-auto text-lg md:text-2xl font-normal leading-tight">
+                    <p className="font-epilogue max-w-2xl mx-auto text-xl md:text-2xl font-normal leading-tight">
                         Doctors don't just practice medicine. They build trust, impact, and a lasting legacy
                     </p>
                 </div>

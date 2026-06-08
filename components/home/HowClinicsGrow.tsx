@@ -80,11 +80,11 @@ const HowClinicsGrow = () => {
         <section ref={containerRef} className="relative w-full h-screen bg-white overflow-hidden flex items-center justify-center font-satoshi">
             {/* Content Container for Initial Left Text */}
             <div className="max-w-[1440px] w-full h-full mx-auto flex items-start md:items-center pt-32 md:pt-0 px-4 md:px-12 relative z-10">
-                <div ref={textLeftRef} className="w-full md:w-1/2 pr-4 md:pr-10">
-                    <h2 className="text-xl md:text-6xl font-medium leading-tight mb-4 md:mb-6">
+                <div ref={textLeftRef} className="w-full md:w-1/2 pr-4 md:pr-10 text-center md:text-left flex flex-col items-center md:items-start">
+                    <h2 className="text-2xl md:text-6xl font-medium leading-tight mb-4 md:mb-6">
                         How Clinics Grow<br className="hidden md:block" /> With Joyzen
                     </h2>
-                    <p className="font-epilogue text-lg md:text-2xl leading-tight max-w-md">
+                    <p className="font-epilogue text-xl md:text-2xl leading-tight max-w-md mx-auto md:mx-0">
                         Growth is no longer dependent only on patient volume.
                     </p>
                 </div>
@@ -93,7 +93,7 @@ const HowClinicsGrow = () => {
             {/* Right Image Wrapper */}
             <div
                 ref={imageWrapperRef}
-                className="absolute bottom-24 md:bottom-0 md:top-0 left-4 right-4 md:left-auto md:right-12 md:my-auto md:w-[52%] h-[50%] md:h-[80%] z-20 overflow-hidden rounded-xl shadow-2xl"
+                className="absolute bottom-12 md:bottom-0 md:top-0 left-4 right-4 md:left-auto md:right-12 md:my-auto md:w-[52%] h-[60%] md:h-[80%] z-20 overflow-hidden rounded-xl shadow-2xl"
             >
                 <Image
                     src={clinicGrowBanner}

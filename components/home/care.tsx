@@ -4,7 +4,7 @@ import Image from 'next/image'
 // import bgimage from '@/assets/home?'
 const Care = () => {
     return (
-        <section id="care" className="relative w-full py-14 md:py-40 flex flex-col items-center min-h-[50vh] md:min-h-screen justify-center text-center overflow-hidden font-satoshi bg-white">
+        <section id="care" className="relative w-full py-16 md:py-36 flex flex-col items-center min-h-[50vh] md:min-h-screen justify-center text-center overflow-hidden font-satoshi bg-white">
             {/* Background Soft Gradients and Logo */}
             <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none transform-gpu" style={{ transform: 'translateZ(0)' }}>
                 <div className="absolute -bottom-[5%] -left-[40%] md:left-[-50%] w-[80%] h-[40%] bg-[#b4def7] opacity-80 rounded-[100%] md:blur-[80px] md:block hidden" />

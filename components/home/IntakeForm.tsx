@@ -18,32 +18,55 @@ const IntakeForm = () => {
     const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<IntakeFormData>()
 
     const onSubmit = async (data: IntakeFormData) => {
-        // Simulating API submit
-        await new Promise(resolve => setTimeout(resolve, 1500))
-        console.log("Submit data:", data)
-        toast.success("Application submitted successfully! We will be in touch shortly.", {
-            style: {
-                background: "#036132",
-                color: "#fff",
-                fontFamily: "var(--font-satoshi)",
-                fontWeight: "500",
-            }
-        })
-        reset()
-    }
+        const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbyA4JtUq62yvksXHhICXf5TvVE-G5bOMJ87Qfrr_5aElr1XQ7ubJ3IK6r3FgUi0JrVC/exec";
+
+        try {
+            await fetch(ENDPOINT_URL, {
+                method: "POST",
+                body: JSON.stringify({
+                    name: data.name,
+                    specialty: data.specialty,
+                    city: data.city,
+                    address: data.address,
+                    phone: data.phone,
+                    email: data.email,
+                    patientVolume: data.patientVolume,
+                    comments: data.comments
+                }),
+            });
+
+            toast.success("Application submitted successfully! We will be in touch shortly.", {
+                style: {
+                    background: "#036132",
+                    color: "#fff",
+                    fontFamily: "var(--font-satoshi)",
+                }
+            });
+            reset();
+        } catch (error) {
+            toast.error("Error submitting application. Please try again.", {
+                style: {
+                    background: "#ef4444",
+                    color: "#fff",
+                    fontFamily: "var(--font-satoshi)",
+                }
+            });
+            console.error("Error submitting form:", error);
+        }
+    };
 
     return (
-        <section id="intake-form" className="relative w-full pt-10 pb-16 md:pt-24 md:pb-36 px-6 md:px-12 bg-white font-satoshi overflow-hidden">
+        <section id="intake-form" className="relative w-full py-16 md:py-24 px-6 md:px-12 bg-white font-satoshi overflow-hidden">
             <Toaster position="bottom-right" />
 
             <div className="max-w-[620px] mx-auto">
 
                 {/* Header */}
                 <div className="text-left mb-8">
-                    <h2 className="text-xl md:text-4xl font-medium tracking-tight mb-6">
+                    <h2 className="text-2xl md:text-4xl font-medium tracking-tight mb-6">
                         Why This Is The Future
                     </h2>
-                    <p className="font-epilogue text-base md:text-lg max-w-3xl leading-tight font-normal">
+                    <p className="font-epilogue text-lg md:text-lg max-w-3xl leading-tight font-normal">
                         Healthcare is shifting from reactive treatment to continuous, preventive care. Moving beyond isolated visits and short-term fixes, Joyzen is building a connected healthcare system that supports long-term outcomes through ongoing care, technology, and patient engagemen, starting with reproductive health.
                     </p>
                 </div>

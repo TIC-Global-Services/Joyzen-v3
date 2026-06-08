@@ -59,7 +59,7 @@ const JoinWaitlistCTA = () => {
     }, []);
 
     return (
-        <section ref={containerRef} id="waitlist" className="relative w-full pt-24 pb-16 md:pt-48 md:pb-36 bg-white font-satoshi overflow-hidden">
+        <section ref={containerRef} id="waitlist" className="relative w-full py-18 md:py-42 bg-white font-satoshi overflow-hidden">
 
             {/* Background Ambient Glow */}
             <div className="absolute inset-0 pointer-events-none -z-10">
@@ -95,11 +95,11 @@ const JoinWaitlistCTA = () => {
 
                 {/* Central Content */}
                 <div className="w-full max-w-4xl mx-auto text-center z-10 flex flex-col items-center justify-center">
-                    <h1 className="text-xl md:text-6xl font-medium tracking-tight leading-tight mb-8 max-w-5xl">
+                    <h1 className="text-2xl md:text-6xl font-medium tracking-tight leading-tight mb-8 max-w-5xl">
                         Be part of what comes next.
                     </h1>
 
-                    <p className="font-epilogue text-lg md:text-[32px] leading-tight font-normal mb-12 max-w-5xl">
+                    <p className="font-epilogue text-xl md:text-[32px] leading-tight font-normal mb-12 max-w-5xl">
                         Joyzen helps doctors grow beyond clinical consultations by building their personal brand in reproductive health, increasing visibility, and strengthening long-term patient trust. Through education, awareness, and continuous engagement, doctors can become recognized voices in reproductive health, not just clinic practitioners.
                     </p>
 
@@ -110,7 +110,7 @@ const JoinWaitlistCTA = () => {
                                 formElement.scrollIntoView({ behavior: 'smooth' });
                             }
                         }}
-                        className="group text-[12px] md:text-[17px] bg-[#1A1A1A] text-white hover:bg-[#036132] transition-all duration-300 tracking-tight px-12 py-4 rounded-full font-medium shadow-md hover:scale-105 active:scale-95 flex items-center gap-2"
+                        className="group text-[16px] md:text-[17px] bg-[#1A1A1A] text-white hover:bg-[#036132] transition-all duration-300 tracking-tight px-12 py-4 rounded-full font-medium shadow-md hover:scale-105 active:scale-95 flex items-center gap-2"
                         style={{ paddingTop: '16px', paddingBottom: '16px' }}
                     >
                         Join Now
