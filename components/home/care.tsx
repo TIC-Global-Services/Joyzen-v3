@@ -18,19 +18,19 @@ const Care = () => {
             </div>
             <div className="absolute inset-0 z-10 pointer-events-none flex items-center justify-center overflow-hidden">
                 <div className="relative w-[200px] md:w-[800px] h-[500px] md:h-[70dvh] select-none">
-                    <Image 
-                        src="/logo_transparent.svg" 
-                        alt="Joyzen Logo Watermark" 
-                        fill 
+                    <Image
+                        src="/logo_transparent.svg"
+                        alt="Joyzen Logo Watermark"
+                        fill
                         className="object-contain "
                         priority
                     />
                 </div>
             </div>
-            
+
             <div className="relative z-10 max-w-5xl mx-auto px-6 flex flex-col items-center">
                 <div className="space-y-6 md:space-y-8">
-                    <h2 className="text-4xl md:text-5xl lg:text-[3.75rem] font-sans font-medium tracking-tight text-[#1A1A1A] leading-[44px]">
+                    <h2 className="text-4xl md:text-5xl lg:text-[3.75rem] font-sans font-medium tracking-tight leading-[44px]">
                         <span className="text-[#036132]">Care</span>, Reimagined Around You
                     </h2>
                     <p className="max-w-2xl mx-auto text-sm md:text-2xl font-epilogue leading-tight font-medium">

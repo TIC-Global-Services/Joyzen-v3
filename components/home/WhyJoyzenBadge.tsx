@@ -6,8 +6,8 @@ const WhyJoyzenBadge = () => {
     const svgRef = useRef<SVGSVGElement>(null)
 
     const totalTicks = 120
-    const rStart = 202
-    const rEnd = 232
+    const rStart = 215
+    const rEnd = 245
 
     // Compute tick coordinates dynamically and round to 3 decimal places to prevent SSR hydration mismatches
     const ticks = Array.from({ length: totalTicks }).map((_, i) => {
@@ -81,7 +81,7 @@ const WhyJoyzenBadge = () => {
                     </svg>
 
                     {/* Faded Orange Logo Mark behind the text */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140px] h-[210px] sm:w-[160px] sm:h-[240px] opacity-[0.07] z-0">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140px] h-[210px] sm:w-[160px] sm:h-[240px] opacity-[0.25] z-0">
                         <svg width="100%" height="100%" viewBox="0 0 134 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M55.9273 93.8987C25.6612 93.8987 5.99071 80.9128 0 57.1953L133.333 57.2785V93.8987H55.9273Z" fill="#EF8F60" />
                             <path d="M66.476 44.9891C54.1905 44.9891 43.8145 34.7734 43.8145 22.6859C43.8145 10.5984 54.1989 0 66.476 0C78.7532 0 89.5179 10.1741 89.5179 22.6859C89.5179 35.1977 78.9644 44.9891 66.476 44.9891Z" fill="#EF8F60" />
@@ -96,16 +96,16 @@ const WhyJoyzenBadge = () => {
             {/* Foreground Content (Wider wrapper, can extend outside the loader circle) */}
             <div className="relative z-10 text-center max-w-5xl px-6 flex flex-col items-center justify-center">
 
-                <h3 className="text-2xl md:text-3xl font-medium tracking-tight text-[#1A1A1A] mb-2">
+                <h3 className="text-2xl md:text-3xl font-medium tracking-tight mb-2">
                     What <span className="text-[#036132]">Joyzen</span> Is
                 </h3>
 
-                <span className="text-base md:text-lg font-normal tracking-tight mb-4 font-mono">
+                <span className="text-xl md:text-lg font-normal tracking-tight mb-4 font-mono">
                     Joyzen is more than technology.
                 </span>
 
                 {/* Paragraph is 32px on desktop and extends outside the loader circle */}
-                <p className="text-base md:text-[32px] text-gray-800 leading-[1.35] font-normal max-w-4xl tracking-tight">
+                <p className="text-xl md:text-[32px] leading-[1.35] font-medium max-w-4xl">
                     It is a healthcare ecosystem built around your practice. By integrating technology, patient engagement, care coordination, diagnostics, and operational support, we help clinics transform fragmented healthcare journeys into connected care experiences. The result is better efficiency, stronger patient relationships, and improved long-term outcomes. You bring the expertise. Joyzen provides the system that helps it scale.
                 </p>
 

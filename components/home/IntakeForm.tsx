@@ -40,10 +40,10 @@ const IntakeForm = () => {
 
                 {/* Header */}
                 <div className="text-left mb-8">
-                    <h2 className="text-2xl md:text-4xl font-medium tracking-tight text-[#1A1A1A] mb-3">
+                    <h2 className="text-xl md:text-4xl font-medium tracking-tight mb-6">
                         Why This Is The Future
                     </h2>
-                    <p className="text-base md:text-lg max-w-3xl leading-tight font-normal">
+                    <p className="font-epilogue text-base md:text-lg max-w-3xl leading-tight font-normal">
                         Healthcare is shifting from reactive treatment to continuous, preventive care. Moving beyond isolated visits and short-term fixes, Joyzen is building a connected healthcare system that supports long-term outcomes through ongoing care, technology, and patient engagemen, starting with reproductive health.
                     </p>
                 </div>
@@ -72,7 +72,7 @@ const IntakeForm = () => {
                                 type="text"
                                 placeholder="Doctor/Clinic Name"
                                 {...register("name", { required: "Name is required" })}
-                                className={`w-full py-3.5 px-6 rounded-full backdrop-blur-sm border focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-gray-400 text-sm md:text-base ${errors.name ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
+                                className={`w-full py-3.5 px-6 rounded-full backdrop-blur-sm border focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base ${errors.name ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
                                     }`}
                             />
                         </div>
@@ -83,7 +83,7 @@ const IntakeForm = () => {
                                 type="text"
                                 placeholder="Speciality"
                                 {...register("specialty", { required: "Speciality is required" })}
-                                className={`w-full py-3.5 px-6 rounded-full backdrop-blur-sm border focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-gray-400 text-sm md:text-base ${errors.specialty ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
+                                className={`w-full py-3.5 px-6 rounded-full backdrop-blur-sm border focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base ${errors.specialty ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
                                     }`}
                             />
                         </div>
@@ -94,7 +94,7 @@ const IntakeForm = () => {
                                 type="text"
                                 placeholder="City"
                                 {...register("city", { required: "City is required" })}
-                                className={`w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-gray-400 text-sm md:text-base ${errors.city ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
+                                className={`w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base ${errors.city ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
                                     }`}
                             />
                         </div>
@@ -105,7 +105,7 @@ const IntakeForm = () => {
                                 type="text"
                                 placeholder="Clinic Address"
                                 {...register("address")}
-                                className="w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border border-gray-100 focus:outline-none focus:border-[#036132]/30 transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-gray-400 text-sm md:text-base"
+                                className="w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border border-gray-100 focus:outline-none focus:border-[#036132]/30 transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base"
                             />
                         </div>
 
@@ -115,7 +115,7 @@ const IntakeForm = () => {
                                 type="tel"
                                 placeholder="Phone Number"
                                 {...register("phone", { required: "Phone number is required" })}
-                                className={`w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-gray-400 text-sm md:text-base ${errors.phone ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
+                                className={`w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base ${errors.phone ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
                                     }`}
                             />
                         </div>
@@ -129,7 +129,7 @@ const IntakeForm = () => {
                                     required: "Email is required",
                                     pattern: { value: /^\S+@\S+$/i, message: "Invalid email address" }
                                 })}
-                                className={`w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-gray-400 text-sm md:text-base ${errors.email ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
+                                className={`w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base ${errors.email ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
                                     }`}
                             />
                         </div>
@@ -140,7 +140,7 @@ const IntakeForm = () => {
                                 type="text"
                                 placeholder="Current monthly patient volume"
                                 {...register("patientVolume")}
-                                className="w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border border-gray-100 focus:outline-none focus:border-[#036132]/30 transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-gray-400 text-sm md:text-base"
+                                className="w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border border-gray-100 focus:outline-none focus:border-[#036132]/30 transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base"
                             />
                         </div>
 
@@ -150,7 +150,7 @@ const IntakeForm = () => {
                                 type="text"
                                 placeholder="Why do you want to partner with Joyzen?"
                                 {...register("comments")}
-                                className="w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border border-gray-100 focus:outline-none focus:border-[#036132]/30 transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-gray-400 text-sm md:text-base"
+                                className="w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border border-gray-100 focus:outline-none focus:border-[#036132]/30 transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base"
                             />
                         </div>
 

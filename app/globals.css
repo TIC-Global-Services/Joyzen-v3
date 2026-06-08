@@ -11,6 +11,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-satoshi);
   --font-mono: var(--font-satoshi);
+  --font-satoshi: var(--font-satoshi);
   --font-epilogue: var(--font-epilogue);
   --animate-scaleIn: scaleIn 0.3s ease-out;
 }

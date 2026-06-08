@@ -5,7 +5,7 @@ import { StaticImageData } from 'next/image';
 import { usePathname } from 'next/navigation'
 
 interface HeroProps {
-  title: string;
+  title: React.ReactNode;
   description1: React.ReactNode;
   description2: React.ReactNode;
   backgroundImage?: StaticImageData;
@@ -45,7 +45,7 @@ const Hero = ({
         ) : backgroundImage ? (
           <Image
             src={backgroundImage}
-            alt={title || "Hero background"}
+            alt={typeof title === 'string' ? title : "Hero background"}
             fill
             priority
             className="object-cover"
@@ -56,10 +56,10 @@ const Hero = ({
       <div className="relative w-full flex justify-start items-end px-6 md:px-12 xl:px-16 pb-16 md:pb-32 z-15">
         <div className="max-w-[1440px] mx-auto w-full flex justify-start">
           <div className={`${contentMaxWidth} ${textColorClass}`}>
-            <h1 className="text-4xl sm:text-5xl lg:text-[3.750rem] font-epilogue font-normal md:font-medium leading-[1.1] tracking-tight mb-6 drop-shadow-md">
+            <h1 className="text-4xl sm:text-5xl lg:text-[3.750rem] font-epilogue font-normal md:font-normal leading-[1.1] tracking-normal mb-6 drop-shadow-md">
               {title}
             </h1>
-            <div className="text-lg sm:text-xl font-epilogue lg:text-xl font-normal drop-shadow-md leading-[1.1] tracking-tight whitespace-pre-wrap">
+            <div className="text-lg sm:text-xl font-epilogue lg:text-xl font-normal drop-shadow-md leading-[1.1] tracking-normal whitespace-pre-wrap">
               {description1}
               <br />
               {description2}

@@ -29,8 +29,8 @@ const timelineSteps = [
         alignLeft: true,
     },
     {
-        title: "A New Health System for the Future",
-        description: "Joyzen is building an integrated healthcare ecosystem where doctors, technology, diagnostics, wellness, and patient care work together seamlessly to support prevention, recovery, longevity, and long-term wellbeing.",
+        title: "The Future of Healthcare",
+        description: "Healthcare is becoming more connected, preventive, and continuous. By combining medical expertise, technology, and personalized care, Joyzen helps create better health outcomes beyond the clinic.",
         image: future,
         alignLeft: false,
     }
@@ -112,8 +112,8 @@ const CareTimeline = () => {
                 {/* Header */}
                 <div className="text-center mb-24 md:mb-32">
 
-                    <h2 className="text-2xl md:text-5xl font-medium tracking-tight text-[#1A1A1A] max-w-5xl mx-auto leading-tight">
-                        The Challenge in healthcare is no longer medical expertise. It's fragmentation
+                    <h2 className="text-2xl md:text-4xl font-medium tracking-tight max-w-3xl mx-auto leading-tight">
+                        The challenge in healthcare is no longer medical expertise. It's fragmentation
                     </h2>
                 </div>
 
@@ -140,7 +140,7 @@ const CareTimeline = () => {
                                 <h3 className="text-xl md:text-3xl font-medium mb-4">
                                     {idx + 1}. {step.title}
                                 </h3>
-                                <p className="text-base md:text-2xl leading-tight tracking-tight font-normal">
+                                <p className="font-epilogue text-lg md:text-2xl leading-tight tracking-tight font-normal">
                                     {step.description}
                                 </p>
                             </div>

@@ -75,10 +75,10 @@ const BetterForDoctors = () => {
                 {/* Header and Carousel Controls */}
                 <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 md:mb-24 gap-6">
                     <div className="text-left">
-                        <h2 className="text-2xl md:text-5xl font-medium tracking-tight">
+                        <h2 className="text-xl md:text-5xl font-medium tracking-normal">
                             Why This Is Better For Doctors
                         </h2>
-                        <p className="text-base md:text-2xl leading-tight mt-4">
+                        <p className="font-epilogue text-lg md:text-2xl leading-tight mt-4">
                             More time. Better structure. Stronger outcomes.
                         </p>
                     </div>
@@ -136,7 +136,7 @@ const BetterForDoctors = () => {
 
                             {/* Bottom: Text Content */}
                             <div className="relative z-10 mt-auto">
-                                <h3 className="text-xl sm:text-2xl font-medium text-white leading-tight">
+                                <h3 className="font-epilogue text-lg md:text-xl font-medium text-white leading-tight">
                                     {card.title}
                                 </h3>
                             </div>

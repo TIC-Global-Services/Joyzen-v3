@@ -147,8 +147,8 @@ const DoctorGrowthGrid = () => {
                     <div className="absolute inset-0 shadow-[inset_4px_4px_12px_rgba(0,0,0,0.05)] z-0 pointer-events-none rounded-3xl" />
 
                     {/* Text content below */}
-                    <div className="relative z-20 text-[#1A1A1A]">
-                        <h3 className="text-xl font-medium leading-tight tracking-tighter">
+                    <div className="relative z-20 ">
+                        <h3 className="text-lg md:text-2xl font-medium leading-tight tracking-tighter">
                             {item.title}
                         </h3>
                     </div>
@@ -181,8 +181,8 @@ const DoctorGrowthGrid = () => {
                 <div className="absolute inset-0 shadow-[inset_4px_4px_12px_rgba(0,0,0,0.07)] z-10 pointer-events-none rounded-3xl" />
 
                 {/* Text Overlay */}
-                <div className={`absolute bottom-0 left-0 p-6 z-20 ${item.image ? 'text-white' : 'text-[#1A1A1A]'}`}>
-                    <h3 className="text-xl font-medium mb-1 md:mb-2 leading-tight tracking-tight">
+                <div className={`absolute bottom-0 left-0 p-6 z-20 ${item.image ? 'text-white' : 'text-black'}`}>
+                    <h3 className="text-lg md:text-2xl font-medium mb-1 md:mb-2 leading-tight tracking-tight">
                         {item.title}
                     </h3>
                     <p className="text-xs md:text-sm opacity-90 leading-tight">
@@ -205,10 +205,10 @@ const DoctorGrowthGrid = () => {
 
                 {/* Header */}
                 <div className="text-center mb-12 md:mb-16">
-                    <h2 className="text-2xl md:text-5xl font-medium tracking-tight leading-tight mb-4">
+                    <h2 className="text-xl md:text-5xl font-medium tracking-tight leading-tight mb-4">
                         Doctor Growth & Personal Brand
                     </h2>
-                    <p className="max-w-2xl mx-auto text-base md:text-2xl font-normal leading-tight">
+                    <p className="font-epilogue max-w-2xl mx-auto text-lg md:text-2xl font-normal leading-tight">
                         Doctors don't just practice medicine. They build trust, impact, and a lasting legacy
                     </p>
                 </div>

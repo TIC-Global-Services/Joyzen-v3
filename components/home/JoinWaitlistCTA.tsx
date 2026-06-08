@@ -80,7 +80,7 @@ const JoinWaitlistCTA = () => {
             </div>
 
             {/* Right Hand Image - Placed relative to full section viewport edge */}
-            <div ref={rightHandRef} className="absolute right-0 bottom-[50px] lg:bottom-[20px] w-[180px] h-[130px] md:w-[350px] md:h-[240px] lg:w-[520px] xl:w-[700px] lg:h-[350px] xl:h-[460px] pointer-events-none z-0 lg:z-20 opacity-60 lg:opacity-100">
+            <div ref={rightHandRef} className="absolute right-0 bottom-[50px] lg:bottom-[-25px] w-[180px] h-[130px] md:w-[350px] md:h-[240px] lg:w-[520px] xl:w-[700px] lg:h-[350px] xl:h-[460px] pointer-events-none z-0 lg:z-20 opacity-60 lg:opacity-100">
                 <Image
                     src={bePart2}
                     alt="Join Joyzen - Right Hand"
@@ -95,11 +95,11 @@ const JoinWaitlistCTA = () => {
 
                 {/* Central Content */}
                 <div className="w-full max-w-4xl mx-auto text-center z-10 flex flex-col items-center justify-center">
-                    <h1 className="text-2xl md:text-6xl font-medium tracking-tight text-[#1A1A1A] leading-tight mb-8 max-w-5xl">
+                    <h1 className="text-xl md:text-6xl font-medium tracking-tight leading-tight mb-8 max-w-5xl">
                         Be part of what comes next.
                     </h1>
 
-                    <p className="text-base md:text-[32px] leading-tight font-normal mb-12 max-w-5xl">
+                    <p className="font-epilogue text-lg md:text-[32px] leading-tight font-normal mb-12 max-w-5xl">
                         Joyzen helps doctors grow beyond clinical consultations by building their personal brand in reproductive health, increasing visibility, and strengthening long-term patient trust. Through education, awareness, and continuous engagement, doctors can become recognized voices in reproductive health, not just clinic practitioners.
                     </p>
 
