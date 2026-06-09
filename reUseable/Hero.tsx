@@ -37,7 +37,7 @@ const Hero = ({
             loop
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-cover object-[25%_50%]"
+            className="absolute opacity-75 md:opacity-90 inset-0 w-full h-full object-cover object-[25%_50%]"
           >
             <source src={backgroundVideo} type="video/mp4" />
             Your browser does not support the video tag.
@@ -58,12 +58,12 @@ const Hero = ({
           <div className={`${contentMaxWidth} ${textColorClass}`}>
             <div className="flex flex-col">
               <h1
-                className="text-4xl sm:text-5xl lg:text-[3.750rem] font-epilogue font-normal md:font-normal leading-[1.2] tracking-tight mb-2 drop-shadow-md"
+                className="text-4xl sm:text-5xl lg:text-[3.750rem] font-epilogue font-normal leading-[1.2] tracking-tight mb-2 drop-shadow-md"
               >
                 {title}
               </h1>
 
-              <p className={`font-epilogue text-base leading-[1.2] max-w-4xl font-normal tracking-normal ${textColorClass} opacity-85 mb-2`}>
+              <p className={`font-epilogue text-sm md:text-base leading-[1.2] max-w-4xl font-normal tracking-normal ${textColorClass} opacity-100 mb-2`}>
                 The future of healthcare is not isolated treatment. It is connected, continuous, and designed around long-term human health. Joyzen is building an integrated healthcare ecosystem where doctors, technology, diagnostics, wellness, and patient care work together seamlessly, beyond the walls of a clinic. Designed to support every specialty and every stage of life, Joyzen enables modern healthcare experiences focused on prevention, recovery, longevity, and lifelong wellbeing.
                 <span className='mt-4 block'>
                   {description1}

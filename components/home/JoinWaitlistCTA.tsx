@@ -80,7 +80,7 @@ const JoinWaitlistCTA = () => {
             </div>
 
             {/* Right Hand Image - Placed relative to full section viewport edge */}
-            <div ref={rightHandRef} className="absolute right-0 bottom-[50px] lg:bottom-[-25px] w-[180px] h-[130px] md:w-[350px] md:h-[240px] lg:w-[520px] xl:w-[700px] lg:h-[350px] xl:h-[460px] pointer-events-none z-0 lg:z-20 opacity-60 lg:opacity-100">
+            <div ref={rightHandRef} className="absolute right-0 bottom-[80px] lg:bottom-[-25px] w-[180px] h-[130px] md:w-[350px] md:h-[240px] lg:w-[520px] xl:w-[700px] lg:h-[350px] xl:h-[460px] pointer-events-none z-0 lg:z-20 opacity-60 lg:opacity-100">
                 <Image
                     src={bePart2}
                     alt="Join Joyzen - Right Hand"
