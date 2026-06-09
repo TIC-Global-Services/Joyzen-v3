@@ -113,15 +113,20 @@ const BetterForDoctors = () => {
                         <div
                             key={`doctor-card-${idx}`}
                             className="relative group rounded-lg border border-gray-100 bg-white hover:border-transparent transition-all duration-500 overflow-hidden flex flex-col justify-between p-8 aspect-[4/4] w-[260px] sm:w-[290px] md:w-[340px] lg:w-[360px] snap-start flex-shrink-0"
+                            style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'translate3d(0,0,0)', WebkitTransform: 'translate3d(0,0,0)' }}
                         >
                             {/* Background Image */}
-                            <div className="absolute inset-0 z-0 pointer-events-none">
+                            <div 
+                                className="absolute inset-0 z-0 pointer-events-none"
+                                style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'translate3d(0,0,0)', WebkitTransform: 'translate3d(0,0,0)' }}
+                            >
                                 <Image
                                     src={card.image}
                                     alt={card.title}
                                     fill
                                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                                     sizes="(max-width: 768px) 100vw, 25vw"
+                                    style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'translate3d(0,0,0)', WebkitTransform: 'translate3d(0,0,0)' }}
                                 />
                                 {/* Dark Overlay for Text Legibility */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/10 to-black/10 transition-colors duration-700" />

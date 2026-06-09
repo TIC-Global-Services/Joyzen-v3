@@ -19,6 +19,104 @@ interface GrowthItem {
     customGraphic?: React.ReactNode;
 }
 
+const GrowthCard = ({ item, idx, isMobile, className }: { item: GrowthItem, idx: number, isMobile?: boolean, className?: string }) => {
+    const aspectClass = (idx === 1 || idx === 4) ? 'aspect-[4/2.5]' : 'aspect-[4/3]';
+
+    if (idx === 0) {
+        return (
+            <div 
+                className={`relative w-full ${isMobile ? 'h-[300px]' : aspectClass} rounded-3xl overflow-hidden group border border-white/60 bg-gradient-to-b from-white/75 to-white/45 backdrop-blur-xl shadow-[10px_10px_20px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,0.6)] hover:shadow-[16px_16px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.8)] hover:-translate-y-1 hover:-translate-x-1 hover:border-white/90 transition-all duration-500 ease-out flex-shrink-0 flex flex-col justify-between p-6 ${className || ''}`}
+                style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'translate3d(0,0,0)', WebkitTransform: 'translate3d(0,0,0)' }}
+            >
+                {/* Scaled down inline image placed above the text */}
+                <div className="relative w-full flex-1 flex items-center justify-center p-2 mb-2">
+                    <div 
+                        className="relative w-[300px] h-[150px] md:w-[380px] md:h-[190px] -ml-6 md:-ml-8 transition-transform duration-500 group-hover:scale-103"
+                        style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'translate3d(0,0,0)', WebkitTransform: 'translate3d(0,0,0)' }}
+                    >
+                        <Image
+                            src={item.image!}
+                            alt={item.title}
+                            fill
+                            className="object-contain"
+                            sizes="(max-width: 768px) 300px, 380px"
+                            style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+                        />
+                    </div>
+                </div>
+                {/* Vignette Overlay */}
+                <div className="absolute inset-0 shadow-[inset_4px_4px_12px_rgba(0,0,0,0.05)] z-0 pointer-events-none rounded-3xl" />
+
+                {/* Text content below */}
+                <div className="relative z-20 ">
+                    <h3 className="text-xl md:text-2xl font-medium leading-tight tracking-tighter">
+                        {item.title}
+                    </h3>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div 
+            className={`relative w-full ${isMobile ? 'h-[300px]' : aspectClass} rounded-3xl overflow-hidden group border border-white/60 bg-gradient-to-b from-white/75 to-white/45 backdrop-blur-xl shadow-[10px_10px_20px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,0.6)] hover:shadow-[16px_16px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.8)] hover:-translate-y-1 hover:-translate-x-1 hover:border-white/90 transition-all duration-500 ease-out flex-shrink-0 ${className || ''}`}
+            style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'translate3d(0,0,0)', WebkitTransform: 'translate3d(0,0,0)' }}
+        >
+
+            {/* Visual background */}
+            {item.image ? (
+                <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    sizes="(max-width: 768px) 200px, 50vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-103"
+                    style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'translate3d(0,0,0)', WebkitTransform: 'translate3d(0,0,0)' }}
+                />
+            ) : isMobile ? (
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none p-12 select-none">
+                    <div className="relative w-[100px] h-[100px]">
+                        <Image
+                            src={
+                                idx === 1
+                                    ? "/logo_purple.svg"
+                                    : idx === 3
+                                        ? "/logo_transparent.svg"
+                                        : logo
+                            }
+                            alt="Joyzen Logo"
+                            fill
+                            className="object-contain transition-all duration-500 group-hover:scale-105 group-hover:opacity-50"
+                            sizes="100px"
+                            style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'translate3d(0,0,0)', WebkitTransform: 'translate3d(0,0,0)' }}
+                        />
+                    </div>
+                </div>
+            ) : item.customGraphic ? (
+                item.customGraphic
+            ) : null}
+
+            {/* Gradient Overlay if visual background exists */}
+            {item.image && (
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/10 to-transparent z-10" />
+            )}
+
+            {/* Vignette Overlay on all edges */}
+            <div className="absolute inset-0 shadow-[inset_4px_4px_12px_rgba(0,0,0,0.07)] z-10 pointer-events-none rounded-3xl" />
+
+            {/* Text Overlay */}
+            <div className={`absolute bottom-0 left-0 p-6 z-20 ${item.image ? 'text-white' : 'text-black'}`}>
+                <h3 className="text-xl md:text-2xl font-medium mb-1 md:mb-2 leading-[1.2] tracking-tight">
+                    {item.title}
+                </h3>
+                <p className="text-xs md:text-sm opacity-90 leading-tight">
+                    {item.description}
+                </p>
+            </div>
+        </div>
+    );
+};
+
 const DoctorGrowthGrid = () => {
     const [activeIndex, setActiveIndex] = React.useState(0);
     const scrollRef = React.useRef<HTMLDivElement>(null);
@@ -125,91 +223,7 @@ const DoctorGrowthGrid = () => {
         }
     };
 
-    const GrowthCard = ({ item, idx, isMobile, className }: { item: GrowthItem, idx: number, isMobile?: boolean, className?: string }) => {
-        const aspectClass = (idx === 1 || idx === 4) ? 'aspect-[4/2.5]' : 'aspect-[4/3]';
 
-        if (idx === 0) {
-            return (
-                <div className={`relative w-full ${isMobile ? 'h-[300px]' : aspectClass} rounded-3xl overflow-hidden group border border-white/60 bg-gradient-to-b from-white/75 to-white/45 backdrop-blur-xl shadow-[10px_10px_20px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,0.6)] hover:shadow-[16px_16px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.8)] hover:-translate-y-1 hover:-translate-x-1 hover:border-white/90 transition-all duration-500 ease-out flex-shrink-0 flex flex-col justify-between p-6 ${className || ''}`}>
-                    {/* Scaled down inline image placed above the text */}
-                    <div className="relative w-full flex-1 flex items-center justify-center p-2 mb-2">
-                        <div className="relative w-[300px] h-[150px] md:w-[380px] md:h-[190px] -ml-6 md:-ml-8 transition-transform duration-500 group-hover:scale-103">
-                            <Image
-                                src={item.image!}
-                                alt={item.title}
-                                fill
-                                className="object-contain"
-                                sizes="(max-width: 768px) 300px, 380px"
-                            />
-                        </div>
-                    </div>
-                    {/* Vignette Overlay */}
-                    <div className="absolute inset-0 shadow-[inset_4px_4px_12px_rgba(0,0,0,0.05)] z-0 pointer-events-none rounded-3xl" />
-
-                    {/* Text content below */}
-                    <div className="relative z-20 ">
-                        <h3 className="text-xl md:text-2xl font-medium leading-tight tracking-tighter">
-                            {item.title}
-                        </h3>
-                    </div>
-                </div>
-            );
-        }
-
-        return (
-            <div className={`relative w-full ${isMobile ? 'h-[300px]' : aspectClass} rounded-3xl overflow-hidden group border border-white/60 bg-gradient-to-b from-white/75 to-white/45 backdrop-blur-xl shadow-[10px_10px_20px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,0.6)] hover:shadow-[16px_16px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.8)] hover:-translate-y-1 hover:-translate-x-1 hover:border-white/90 transition-all duration-500 ease-out flex-shrink-0 ${className || ''}`}>
-
-                {/* Visual background */}
-                {item.image ? (
-                    <Image
-                        src={item.image}
-                        alt={item.title}
-                        fill
-                        sizes="(max-width: 768px) 200px, 50vw"
-                        className="object-cover transition-transform duration-700 group-hover:scale-103"
-                    />
-                ) : isMobile ? (
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none p-12 select-none">
-                        <div className="relative w-[100px] h-[100px]">
-                            <Image
-                                src={
-                                    idx === 1
-                                        ? "/logo_purple.svg"
-                                        : idx === 3
-                                            ? "/logo_transparent.svg"
-                                            : logo
-                                }
-                                alt="Joyzen Logo"
-                                fill
-                                className="object-contain transition-all duration-500 group-hover:scale-105 group-hover:opacity-50"
-                                sizes="100px"
-                            />
-                        </div>
-                    </div>
-                ) : item.customGraphic ? (
-                    item.customGraphic
-                ) : null}
-
-                {/* Gradient Overlay if visual background exists */}
-                {item.image && (
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/10 to-transparent z-10" />
-                )}
-
-                {/* Vignette Overlay on all edges */}
-                <div className="absolute inset-0 shadow-[inset_4px_4px_12px_rgba(0,0,0,0.07)] z-10 pointer-events-none rounded-3xl" />
-
-                {/* Text Overlay */}
-                <div className={`absolute bottom-0 left-0 p-6 z-20 ${item.image ? 'text-white' : 'text-black'}`}>
-                    <h3 className="text-xl md:text-2xl font-medium mb-1 md:mb-2 leading-[1.2] tracking-tight">
-                        {item.title}
-                    </h3>
-                    <p className="text-xs md:text-sm opacity-90 leading-tight">
-                        {item.description}
-                    </p>
-                </div>
-            </div>
-        );
-    };
 
     return (
         <section id="doctor-growth" className="relative pt-12 pb-16 md:pt-20 md:pb-36 px-4 md:px-14 overflow-hidden font-satoshi bg-white">
