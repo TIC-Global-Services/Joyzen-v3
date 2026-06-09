@@ -24,13 +24,13 @@ const GrowthCard = ({ item, idx, isMobile, className }: { item: GrowthItem, idx:
 
     if (idx === 0) {
         return (
-            <div 
+            <div
                 className={`relative w-full ${isMobile ? 'h-[300px]' : aspectClass} rounded-3xl overflow-hidden group border border-white/60 bg-gradient-to-b from-white/75 to-white/45 backdrop-blur-xl shadow-[10px_10px_20px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,0.6)] hover:shadow-[16px_16px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.8)] hover:-translate-y-1 hover:-translate-x-1 hover:border-white/90 transition-all duration-500 ease-out flex-shrink-0 flex flex-col justify-between p-6 ${className || ''}`}
                 style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'translate3d(0,0,0)', WebkitTransform: 'translate3d(0,0,0)' }}
             >
                 {/* Scaled down inline image placed above the text */}
                 <div className="relative w-full flex-1 flex items-center justify-center p-2 mb-2">
-                    <div 
+                    <div
                         className="relative w-[300px] h-[150px] md:w-[380px] md:h-[190px] -ml-6 md:-ml-8 transition-transform duration-500 group-hover:scale-103"
                         style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'translate3d(0,0,0)', WebkitTransform: 'translate3d(0,0,0)' }}
                     >
@@ -58,7 +58,7 @@ const GrowthCard = ({ item, idx, isMobile, className }: { item: GrowthItem, idx:
     }
 
     return (
-        <div 
+        <div
             className={`relative w-full ${isMobile ? 'h-[300px]' : aspectClass} rounded-3xl overflow-hidden group border border-white/60 bg-gradient-to-b from-white/75 to-white/45 backdrop-blur-xl shadow-[10px_10px_20px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,0.6)] hover:shadow-[16px_16px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.8)] hover:-translate-y-1 hover:-translate-x-1 hover:border-white/90 transition-all duration-500 ease-out flex-shrink-0 ${className || ''}`}
             style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'translate3d(0,0,0)', WebkitTransform: 'translate3d(0,0,0)' }}
         >
@@ -226,7 +226,7 @@ const DoctorGrowthGrid = () => {
 
 
     return (
-        <section id="doctor-growth" className="relative pt-12 pb-16 md:pt-20 md:pb-36 px-4 md:px-14 overflow-hidden font-satoshi bg-white">
+        <section id="doctor-growth" className="relative pt-12 pb-6 md:pt-20 md:pb-36 px-4 md:px-14 overflow-hidden font-satoshi bg-white">
             {/* Background Gradients */}
             <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none transform-gpu">
                 <div className="absolute -bottom-[5%] -left-[40%] md:left-[-50%] w-[80%] h-[40%] bg-[#b4def7]/30 rounded-[100%] md:blur-[80px]" />

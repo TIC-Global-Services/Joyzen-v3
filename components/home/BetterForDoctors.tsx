@@ -78,7 +78,7 @@ const BetterForDoctors = () => {
                         Why This Is Better For Doctors
                     </h2>
                     <p className="font-epilogue text-xl md:text-2xl leading-tight mt-4">
-                        More time. Better structure. Stronger outcomes.
+                        More time. Better structure. <br /> Stronger outcomes.
                     </p>
                 </div>
 
@@ -93,7 +93,7 @@ const BetterForDoctors = () => {
                             style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'translate3d(0,0,0)', WebkitTransform: 'translate3d(0,0,0)' }}
                         >
                             {/* Background Image */}
-                            <div 
+                            <div
                                 className="absolute inset-0 z-0 pointer-events-none"
                                 style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'translate3d(0,0,0)', WebkitTransform: 'translate3d(0,0,0)' }}
                             >
