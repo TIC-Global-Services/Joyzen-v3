@@ -51,7 +51,7 @@ const IntegrationSection = () => {
         if (!isMobile) return
         const timer = setInterval(() => {
             setActiveStep((prev) => (prev + 1) % steps.length)
-        }, 3000)
+        }, 2000)
         return () => clearInterval(timer)
     }, [isMobile])
 
@@ -141,13 +141,12 @@ const IntegrationSection = () => {
                         {steps.map((step, idx) => (
                             <div
                                 key={`img-${idx}`}
-                                className={`integration-img absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                                    isMobile
+                                className={`integration-img absolute inset-0 transition-opacity duration-700 ease-in-out ${isMobile
                                         ? activeStep === idx
                                             ? "opacity-100 pointer-events-auto"
                                             : "opacity-0 pointer-events-none"
                                         : ""
-                                }`}
+                                    }`}
                             >
                                 <Image
                                     src={step.image}
@@ -171,13 +170,12 @@ const IntegrationSection = () => {
                                 >
                                     {/* Title */}
                                     <h3
-                                        className={`integration-item text-xl md:text-3xl font-medium transition-colors duration-500 ${
-                                            isMobile
+                                        className={`integration-item text-xl md:text-3xl font-medium transition-colors duration-500 ${isMobile
                                                 ? isActive
                                                     ? "text-[#036132]"
                                                     : "text-gray-400"
                                                 : "text-black"
-                                        }`}
+                                            }`}
                                     >
                                         {step.title}
                                     </h3>

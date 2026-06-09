@@ -26,7 +26,7 @@ const Footer = () => {
             playsInline
             className="absolute inset-0 w-full h-full object-cover sm:hidden scale-100"
           >
-            <source src="/joyzen_footer_mobile.mp4" type="video/mp4" />
+            <source src="/joyzenfootermobile.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
           {/* Desktop footer video */}
