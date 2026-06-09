@@ -72,37 +72,14 @@ const BetterForDoctors = () => {
         <section className="relative w-full pt-12 pb-8 md:pt-36 md:pb-20 px-4 md:px-12 bg-white font-satoshi overflow-hidden">
             <div className="max-w-[1440px] mx-auto">
 
-                {/* Header and Carousel Controls */}
-                <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 md:mb-24 gap-6">
-                    <div className="text-left">
-                        <h2 className="text-2xl md:text-5xl font-medium tracking-normal">
-                            Why This Is Better For Doctors
-                        </h2>
-                        <p className="font-epilogue text-xl md:text-2xl leading-tight mt-4">
-                            More time. Better structure. Stronger outcomes.
-                        </p>
-                    </div>
-                    {/* Carousel Controls */}
-                    <div className="flex gap-4 items-center">
-                        <button
-                            onClick={scrollLeft}
-                            className="w-12 h-12 rounded-full flex items-center justify-center bg-[#1A1A1A] text-white hover:bg-[#036132] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer shadow-md"
-                            aria-label="Scroll left"
-                        >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"></path>
-                            </svg>
-                        </button>
-                        <button
-                            onClick={scrollRight}
-                            className="w-12 h-12 rounded-full flex items-center justify-center bg-[#1A1A1A] text-white hover:bg-[#036132] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer shadow-md"
-                            aria-label="Scroll right"
-                        >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </button>
-                    </div>
+                {/* Header */}
+                <div className="mb-12 md:mb-16">
+                    <h2 className="text-2xl md:text-5xl font-medium tracking-normal">
+                        Why This Is Better For Doctors
+                    </h2>
+                    <p className="font-epilogue text-xl md:text-2xl leading-tight mt-4">
+                        More time. Better structure. Stronger outcomes.
+                    </p>
                 </div>
 
                 <div
@@ -147,6 +124,28 @@ const BetterForDoctors = () => {
                             </div>
                         </div>
                     ))}
+                </div>
+
+                {/* Carousel Controls */}
+                <div className="flex justify-end gap-4 mt-6 md:mt-8">
+                    <button
+                        onClick={scrollLeft}
+                        className="w-12 h-12 rounded-full flex items-center justify-center bg-[#1A1A1A] text-white hover:bg-[#036132] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer shadow-md"
+                        aria-label="Scroll left"
+                    >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    <button
+                        onClick={scrollRight}
+                        className="w-12 h-12 rounded-full flex items-center justify-center bg-[#1A1A1A] text-white hover:bg-[#036132] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer shadow-md"
+                        aria-label="Scroll right"
+                    >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
                 </div>
 
 

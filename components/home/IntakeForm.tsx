@@ -7,15 +7,15 @@ import { z } from 'zod'
 
 const intakeFormSchema = z.object({
     name: z.string()
-        .min(1, "Name is required")
+        .min(3, "Name must be at least 3 characters")
         .regex(/^[a-zA-Z]+$/, "Name must contain only alphabets (no numbers or spaces)"),
     specialty: z.string()
-        .min(1, "Speciality is required")
+        .min(3, "Speciality must be at least 3 characters")
         .regex(/^[a-zA-Z\s]+$/, "Speciality must contain only alphabets and spaces"),
     city: z.string()
-        .min(1, "City is required")
+        .min(3, "City must be at least 3 characters")
         .regex(/^[a-zA-Z\s]+$/, "City must contain only alphabets and spaces"),
-    address: z.string().min(1, "Clinic Address is required"),
+    address: z.string().min(3, "Clinic Address must be at least 3 characters"),
     phone: z.string()
         .min(1, "Phone number is required")
         .regex(/^[0-9]{10}$/, "Please enter a valid 10-digit phone number"),
@@ -30,7 +30,8 @@ type IntakeFormData = z.infer<typeof intakeFormSchema>;
 
 const IntakeForm = () => {
     const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<IntakeFormData>({
-        resolver: zodResolver(intakeFormSchema)
+        resolver: zodResolver(intakeFormSchema),
+        mode: "onChange"
     })
 
     const onSubmit = async (data: IntakeFormData) => {
@@ -158,7 +159,12 @@ const IntakeForm = () => {
                             <input
                                 type="tel"
                                 placeholder="Phone Number"
-                                {...register("phone")}
+                                maxLength={10}
+                                {...register("phone", {
+                                    onChange: (e) => {
+                                        e.target.value = e.target.value.replace(/\D/g, '');
+                                    }
+                                })}
                                 className={`w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base ${errors.phone ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
                                     }`}
                             />
