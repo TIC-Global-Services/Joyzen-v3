@@ -172,7 +172,7 @@ const IntegrationSection = () => {
 
     return (
         <div ref={pinContainerRef} className="w-full bg-white font-satoshi overflow-hidden">
-            <div className="max-w-[1440px] mx-auto px-4 md:px-12 flex flex-col justify-center py-8 lg:py-0 min-h-[600px] lg:h-screen lg:min-h-0">
+            <div className="max-w-[1440px] mx-auto px-4 md:px-12 flex flex-col justify-center py-4 lg:py-0 min-h-[600px] lg:h-screen lg:min-h-0">
 
                 {/* Header */}
                 <div className="mb-6 lg:mb-20">
@@ -193,10 +193,9 @@ const IntegrationSection = () => {
                             <div
                                 key={`img-${idx}`}
                                 className={`integration-img absolute inset-0 ${isMobile
-                                    ? `transition-opacity duration-700 ease-in-out ${
-                                        activeStep === idx
-                                            ? "opacity-100 pointer-events-auto"
-                                            : "opacity-0 pointer-events-none"
+                                    ? `transition-opacity duration-700 ease-in-out ${activeStep === idx
+                                        ? "opacity-100 pointer-events-auto"
+                                        : "opacity-0 pointer-events-none"
                                     }`
                                     : ""
                                     }`}
@@ -223,22 +222,19 @@ const IntegrationSection = () => {
                                 >
                                     {/* Title */}
                                     <h3
-                                        className={`integration-item text-xl md:text-3xl font-medium ${
-                                            isMobile ? "transition-colors duration-500" : ""
-                                        } ${
-                                            isActive
+                                        className={`integration-item text-xl md:text-3xl font-medium ${isMobile ? "transition-colors duration-500" : ""
+                                            } ${isActive
                                                 ? "text-black"
                                                 : "text-gray-400"
-                                        }`}
+                                            }`}
                                     >
                                         {step.title}
                                     </h3>
 
                                     {/* Description (Expandable container) */}
                                     <div
-                                        className={`integration-desc overflow-hidden ${
-                                            isMobile ? "transition-all duration-500 ease-in-out" : ""
-                                        }`}
+                                        className={`integration-desc overflow-hidden ${isMobile ? "transition-all duration-500 ease-in-out" : ""
+                                            }`}
                                         style={{
                                             maxHeight: isMobile
                                                 ? isActive
