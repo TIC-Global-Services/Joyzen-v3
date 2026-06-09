@@ -53,7 +53,7 @@ const WhyJoyzenBadge = () => {
     }, [])
 
     return (
-        <section className="relative w-full py-16 md:py-36 mb-12 md:mb-20 flex items-center justify-center bg-white font-satoshi overflow-hidden">
+        <section className="relative w-full py-16 md:py-36 mb-10 md:mb-18 flex items-center justify-center bg-white font-satoshi overflow-hidden">
 
             {/* Visual Loader & Faded Logo Container (Background Layer) */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
