@@ -121,7 +121,7 @@ const IntegrationSection = () => {
 
     return (
         <div ref={pinContainerRef} className="w-full bg-white font-satoshi overflow-hidden">
-            <div className="max-w-[1440px] mx-auto px-4 md:px-2 flex flex-col justify-center py-8 lg:py-0 min-h-[600px] lg:h-screen lg:min-h-0">
+            <div className="max-w-[1440px] mx-auto px-4 md:px-12 flex flex-col justify-center py-8 lg:py-0 min-h-[600px] lg:h-screen lg:min-h-0">
 
                 {/* Header */}
                 <div className="mb-6 lg:mb-20">
@@ -142,10 +142,10 @@ const IntegrationSection = () => {
                             <div
                                 key={`img-${idx}`}
                                 className={`integration-img absolute inset-0 transition-opacity duration-700 ease-in-out ${isMobile
-                                        ? activeStep === idx
-                                            ? "opacity-100 pointer-events-auto"
-                                            : "opacity-0 pointer-events-none"
-                                        : ""
+                                    ? activeStep === idx
+                                        ? "opacity-100 pointer-events-auto"
+                                        : "opacity-0 pointer-events-none"
+                                    : ""
                                     }`}
                             >
                                 <Image
@@ -171,10 +171,10 @@ const IntegrationSection = () => {
                                     {/* Title */}
                                     <h3
                                         className={`integration-item text-xl md:text-3xl font-medium transition-colors duration-500 ${isMobile
-                                                ? isActive
-                                                    ? "text-[#036132]"
-                                                    : "text-gray-400"
-                                                : "text-black"
+                                            ? isActive
+                                                ? "text-[#036132]"
+                                                : "text-gray-400"
+                                            : "text-black"
                                             }`}
                                     >
                                         {step.title}
