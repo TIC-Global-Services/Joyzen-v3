@@ -2,20 +2,36 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import toast, { Toaster } from 'react-hot-toast'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 
-interface IntakeFormData {
-    name: string;          // Doctor/Clinic Name
-    specialty: string;     // Speciality
-    city: string;          // City
-    address: string;       // Clinic Address
-    phone: string;         // Phone Number
-    email: string;         // Email
-    patientVolume: string; // Current monthly patient volume
-    comments: string;      // Why do you want to partner with Joyzen?
-}
+const intakeFormSchema = z.object({
+    name: z.string()
+        .min(1, "Name is required")
+        .regex(/^[a-zA-Z]+$/, "Name must contain only alphabets (no numbers or spaces)"),
+    specialty: z.string()
+        .min(1, "Speciality is required")
+        .regex(/^[a-zA-Z\s]+$/, "Speciality must contain only alphabets and spaces"),
+    city: z.string()
+        .min(1, "City is required")
+        .regex(/^[a-zA-Z\s]+$/, "City must contain only alphabets and spaces"),
+    address: z.string().min(1, "Clinic Address is required"),
+    phone: z.string()
+        .min(1, "Phone number is required")
+        .regex(/^[0-9]{10}$/, "Please enter a valid 10-digit phone number"),
+    email: z.string()
+        .min(1, "Email is required")
+        .email("Invalid email address"),
+    patientVolume: z.string().optional(),
+    comments: z.string().optional(),
+})
+
+type IntakeFormData = z.infer<typeof intakeFormSchema>;
 
 const IntakeForm = () => {
-    const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<IntakeFormData>()
+    const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<IntakeFormData>({
+        resolver: zodResolver(intakeFormSchema)
+    })
 
     const onSubmit = async (data: IntakeFormData) => {
         const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbyA4JtUq62yvksXHhICXf5TvVE-G5bOMJ87Qfrr_5aElr1XQ7ubJ3IK6r3FgUi0JrVC/exec";
@@ -94,10 +110,11 @@ const IntakeForm = () => {
                             <input
                                 type="text"
                                 placeholder="Doctor/Clinic Name"
-                                {...register("name", { required: "Name is required" })}
+                                {...register("name")}
                                 className={`w-full py-3.5 px-6 rounded-full backdrop-blur-sm border focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base ${errors.name ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
                                     }`}
                             />
+                            {errors.name && <span className="text-red-500 text-xs mt-1.5 pl-6">{errors.name.message}</span>}
                         </div>
 
                         {/* Speciality */}
@@ -105,10 +122,11 @@ const IntakeForm = () => {
                             <input
                                 type="text"
                                 placeholder="Speciality"
-                                {...register("specialty", { required: "Speciality is required" })}
+                                {...register("specialty")}
                                 className={`w-full py-3.5 px-6 rounded-full backdrop-blur-sm border focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base ${errors.specialty ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
                                     }`}
                             />
+                            {errors.specialty && <span className="text-red-500 text-xs mt-1.5 pl-6">{errors.specialty.message}</span>}
                         </div>
 
                         {/* City */}
@@ -116,10 +134,11 @@ const IntakeForm = () => {
                             <input
                                 type="text"
                                 placeholder="City"
-                                {...register("city", { required: "City is required" })}
+                                {...register("city")}
                                 className={`w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base ${errors.city ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
                                     }`}
                             />
+                            {errors.city && <span className="text-red-500 text-xs mt-1.5 pl-6">{errors.city.message}</span>}
                         </div>
 
                         {/* Clinic Address */}
@@ -128,8 +147,10 @@ const IntakeForm = () => {
                                 type="text"
                                 placeholder="Clinic Address"
                                 {...register("address")}
-                                className="w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border border-gray-100 focus:outline-none focus:border-[#036132]/30 transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base"
+                                className={`w-full py-3.5 px-6 rounded-full backdrop-blur-sm border focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base ${errors.address ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
+                                    }`}
                             />
+                            {errors.address && <span className="text-red-500 text-xs mt-1.5 pl-6">{errors.address.message}</span>}
                         </div>
 
                         {/* Phone Number */}
@@ -137,10 +158,11 @@ const IntakeForm = () => {
                             <input
                                 type="tel"
                                 placeholder="Phone Number"
-                                {...register("phone", { required: "Phone number is required" })}
+                                {...register("phone")}
                                 className={`w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base ${errors.phone ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
                                     }`}
                             />
+                            {errors.phone && <span className="text-red-500 text-xs mt-1.5 pl-6">{errors.phone.message}</span>}
                         </div>
 
                         {/* Email */}
@@ -148,13 +170,11 @@ const IntakeForm = () => {
                             <input
                                 type="email"
                                 placeholder="Email"
-                                {...register("email", {
-                                    required: "Email is required",
-                                    pattern: { value: /^\S+@\S+$/i, message: "Invalid email address" }
-                                })}
+                                {...register("email")}
                                 className={`w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base ${errors.email ? 'border-red-300 focus:border-red-400' : 'border-gray-100 focus:border-[#036132]/30'
                                     }`}
                             />
+                            {errors.email && <span className="text-red-500 text-xs mt-1.5 pl-6">{errors.email.message}</span>}
                         </div>
 
                         {/* Current monthly patient volume */}
@@ -163,7 +183,7 @@ const IntakeForm = () => {
                                 type="text"
                                 placeholder="Current monthly patient volume"
                                 {...register("patientVolume")}
-                                className="w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border border-gray-100 focus:outline-none focus:border-[#036132]/30 transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base"
+                                className="w-full py-3.5 px-6 rounded-full backdrop-blur-sm border border-gray-100 focus:outline-none focus:border-[#036132]/30 transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base"
                             />
                         </div>
 

@@ -67,11 +67,12 @@ const IntegrationSection = () => {
         let mm = gsap.matchMedia();
 
         mm.add("(min-width: 1024px)", () => {
+            const titles = pinContainer.querySelectorAll('.integration-item');
+
             // Apply to desktop
             gsap.set(images, {
-                yPercent: (i: number) => i === 0 ? 0 : 100,
+                opacity: (i: number) => i === 0 ? 1 : 0,
                 zIndex: (i: number) => i,
-                opacity: 1 // ensure they are fully opaque
             });
 
             // Initialize descriptions
@@ -81,31 +82,81 @@ const IntegrationSection = () => {
                 marginTop: (i: number) => i === 0 ? "12px" : "0px"
             });
 
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: pinContainer,
-                    start: "top top",
-                    end: "+=2400", // scroll distance for pinning
-                    scrub: 0.5,
-                    pin: true,
-                    invalidateOnRefresh: true,
-                }
+            // Initialize titles
+            gsap.set(titles, {
+                color: (i: number) => i === 0 ? "#000000" : "#9CA3AF"
             });
 
-            // Step 1 to 2
-            tl.to(images[1], { yPercent: 0, duration: 1 }, "s1_2")
-                .to(descriptions[0], { height: 0, opacity: 0, marginTop: 0, duration: 1 }, "s1_2")
-                .to(descriptions[1], { height: "auto", opacity: 1, marginTop: "12px", duration: 1 }, "s1_2");
+            let currentActiveStep = 0;
 
-            // Step 2 to 3
-            tl.to(images[2], { yPercent: 0, duration: 1 }, "s2_3")
-                .to(descriptions[1], { height: 0, opacity: 0, marginTop: 0, duration: 1 }, "s2_3")
-                .to(descriptions[2], { height: "auto", opacity: 1, marginTop: "12px", duration: 1 }, "s2_3");
+            const goToStep = (index: number) => {
+                images.forEach((img, i) => {
+                    gsap.to(img, {
+                        opacity: i === index ? 1 : 0,
+                        duration: 0.4,
+                        ease: "power2.out",
+                        overwrite: "auto"
+                    });
+                });
 
-            // Step 3 to 4
-            tl.to(images[3], { yPercent: 0, duration: 1 }, "s3_4")
-                .to(descriptions[2], { height: 0, opacity: 0, marginTop: 0, duration: 1 }, "s3_4")
-                .to(descriptions[3], { height: "auto", opacity: 1, marginTop: "12px", duration: 1 }, "s3_4");
+                titles.forEach((title, i) => {
+                    gsap.to(title, {
+                        color: i === index ? "#000000" : "#9CA3AF",
+                        duration: 0.4,
+                        ease: "power2.out",
+                        overwrite: "auto"
+                    });
+                });
+
+                descriptions.forEach((desc, i) => {
+                    if (i === index) {
+                        gsap.to(desc, {
+                            height: "auto",
+                            opacity: 1,
+                            marginTop: "12px",
+                            duration: 0.4,
+                            ease: "power2.out",
+                            overwrite: "auto"
+                        });
+                    } else {
+                        gsap.to(desc, {
+                            height: "0px",
+                            opacity: 0,
+                            marginTop: "0px",
+                            duration: 0.4,
+                            ease: "power2.out",
+                            overwrite: "auto"
+                        });
+                    }
+                });
+            };
+
+            const trigger = ScrollTrigger.create({
+                trigger: pinContainer,
+                start: "top top",
+                end: "+=2400", // scroll distance for pinning
+                pin: true,
+                scrub: false,
+                snap: {
+                    snapTo: 1 / (steps.length - 1),
+                    duration: { min: 0.15, max: 0.4 },
+                    delay: 0.02,
+                    ease: "power2.out"
+                },
+                onUpdate: (self) => {
+                    const progress = self.progress;
+                    const numSteps = steps.length;
+
+                    // Determine the step index (0 to 3) based on scroll progress
+                    let step = Math.floor(progress * numSteps);
+                    if (step >= numSteps) step = numSteps - 1;
+
+                    if (step !== currentActiveStep) {
+                        currentActiveStep = step;
+                        goToStep(step);
+                    }
+                }
+            });
         });
 
         mm.add("(max-width: 1023px)", () => {
@@ -141,10 +192,12 @@ const IntegrationSection = () => {
                         {steps.map((step, idx) => (
                             <div
                                 key={`img-${idx}`}
-                                className={`integration-img absolute inset-0 transition-opacity duration-700 ease-in-out ${isMobile
-                                    ? activeStep === idx
-                                        ? "opacity-100 pointer-events-auto"
-                                        : "opacity-0 pointer-events-none"
+                                className={`integration-img absolute inset-0 ${isMobile
+                                    ? `transition-opacity duration-700 ease-in-out ${
+                                        activeStep === idx
+                                            ? "opacity-100 pointer-events-auto"
+                                            : "opacity-0 pointer-events-none"
+                                    }`
                                     : ""
                                     }`}
                             >
@@ -170,19 +223,22 @@ const IntegrationSection = () => {
                                 >
                                     {/* Title */}
                                     <h3
-                                        className={`integration-item text-xl md:text-3xl font-medium transition-colors duration-500 ${isMobile
-                                            ? isActive
-                                                ? "text-[#036132]"
+                                        className={`integration-item text-xl md:text-3xl font-medium ${
+                                            isMobile ? "transition-colors duration-500" : ""
+                                        } ${
+                                            isActive
+                                                ? "text-black"
                                                 : "text-gray-400"
-                                            : "text-black"
-                                            }`}
+                                        }`}
                                     >
                                         {step.title}
                                     </h3>
 
                                     {/* Description (Expandable container) */}
                                     <div
-                                        className="integration-desc overflow-hidden transition-all duration-500 ease-in-out"
+                                        className={`integration-desc overflow-hidden ${
+                                            isMobile ? "transition-all duration-500 ease-in-out" : ""
+                                        }`}
                                         style={{
                                             maxHeight: isMobile
                                                 ? isActive
