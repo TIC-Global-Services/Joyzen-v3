@@ -8,7 +8,7 @@ const HeroSection = () => {
       <Hero
         title={
           <>
-            Healthcare Was Built for Visitors.<br />We Built It for Life.
+            Healthcare Was Built for Visits.<br />We Built It for Life.
           </>
         }
         description1="Built for Life. Designed for Longevity."

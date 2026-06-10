@@ -12,23 +12,33 @@ import imgBetween from '@/assets/home/intergrationSection/betweenVisits.png'
 
 const steps = [
     {
-        title: "Before consultation",
-        description: "patient education and onboarding",
+        title: "Continuous Care, Not Isolated Visits",
+        description: "Joyzen extends care beyond the consultation by connecting clinics, online care, diagnostics, follow-ups, care coordination, and patient engagement into one unified experience.",
         image: imgBefore
     },
     {
-        title: "During Consultation",
-        description: "clinical notes, EMR sync, and easy recording",
+        title: "More Than Medical Records",
+        description: "From diagnostics and reports to treatment history and patient progress, Joyzen brings the complete patient journey into a single consultation view.",
         image: imgDuring
     },
     {
-        title: "After Consultation",
-        description: "e-prescribing, labs, invoicing, and messaging",
+        title: "More Than Follow-Ups",
+        description: "Joyzen helps clinics track whether patients are actually following prescribed treatments, nutrition plans, fitness goals, and care recommendations.",
         image: imgAfter
     },
     {
-        title: "Between Visits",
-        description: "continuous tracking and follow-up support",
+        title: "More Than Patient Management",
+        description: "Dedicated care coordination ensures patients stay engaged, supported, and connected throughout their healthcare journey.",
+        image: imgBetween
+    },
+    {
+        title: "More Than a Clinic",
+        description: "Through the Joyzen ecosystem, clinics gain access to new patients while building stronger long-term relationships with existing ones.",
+        image: imgBetween
+    },
+    {
+        title: "More Than Healthcare Software",
+        description: "Joyzen transforms clinics into connected healthcare systems that deliver care before, during, after, and beyond every visit.",
         image: imgBetween
     }
 ]
@@ -177,18 +187,19 @@ const IntegrationSection = () => {
                 {/* Header */}
                 <div className="mb-6 lg:mb-20">
                     <h2 className="text-2xl md:text-5xl lg:text-6xl font-medium tracking-normal mb-2 md:mb-6">
-                        How We Integrate With Clinics
+                        The Joyzen Care Layer
                     </h2>
-                    <p className="font-epilogue text-lg md:text-2xl max-w-3xl leading-[1.2]">
-                        We fit into your clinic, without taking control. Your clinic continues to operate under your medical expertise. Joyzen adds the system around you:
+                    <p className="font-epilogue text-lg md:text-2xl max-w-3xl leading-[1.2] mb-2">
+                        One system supporting every stage of the healthcare journey.
                     </p>
+                    <p className="font-epilogue italic text-sm md:text-xl max-w-3xl leading-[1.2]">Healthcare doesn't begin at the consultation, and it doesn't end when the patient leaves. Joyzen creates a connected care experience across every stage of health.</p>
                 </div>
 
                 {/* 2-Column Content */}
-                <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-20">
+                <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-26">
 
                     {/* Left Column: Fixed aspect stacked images */}
-                    <div className="w-full lg:w-1/2 relative aspect-[3/2] md:aspect-[5/3] max-w-[700px] rounded-xl overflow-hidden">
+                    <div className="w-full lg:w-1/2 relative aspect-[3/2] md:aspect-[7/5] max-w-[700px] rounded-xl overflow-hidden">
                         {steps.map((step, idx) => (
                             <div
                                 key={`img-${idx}`}
@@ -208,11 +219,12 @@ const IntegrationSection = () => {
                                     sizes="(max-width: 1024px) 100vw, 50vw"
                                 />
                             </div>
+
                         ))}
                     </div>
 
                     {/* Right Column: Steps with expandable text */}
-                    <div className="w-full lg:w-1/2 flex flex-col justify-center gap-4 md:gap-8 h-[240px] lg:h-auto">
+                    <div className="w-full lg:w-1/2 flex flex-col justify-center gap-4 md:gap-2 h-[240px] lg:h-auto">
                         {steps.map((step, idx) => {
                             const isActive = activeStep === idx;
                             return (
@@ -222,7 +234,7 @@ const IntegrationSection = () => {
                                 >
                                     {/* Title */}
                                     <h3
-                                        className={`integration-item text-xl md:text-3xl font-medium ${isMobile ? "transition-colors duration-500" : ""
+                                        className={`integration-item text-xl md:text-2xl font-medium ${isMobile ? "transition-colors duration-500" : ""
                                             } ${isActive
                                                 ? "text-black"
                                                 : "text-gray-400"
@@ -253,7 +265,7 @@ const IntegrationSection = () => {
                                                 : undefined
                                         }}
                                     >
-                                        <p className="text-base md:text-lg font-normal leading-tight">
+                                        <p className="text-base md:text-xl font-normal leading-tight">
                                             {step.description}
                                         </p>
                                     </div>

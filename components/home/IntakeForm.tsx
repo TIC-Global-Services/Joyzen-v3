@@ -81,10 +81,10 @@ const IntakeForm = () => {
                 {/* Header */}
                 <div className="text-left mb-8">
                     <h2 className="text-2xl md:text-4xl font-medium tracking-tight mb-6">
-                        Why This Is The Future
+                        The Future Starts Here
                     </h2>
                     <p className="font-epilogue text-lg md:text-lg max-w-3xl leading-[1.2] font-normal">
-                        Healthcare is shifting from reactive treatment to continuous, preventive care. Moving beyond isolated visits and short-term fixes, Joyzen is building a connected healthcare system that supports long-term outcomes through ongoing care, technology, and patient engagement, starting with reproductive health.
+                        Healthcare is changing. Be part of what comes next.
                     </p>
                 </div>
 

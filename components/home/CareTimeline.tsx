@@ -13,7 +13,7 @@ import future from '@/assets/home/caretimeline/healthFuture.png'
 const timelineSteps = [
     {
         title: "Healthcare's Biggest Challenge",
-        description: "The challenge in healthcare is no longer medical expertise, it's fragmentation. Patients move between consultations, diagnostics, treatments, follow-ups, and wellness support through disconnected systems that create inefficiencies and gaps in care.",
+        description: "Patients move between consultations, diagnostics, treatments, follow-ups, and wellness support through disconnected systems that create inefficiencies and gaps in care.",
         image: biggestChallenge,
         alignLeft: true,
     },

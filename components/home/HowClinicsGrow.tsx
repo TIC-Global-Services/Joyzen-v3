@@ -79,13 +79,13 @@ const HowClinicsGrow = () => {
     return (
         <section ref={containerRef} className="relative w-full h-screen bg-white overflow-hidden flex items-center justify-center font-satoshi">
             {/* Content Container for Initial Left Text */}
-            <div className="max-w-[1440px] w-full h-full mx-auto flex items-start md:items-center pt-32 md:pt-0 px-4 md:px-12 relative z-10">
+            <div className="max-w-[1440px] w-full h-full mx-auto flex items-start md:items-center pt-32 md:pt-0 px-4 relative z-10">
                 <div ref={textLeftRef} className="w-full md:w-1/2 pr-4 md:pr-10 text-center md:text-left flex flex-col items-center md:items-start">
                     <h2 className="text-2xl md:text-6xl font-medium leading-[1.2] mb-4 md:mb-6">
-                        How Clinics Grow<br className="hidden md:block" /> With Joyzen
+                        Growth Built into Care
                     </h2>
-                    <p className="font-epilogue text-xl md:text-2xl leading-[1.2] max-w-md mx-auto md:mx-0">
-                        Growth is no longer dependent only on patient volume.
+                    <p className="font-epilogue text-xl md:text-2xl leading-[1.2] max-w-2xl mx-auto md:mx-0">
+                        Better outcomes drive trust. Trust drives retention. Retention drives growth.
                     </p>
                 </div>
             </div>
@@ -116,7 +116,8 @@ const HowClinicsGrow = () => {
                     className="absolute inset-0 z-20 flex items-center justify-center p-6 md:p-12 lg:p-24 opacity-0 translate-y-12"
                 >
                     <p className="font-epilogue text-white text-2xl md:text-3xl lg:text-[32px] leading-[1.2] text-center max-w-[1000px] font-normal drop-shadow-lg">
-                        With Joyzen, clinics can grow through structured care programs, stronger patient retention, increased patient inflow, and improved outcomes that drive referrals. By increasing revenue per patient and fostering long-term relationships instead of one-time visits, Joyzen helps clinics build a stronger, more sustainable, and more valuable practice.
+                        Joyzen helps clinics attract new patients, strengthen existing relationships, and increase lifetime patient value through continuous care. <br />
+                        <span className="mt-6 block md:inline-block">Care</span> → <span>Trust</span> → <span>Retention</span> → <span>Growth</span>
                     </p>
                 </div>
             </div>

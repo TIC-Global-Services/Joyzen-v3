@@ -94,13 +94,14 @@ const JoinWaitlistCTA = () => {
             <div className="max-w-[1440px] mx-auto px-6 relative flex items-center justify-between">
 
                 {/* Central Content */}
-                <div className="w-full max-w-4xl mx-auto text-center z-10 flex flex-col items-center justify-center">
+                <div className="w-full max-w-6xl mx-auto text-center z-10 flex flex-col items-center justify-center">
                     <h1 className="text-2xl md:text-6xl font-medium tracking-tight leading-tight mb-8 max-w-5xl">
                         Be part of what comes next.
                     </h1>
+                    <p className='font-ep text-xl md:text-[32px] font-medium mb-8 max-w-5xl'>Healthcare was built for the last century. Together, we're building it for the next.</p>
 
                     <p className="font-epilogue text-xl md:text-[32px] leading-tight font-normal mb-12 max-w-5xl">
-                        Joyzen helps doctors grow beyond clinical consultations by building their personal brand in reproductive health, increasing visibility, and strengthening long-term patient trust. Through education, awareness, and continuous engagement, doctors can become recognized voices in reproductive health, not just clinic practitioners.
+                        Joyzen is reimagining how healthcare is delivered, experienced, and connected—creating a future where every patient, provider, and clinic is part of one continuous care ecosystem.
                     </p>
 
                     <button

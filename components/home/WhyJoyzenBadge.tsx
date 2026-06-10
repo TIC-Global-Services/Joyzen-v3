@@ -53,7 +53,7 @@ const WhyJoyzenBadge = () => {
     }, [])
 
     return (
-        <section className="relative w-full py-16 md:py-36 mb-10 md:mb-18 flex items-center justify-center bg-white font-satoshi overflow-hidden">
+        <section className="relative w-full py-16 md:py-36 mb-10 md:mb-14 flex items-center justify-center bg-white font-satoshi overflow-hidden">
 
             {/* Visual Loader & Faded Logo Container (Background Layer) */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
@@ -101,12 +101,18 @@ const WhyJoyzenBadge = () => {
                 </h3>
 
                 <span className="text-xl md:text-lg font-normal tracking-tight mb-4 font-mono">
-                    Joyzen is more than technology.
+                    The Infrastructure for the Future of Healthcare.
                 </span>
 
                 {/* Paragraph is 32px on desktop and extends outside the loader circle */}
-                <p className="text-xl md:text-[32px] leading-[1.2] font-medium max-w-4xl">
-                    It is a healthcare ecosystem built around your practice. By integrating technology, patient engagement, care coordination, diagnostics, and operational support, we help clinics transform fragmented healthcare journeys into connected care experiences. The result is better efficiency, stronger patient relationships, and improved long-term outcomes. You bring the expertise. Joyzen provides the system that helps it scale.
+                <p className="text-xl md:text-[32px] leading-[1.2] font-medium max-w-2xl">
+                    Joyzen is building a connected healthcare ecosystem where technology, diagnostics, patient care, wellness, and clinical operations work as one.
+                    <br />
+                    Designed to support every stage of a patient's journey, Joyzen transforms fragmented healthcare into a continuous care experience.
+                    <br />
+                    We don't just help clinics run better.
+                    <br />
+                    We help them become the healthcare systems of the future.
                 </p>
 
             </div>

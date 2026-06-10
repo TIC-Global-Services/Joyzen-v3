@@ -65,11 +65,10 @@ const Hero = ({
 
               <p className={`font-epilogue text-sm md:text-base leading-[1.2] max-w-4xl font-normal tracking-normal ${textColorClass} opacity-100 mb-2`}>
                 The future of healthcare is not isolated treatment. It is connected, continuous, and designed around long-term human health. Joyzen is building an integrated healthcare ecosystem where doctors, technology, diagnostics, wellness, and patient care work together seamlessly, beyond the walls of a clinic. Designed to support every specialty and every stage of life, Joyzen enables modern healthcare experiences focused on prevention, recovery, longevity, and lifelong wellbeing.
-                <span className='mt-4 block'>
+                <span className='mt-4 block text-[#EF8F60] font-semibold'>
                   {description1}
-                  <br />
-                  {description2}
                 </span>
+                {description2}
               </p>
             </div>
 

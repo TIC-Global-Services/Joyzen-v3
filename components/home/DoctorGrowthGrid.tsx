@@ -49,9 +49,14 @@ const GrowthCard = ({ item, idx, isMobile, className }: { item: GrowthItem, idx:
 
                 {/* Text content below */}
                 <div className="relative z-20 ">
-                    <h3 className="text-xl md:text-2xl font-medium leading-tight tracking-tighter">
+                    <h3 className="text-xl md:text-2xl font-medium leading-tight tracking-tighter mb-1">
                         {item.title}
                     </h3>
+                    {item.description && (
+                        <p className="font-epilogue text-xs md:text-sm opacity-90 leading-tight tracking-tighter">
+                            {item.description}
+                        </p>
+                    )}
                 </div>
             </div>
         );
@@ -109,9 +114,11 @@ const GrowthCard = ({ item, idx, isMobile, className }: { item: GrowthItem, idx:
                 <h3 className="text-xl md:text-2xl font-medium mb-1 md:mb-2 leading-[1.2] tracking-tight">
                     {item.title}
                 </h3>
-                <p className="text-xs md:text-sm opacity-90 leading-tight">
-                    {item.description}
-                </p>
+                {item.description && (
+                    <p className="font-epilogue text-xs md:text-sm leading-tight tracking-tighter">
+                        {item.description}
+                    </p>
+                )}
             </div>
         </div>
     );
@@ -173,31 +180,37 @@ const DoctorGrowthGrid = () => {
 
     const growthItems: GrowthItem[] = [
         {
-            title: "Increase visibility across the Joyzen ecosystem",
+            title: "Build Authority",
+            description: "Become a recognized voice in your specialty through education, insights, and patient trust.",
             image: grid1,
             maxW: "max-w-full",
 
         },
         {
-            title: "Build a stronger professional presence",
+            title: "Expand Your Reach",
+            description: "Increase visibility across the Joyzen ecosystem and connect with more patients who need your expertise.",
             maxW: "max-w-[220px]"
         },
         {
-            title: "Be recognized as a trusted expert in your field",
+            title: "Strengthen Patient Trust",
+            description: "Build long-term relationships through continuous care, engagement, and better outcomes.",
             image: grid2,
             maxW: "max-w-[180px]"
         },
         {
-            title: "Create deeper, long-term relationships with patients",
+            title: "Create Lasting Impact",
+            description: "Move beyond consultations and become a trusted healthcare partner throughout a patient's journey.",
             maxW: "max-w-[180px]"
         },
         {
-            title: "Strengthen patient trust through continuous engagement",
+            title: "Grow Your Practice",
+            description: "Turn clinical excellence into sustainable growth, stronger retention, and greater influence.",
             image: grid3,
             maxW: "max-w-[220px]"
         },
         {
-            title: "Increase visibility across the Joyzen ecosystem",
+            title: "Build A Legacy",
+            description: "The most respected doctors are remembered not only for treatments, but for the lives they transform",
             isLarge: true,
             maxW: "max-w-[320px]"
         }
@@ -238,10 +251,10 @@ const DoctorGrowthGrid = () => {
                 {/* Header */}
                 <div className="text-center mb-12 md:mb-16">
                     <h2 className="text-2xl md:text-5xl font-medium tracking-tight leading-tight mb-4">
-                        Doctor Growth & Personal Brand
+                        The Joyzen Doctor Advantage
                     </h2>
                     <p className="font-epilogue max-w-2xl mx-auto text-xl md:text-2xl font-normal leading-[1.2]">
-                        Doctors don't just practice medicine. They build trust, impact, and a lasting legacy
+                        A Reputation. An Impact. A Legacy. <br /> Doctors Don't Just Treat Patients. They Shape The Future Of Healthcare.
                     </p>
                 </div>
 
@@ -289,7 +302,7 @@ const DoctorGrowthGrid = () => {
 
                         {/* Logo in the middle row (transparent orange SVG logo) */}
                         <div className="relative w-full flex items-center justify-center pointer-events-none py-2 z-50">
-                            <div className="relative w-12 h-18 md:w-16 md:h-24 lg:w-20 lg:h-30 drop-shadow-xl">
+                            <div className="relative w-12 h-18 md:w-16 md:h-24 lg:w-20 lg:h-25 drop-shadow-xl">
                                 <svg width="100%" height="100%" viewBox="0 0 134 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M55.9273 93.8987C25.6612 93.8987 5.99071 80.9128 0 57.1953L133.333 57.2785V93.8987H55.9273Z" fill="#EF8F60" />
                                     <path d="M66.476 44.9891C54.1905 44.9891 43.8145 34.7734 43.8145 22.6859C43.8145 10.5984 54.1989 0 66.476 0C78.7532 0 89.5179 10.1741 89.5179 22.6859C89.5179 35.1977 78.9644 44.9891 66.476 44.9891Z" fill="#EF8F60" />
