@@ -98,8 +98,9 @@ const JoinWaitlistCTA = () => {
                     <h1 className="text-2xl md:text-6xl font-medium tracking-tight leading-tight mb-8 max-w-5xl">
                         Be part of what comes next.
                     </h1>
-                    <p className='font-ep text-xl md:text-[32px] font-medium mb-8 max-w-5xl'>Healthcare was built for the last century. Together, we're building it for the next.</p>
-
+                    <p className='font-epilogue text-xl md:text-[32px] font-medium mb-8 max-w-5xl'>
+                        Healthcare was built for the last century. Together, we're building it for the next.
+                    </p>
                     <p className="font-epilogue text-xl md:text-[32px] leading-tight font-normal mb-12 max-w-5xl">
                         Joyzen is reimagining how healthcare is delivered, experienced, and connected—creating a future where every patient, provider, and clinic is part of one continuous care ecosystem.
                     </p>

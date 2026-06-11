@@ -113,7 +113,7 @@ const CareTimeline = () => {
 
                 {/* Header */}
                 <div className="text-center mb-12 md:mb-32">
-                    <h2 className="text-2xl md:text-4xl font-medium tracking-normal max-w-3xl mx-auto leading-tight">
+                    <h2 className="text-xl md:text-4xl font-medium tracking-normal max-w-3xl mx-auto leading-tight">
                         The challenge in healthcare is no longer medical expertise. It's fragmentation.
                     </h2>
                 </div>
@@ -185,7 +185,7 @@ const CareTimeline = () => {
                         {/* Text Container with fixed height to prevent layout shifts */}
                         <div className="flex flex-col items-center min-h-[240px] sm:min-h-[180px]">
                             {/* Title */}
-                            <h3 className="text-2xl font-medium text-center mb-4 font-satoshi leading-tight">
+                            <h3 className="text-xl font-medium text-center mb-4 font-satoshi leading-tight">
                                 {activeStep + 1}. {timelineSteps[activeStep].title}
                             </h3>
 

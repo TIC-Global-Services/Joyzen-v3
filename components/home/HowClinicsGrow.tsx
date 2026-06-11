@@ -115,9 +115,11 @@ const HowClinicsGrow = () => {
                     ref={textOverlayRef}
                     className="absolute inset-0 z-20 flex items-center justify-center p-6 md:p-12 lg:p-24 opacity-0 translate-y-12"
                 >
-                    <p className="font-epilogue text-white text-2xl md:text-3xl lg:text-[32px] leading-[1.2] text-center max-w-[1000px] font-normal drop-shadow-lg">
+                    <p className="font-epilogue text-white text-xl md:text-3xl lg:text-[32px] leading-[1.2] text-center max-w-[1000px] font-normal drop-shadow-lg">
                         Joyzen helps clinics attract new patients, strengthen existing relationships, and increase lifetime patient value through continuous care. <br />
-                        <span className="mt-6 block md:inline-block">Care</span> → <span>Trust</span> → <span>Retention</span> → <span>Growth</span>
+                        <span className="mt-6 block text-xl md:text-2xl lg:text-[32px] whitespace-nowrap">
+                            Care &rarr; Trust &rarr; Retention &rarr; Growth
+                        </span>
                     </p>
                 </div>
             </div>

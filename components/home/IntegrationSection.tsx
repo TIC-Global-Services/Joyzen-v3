@@ -5,41 +5,42 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 // Importing existing premium assets
-import imgBefore from '@/assets/home/intergrationSection/beforeConsultation.png'
-import imgDuring from '@/assets/home/intergrationSection/duringConsultation.png'
-import imgAfter from '@/assets/home/intergrationSection/afterConsultation.png'
-import imgBetween from '@/assets/home/intergrationSection/betweenVisits.png'
-
+import care from '@/assets/home/intergrationSection/continuouscare.png'
+import records from '@/assets/home/intergrationSection/medicalrecords.png'
+import followups from '@/assets/home/intergrationSection/followups.png'
+import management from '@/assets/home/intergrationSection/patientmanagement.png'
+import clinic from '@/assets/home/intergrationSection/morethanclinic.png'
+import software from '@/assets/home/intergrationSection/healthcaresoftware.png'
 const steps = [
     {
         title: "Continuous Care, Not Isolated Visits",
         description: "Joyzen extends care beyond the consultation by connecting clinics, online care, diagnostics, follow-ups, care coordination, and patient engagement into one unified experience.",
-        image: imgBefore
+        image: care
     },
     {
         title: "More Than Medical Records",
         description: "From diagnostics and reports to treatment history and patient progress, Joyzen brings the complete patient journey into a single consultation view.",
-        image: imgDuring
+        image: records
     },
     {
         title: "More Than Follow-Ups",
         description: "Joyzen helps clinics track whether patients are actually following prescribed treatments, nutrition plans, fitness goals, and care recommendations.",
-        image: imgAfter
+        image: followups
     },
     {
         title: "More Than Patient Management",
         description: "Dedicated care coordination ensures patients stay engaged, supported, and connected throughout their healthcare journey.",
-        image: imgBetween
+        image: management
     },
     {
         title: "More Than a Clinic",
         description: "Through the Joyzen ecosystem, clinics gain access to new patients while building stronger long-term relationships with existing ones.",
-        image: imgBetween
+        image: clinic
     },
     {
         title: "More Than Healthcare Software",
         description: "Joyzen transforms clinics into connected healthcare systems that deliver care before, during, after, and beyond every visit.",
-        image: imgBetween
+        image: software
     }
 ]
 
@@ -182,11 +183,11 @@ const IntegrationSection = () => {
 
     return (
         <div ref={pinContainerRef} className="w-full bg-white font-satoshi overflow-hidden">
-            <div className="max-w-[1440px] mx-auto px-4 md:px-12 flex flex-col justify-center py-4 lg:py-0 min-h-[600px] lg:h-screen lg:min-h-0">
+            <div className="max-w-[1440px] mx-auto px-4 flex flex-col justify-start pt-4 pb-2 md:pt-8 md:pb-4 lg:pt-[6vh] lg:pb-0 min-h-[500px] md:min-h-[550px] lg:h-screen lg:min-h-0">
 
                 {/* Header */}
-                <div className="mb-6 lg:mb-20">
-                    <h2 className="text-2xl md:text-5xl lg:text-6xl font-medium tracking-normal mb-2 md:mb-6">
+                <div className="mb-6 lg:mb-14">
+                    <h2 className="text-2xl md:text-5xl lg:text-6xl font-medium tracking-normal mb-4 md:mb-6">
                         The Joyzen Care Layer
                     </h2>
                     <p className="font-epilogue text-lg md:text-2xl max-w-3xl leading-[1.2] mb-2">
@@ -196,7 +197,7 @@ const IntegrationSection = () => {
                 </div>
 
                 {/* 2-Column Content */}
-                <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-26">
+                <div className="flex flex-col lg:flex-row items-start justify-between gap-6 lg:gap-26">
 
                     {/* Left Column: Fixed aspect stacked images */}
                     <div className="w-full lg:w-1/2 relative aspect-[3/2] md:aspect-[7/5] max-w-[700px] rounded-xl overflow-hidden">
@@ -223,55 +224,47 @@ const IntegrationSection = () => {
                         ))}
                     </div>
 
-                    {/* Right Column: Steps with expandable text */}
-                    <div className="w-full lg:w-1/2 flex flex-col justify-center gap-4 md:gap-2 h-[240px] lg:h-auto">
-                        {steps.map((step, idx) => {
-                            const isActive = activeStep === idx;
-                            return (
+                    {/* Right Column */}
+                    <div className="w-full lg:w-1/2 min-h-[150px] lg:min-h-0">
+
+                        {/* Mobile/Tablet View (Active Content Box UI) */}
+                        <div className="flex flex-col gap-4 w-full lg:hidden">
+                            <div className="min-h-[120px] flex flex-col justify-start pt-2">
+                                <h4 className="text-xl font-medium text-gray-900 leading-snug mb-1.5">
+                                    {steps[activeStep].title}
+                                </h4>
+                                <p className="font-epilogue text-base leading-tight tracking-tight">
+                                    {steps[activeStep].description}
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Desktop View (Accordion list controlled by GSAP) */}
+                        <div className="hidden lg:flex lg:flex-col justify-start gap-4 md:gap-2 w-full">
+                            {steps.map((step, idx) => (
                                 <div
                                     key={`item-${idx}`}
                                     className="border-b border-gray-200 pb-2 md:pb-6"
                                 >
                                     {/* Title */}
                                     <h3
-                                        className={`integration-item text-xl md:text-2xl font-medium ${isMobile ? "transition-colors duration-500" : ""
-                                            } ${isActive
-                                                ? "text-black"
-                                                : "text-gray-400"
-                                            }`}
+                                        className="integration-item text-lg md:text-2xl font-medium text-gray-400"
                                     >
                                         {step.title}
                                     </h3>
 
                                     {/* Description (Expandable container) */}
                                     <div
-                                        className={`integration-desc overflow-hidden ${isMobile ? "transition-all duration-500 ease-in-out" : ""
-                                            }`}
-                                        style={{
-                                            maxHeight: isMobile
-                                                ? isActive
-                                                    ? "100px"
-                                                    : "0px"
-                                                : undefined,
-                                            opacity: isMobile
-                                                ? isActive
-                                                    ? 1
-                                                    : 0
-                                                : undefined,
-                                            marginTop: isMobile
-                                                ? isActive
-                                                    ? "8px"
-                                                    : "0px"
-                                                : undefined
-                                        }}
+                                        className="integration-desc overflow-hidden"
                                     >
-                                        <p className="text-base md:text-xl font-normal leading-tight">
+                                        <p className="font-epilogue text-sm md:text-xl font-normal leading-tight tracking-tight">
                                             {step.description}
                                         </p>
                                     </div>
                                 </div>
-                            )
-                        })}
+                            ))}
+                        </div>
+
                     </div>
 
                 </div>

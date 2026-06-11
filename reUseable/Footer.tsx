@@ -7,7 +7,7 @@ const Footer = () => {
       {/* Top row */}
       <div className="flex justify-center sm:justify-end gap-6 sm:gap-12 text-xs sm:text-sm lg:text-base font-sans font-medium  relative z-10 tracking-tight md:mb-10  ">
         <a href="mailto:info@joyzen.in" className="hover:opacity-60 transition-opacity">Email: info@joyzen.in</a>
-        <a href="tel:+911244962743" className="hover:opacity-60 transition-opacity">Phone: +91 124-4962743</a>
+        <a href="tel:+911244962743" className="hover:opacity-60 transition-opacity">Phone: <span className="whitespace-nowrap">+91 124-4962743</span></a>
         <a href="https://www.instagram.com/joyzen.in" target="_blank" rel="noopener noreferrer" className="hover:opacity-60 transition-opacity">Instagram: @joyzen.in</a>
       </div>
       <div className="absolute  top-0 z-40 left-0 w-full h-[30%] bg-gradient-to-b from-white via-white/30 to-transparent pointer-events-none" />

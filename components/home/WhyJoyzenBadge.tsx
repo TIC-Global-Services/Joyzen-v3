@@ -6,8 +6,8 @@ const WhyJoyzenBadge = () => {
     const svgRef = useRef<SVGSVGElement>(null)
 
     const totalTicks = 120
-    const rStart = 215
-    const rEnd = 245
+    const rStart = 260
+    const rEnd = 290
 
     // Compute tick coordinates dynamically and round to 3 decimal places to prevent SSR hydration mismatches
     const ticks = Array.from({ length: totalTicks }).map((_, i) => {
@@ -16,10 +16,10 @@ const WhyJoyzenBadge = () => {
         const sin = Math.sin(angle)
         const round = (num: number) => Math.round(num * 1000) / 1000
         return {
-            x1: round(250 + rStart * cos),
-            y1: round(250 + rStart * sin),
-            x2: round(250 + rEnd * cos),
-            y2: round(250 + rEnd * sin),
+            x1: round(300 + rStart * cos),
+            y1: round(300 + rStart * sin),
+            x2: round(300 + rEnd * cos),
+            y2: round(300 + rEnd * sin),
         }
     })
 
@@ -57,12 +57,12 @@ const WhyJoyzenBadge = () => {
 
             {/* Visual Loader & Faded Logo Container (Background Layer) */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
-                <div className="relative w-[480px] h-[480px] sm:w-[500px] sm:h-[500px] md:w-[620px] md:h-[620px]">
+                <div className="relative w-[540px] h-[540px] sm:w-[580px] sm:h-[580px] md:w-[720px] md:h-[720px]">
 
                     {/* SVG Radial Loading Animation */}
                     <svg
                         ref={svgRef}
-                        viewBox="0 0 500 500"
+                        viewBox="0 0 600 600"
                         className="absolute inset-0 w-full h-full z-0"
                     >
                         {ticks.map((tick, i) => (
@@ -100,12 +100,12 @@ const WhyJoyzenBadge = () => {
                     What <span className="text-[#036132]">Joyzen</span> Is
                 </h3>
 
-                <span className="text-xl md:text-lg font-normal tracking-tight mb-4 font-mono">
+                <span className="text-xl md:text-lg font-normal tracking-tight mb-4">
                     The Infrastructure for the Future of Healthcare.
                 </span>
 
                 {/* Paragraph is 32px on desktop and extends outside the loader circle */}
-                <p className="text-xl md:text-[32px] leading-[1.2] font-medium max-w-2xl">
+                <p className="text-lg md:text-[32px] leading-[1.2] font-medium max-w-2xl">
                     Joyzen is building a connected healthcare ecosystem where technology, diagnostics, patient care, wellness, and clinical operations work as one.
                     <br />
                     Designed to support every stage of a patient's journey, Joyzen transforms fragmented healthcare into a continuous care experience.
