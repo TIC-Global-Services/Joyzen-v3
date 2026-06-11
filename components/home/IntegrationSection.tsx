@@ -49,6 +49,30 @@ const IntegrationSection = () => {
     const [activeStep, setActiveStep] = useState(0)
     const [isMobile, setIsMobile] = useState(false)
 
+    const touchStartX = useRef(0)
+    const touchEndX = useRef(0)
+
+    const handleTouchStart = (e: React.TouchEvent) => {
+        touchStartX.current = e.targetTouches[0].clientX
+        touchEndX.current = e.targetTouches[0].clientX
+    }
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        touchEndX.current = e.targetTouches[0].clientX
+    }
+
+    const handleTouchEnd = () => {
+        const threshold = 50
+        const diff = touchStartX.current - touchEndX.current
+        if (diff > threshold) {
+            // swiped left -> next step
+            setActiveStep((prev) => (prev + 1) % steps.length)
+        } else if (diff < -threshold) {
+            // swiped right -> prev step
+            setActiveStep((prev) => (prev === 0 ? steps.length - 1 : prev - 1))
+        }
+    }
+
     useEffect(() => {
         const checkMobile = () => {
             setIsMobile(window.innerWidth < 1024)
@@ -64,7 +88,7 @@ const IntegrationSection = () => {
             setActiveStep((prev) => (prev + 1) % steps.length)
         }, 2000)
         return () => clearInterval(timer)
-    }, [isMobile])
+    }, [isMobile, activeStep])
 
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
@@ -183,7 +207,7 @@ const IntegrationSection = () => {
 
     return (
         <div ref={pinContainerRef} className="w-full bg-white font-satoshi overflow-hidden">
-            <div className="max-w-[1440px] mx-auto px-8 flex flex-col justify-start pt-4 pb-2 md:pt-8 md:pb-4 lg:pt-[4vh] lg:pb-0 min-h-[500px] md:min-h-[550px] lg:h-screen lg:min-h-0">
+            <div className="max-w-[1440px] mx-auto px-4 md:px-8 flex flex-col justify-start pt-4 pb-2 md:pt-8 md:pb-4 lg:pt-[4vh] lg:pb-0 min-h-[500px] md:min-h-[550px] lg:h-screen lg:min-h-0">
 
                 {/* Header */}
                 <div className="mb-6 lg:mb-12">
@@ -202,7 +226,12 @@ const IntegrationSection = () => {
                 <div className="flex flex-col lg:flex-row items-start justify-between gap-6 lg:gap-12 xl:gap-20">
 
                     {/* Left Column: Fixed aspect stacked images */}
-                    <div className="w-full lg:w-1/2 relative aspect-[3/2] md:aspect-[6/4] max-w-[700px] xl:max-h-[63vh] rounded-xl overflow-hidden">
+                    <div
+                        onTouchStart={handleTouchStart}
+                        onTouchMove={handleTouchMove}
+                        onTouchEnd={handleTouchEnd}
+                        className="w-full lg:w-1/2 relative aspect-[3/2] md:aspect-[6/4] max-w-[700px] xl:max-h-[63vh] rounded-xl overflow-hidden"
+                    >
                         {steps.map((step, idx) => (
                             <div
                                 key={`img-${idx}`}
@@ -230,7 +259,12 @@ const IntegrationSection = () => {
                     <div className="w-full lg:w-1/2 min-h-[150px] lg:min-h-0">
 
                         {/* Mobile/Tablet View (Active Content Box UI) */}
-                        <div className="flex flex-col gap-4 w-full lg:hidden">
+                        <div
+                            onTouchStart={handleTouchStart}
+                            onTouchMove={handleTouchMove}
+                            onTouchEnd={handleTouchEnd}
+                            className="flex flex-col gap-4 w-full lg:hidden"
+                        >
                             <div className="min-h-[120px] flex flex-col justify-start pt-2">
                                 <h4 className="text-xl font-medium text-gray-900 leading-snug mb-1.5">
                                     {steps[activeStep].title}
@@ -240,7 +274,7 @@ const IntegrationSection = () => {
                                 </p>
 
                                 {/* Indicators */}
-                                <div className="flex justify-start gap-2">
+                                <div className="flex justify-center gap-2">
                                     {steps.map((_, idx) => (
                                         <button
                                             key={`dot-${idx}`}
