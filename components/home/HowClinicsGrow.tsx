@@ -79,7 +79,7 @@ const HowClinicsGrow = () => {
     return (
         <section ref={containerRef} className="relative w-full h-screen bg-white overflow-hidden flex items-center justify-center font-satoshi">
             {/* Content Container for Initial Left Text */}
-            <div className="max-w-[1440px] w-full h-full mx-auto flex items-start md:items-center pt-32 md:pt-0 px-4 relative z-10">
+            <div className="max-w-[1440px] w-full h-full mx-auto flex items-start md:items-center pt-24 md:pt-0 px-4 relative z-10">
                 <div ref={textLeftRef} className="w-full md:w-1/2 pr-4 md:pr-10 text-center md:text-left flex flex-col items-center md:items-start">
                     <h2 className="text-2xl md:text-6xl font-medium leading-[1.2] mb-4 md:mb-6">
                         Growth Built into Care
