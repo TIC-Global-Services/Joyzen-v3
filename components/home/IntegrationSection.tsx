@@ -263,30 +263,30 @@ const IntegrationSection = () => {
                             onTouchStart={handleTouchStart}
                             onTouchMove={handleTouchMove}
                             onTouchEnd={handleTouchEnd}
-                            className="flex flex-col gap-4 w-full lg:hidden"
+                            className="flex flex-col gap-2 w-full lg:hidden"
                         >
-                            <div className="min-h-[120px] flex flex-col justify-start pt-2">
+                            <div className="min-h-[130px] flex flex-col justify-start pt-2">
                                 <h4 className="text-xl font-medium text-gray-900 leading-snug mb-1.5">
                                     {steps[activeStep].title}
                                 </h4>
-                                <p className="font-epilogue text-base leading-tight tracking-tight mb-4">
+                                <p className="font-epilogue text-base leading-tight tracking-tight">
                                     {steps[activeStep].description}
                                 </p>
+                            </div>
 
-                                {/* Indicators */}
-                                <div className="flex justify-center gap-2">
-                                    {steps.map((_, idx) => (
-                                        <button
-                                            key={`dot-${idx}`}
-                                            onClick={() => setActiveStep(idx)}
-                                            className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${activeStep === idx
-                                                ? 'w-8 bg-[#036132]'
-                                                : 'w-2 bg-gray-200 hover:bg-gray-300'
-                                                }`}
-                                            aria-label={`Go to step ${idx + 1}`}
-                                        />
-                                    ))}
-                                </div>
+                            {/* Indicators */}
+                            <div className="flex justify-center gap-2 pt-4">
+                                {steps.map((_, idx) => (
+                                    <button
+                                        key={`dot-${idx}`}
+                                        onClick={() => setActiveStep(idx)}
+                                        className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${activeStep === idx
+                                            ? 'w-8 bg-[#036132]'
+                                            : 'w-2 bg-gray-200 hover:bg-gray-300'
+                                            }`}
+                                        aria-label={`Go to step ${idx + 1}`}
+                                    />
+                                ))}
                             </div>
                         </div>
 
