@@ -186,14 +186,16 @@ const IntegrationSection = () => {
             <div className="max-w-[1440px] mx-auto px-4 flex flex-col justify-start pt-4 pb-2 md:pt-8 md:pb-4 lg:pt-[6vh] lg:pb-0 min-h-[500px] md:min-h-[550px] lg:h-screen lg:min-h-0">
 
                 {/* Header */}
-                <div className="mb-6 lg:mb-14">
+                <div className="mb-6 lg:mb-8">
                     <h2 className="text-2xl md:text-5xl lg:text-6xl font-medium tracking-normal mb-4 md:mb-6">
                         The Joyzen Care Layer
                     </h2>
                     <p className="font-epilogue text-lg md:text-2xl max-w-3xl leading-[1.2] mb-2">
                         One system supporting every stage of the healthcare journey.
                     </p>
-                    <p className="font-epilogue italic text-sm md:text-xl max-w-3xl leading-[1.2]">Healthcare doesn't begin at the consultation, and it doesn't end when the patient leaves. Joyzen creates a connected care experience across every stage of health.</p>
+                    <p className="font-epilogue italic text-sm md:text-xl max-w-3xl leading-[1.2]">
+                        Healthcare doesn't begin at the consultation, and it doesn't end when the patient leaves. Joyzen creates a connected care experience across every stage of health.
+                    </p>
                 </div>
 
                 {/* 2-Column Content */}
