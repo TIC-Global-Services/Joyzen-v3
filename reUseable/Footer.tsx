@@ -40,8 +40,8 @@ const Footer = () => {
       </div>
 
       {/* Top fade (Fixed: top-[-2px] overlap and native CSS rgba() gradient to ensure full compatibility) */}
-      <div 
-        className="absolute z-40 left-0 w-full h-[35%] pointer-events-none" 
+      <div
+        className="absolute z-40 left-0 w-full h-[35%] pointer-events-none"
         style={{
           top: '-2px',
           background: 'linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 100%)'
@@ -49,26 +49,14 @@ const Footer = () => {
       />
 
       {/* Bottom fade for mobile video (Fixed: native CSS rgba() gradient to ensure full compatibility) */}
-      <div 
-        className="absolute bottom-0 z-40 left-0 w-full h-[25%] pointer-events-none sm:hidden" 
+      <div
+        className="absolute bottom-0 z-40 left-0 w-full h-[25%] pointer-events-none sm:hidden"
         style={{
           background: 'linear-gradient(to top, rgba(169, 191, 207, 1) 0%, rgba(169, 191, 207, 0.3) 50%, rgba(169, 191, 207, 0) 100%)'
         }}
       />
 
-      {/* Side fades for mobile video (Fixed: native CSS rgba() gradient to ensure full compatibility) */}
-      <div 
-        className="absolute inset-y-0 left-0 z-40 w-[15%] pointer-events-none sm:hidden" 
-        style={{
-          background: 'linear-gradient(to right, rgba(235, 243, 248, 1) 0%, rgba(235, 243, 248, 0.4) 50%, rgba(235, 243, 248, 0) 100%)'
-        }}
-      />
-      <div 
-        className="absolute inset-y-0 right-0 z-40 w-[15%] pointer-events-none sm:hidden" 
-        style={{
-          background: 'linear-gradient(to left, rgba(169, 191, 207, 1) 0%, rgba(169, 191, 207, 0.4) 50%, rgba(169, 191, 207, 0) 100%)'
-        }}
-      />
+
 
       <div className='flex px-[10%] md:px-[5%] text-xs md:text-sm text-black flex-col absolute bottom-[8%] md:bottom-[5%] z-40 left-0 w-full sm:flex-row justify-center items-center md:justify-between'>
         <span className="text-center sm:text-left">2026 Joyzen. Built for life. Designed for longevity.</span>
