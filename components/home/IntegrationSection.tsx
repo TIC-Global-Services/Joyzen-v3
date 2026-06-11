@@ -183,14 +183,14 @@ const IntegrationSection = () => {
 
     return (
         <div ref={pinContainerRef} className="w-full bg-white font-satoshi overflow-hidden">
-            <div className="max-w-[1440px] mx-auto px-4 flex flex-col justify-start pt-4 pb-2 md:pt-8 md:pb-4 lg:pt-[6vh] lg:pb-0 min-h-[500px] md:min-h-[550px] lg:h-screen lg:min-h-0">
+            <div className="max-w-[1440px] mx-auto px-8 flex flex-col justify-start pt-4 pb-2 md:pt-8 md:pb-4 lg:pt-[4vh] lg:pb-0 min-h-[500px] md:min-h-[550px] lg:h-screen lg:min-h-0">
 
                 {/* Header */}
-                <div className="mb-6 lg:mb-8">
-                    <h2 className="text-2xl md:text-5xl lg:text-6xl font-medium tracking-normal mb-4 md:mb-6">
+                <div className="mb-6 lg:mb-12">
+                    <h2 className="text-2xl md:text-5xl lg:text-6xl font-medium tracking-normal mb-4 md:mb-4">
                         The Joyzen Care Layer
                     </h2>
-                    <p className="font-epilogue text-lg md:text-2xl max-w-3xl leading-[1.2] mb-2">
+                    <p className="font-epilogue text-lg md:text-2xl max-w-3xl leading-[1.2] mb-4">
                         One system supporting every stage of the healthcare journey.
                     </p>
                     <p className="font-epilogue italic text-sm md:text-xl max-w-3xl leading-[1.2]">
@@ -199,10 +199,10 @@ const IntegrationSection = () => {
                 </div>
 
                 {/* 2-Column Content */}
-                <div className="flex flex-col lg:flex-row items-start justify-between gap-6 lg:gap-26">
+                <div className="flex flex-col lg:flex-row items-start justify-between gap-6 lg:gap-12 xl:gap-20">
 
                     {/* Left Column: Fixed aspect stacked images */}
-                    <div className="w-full lg:w-1/2 relative aspect-[3/2] md:aspect-[7/5] max-w-[700px] rounded-xl overflow-hidden">
+                    <div className="w-full lg:w-1/2 relative aspect-[3/2] md:aspect-[6/4] max-w-[700px] xl:max-h-[63vh] rounded-xl overflow-hidden">
                         {steps.map((step, idx) => (
                             <div
                                 key={`img-${idx}`}
@@ -235,9 +235,24 @@ const IntegrationSection = () => {
                                 <h4 className="text-xl font-medium text-gray-900 leading-snug mb-1.5">
                                     {steps[activeStep].title}
                                 </h4>
-                                <p className="font-epilogue text-base leading-tight tracking-tight">
+                                <p className="font-epilogue text-base leading-tight tracking-tight mb-4">
                                     {steps[activeStep].description}
                                 </p>
+
+                                {/* Indicators */}
+                                <div className="flex justify-start gap-2">
+                                    {steps.map((_, idx) => (
+                                        <button
+                                            key={`dot-${idx}`}
+                                            onClick={() => setActiveStep(idx)}
+                                            className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${activeStep === idx
+                                                ? 'w-8 bg-[#036132]'
+                                                : 'w-2 bg-gray-200 hover:bg-gray-300'
+                                                }`}
+                                            aria-label={`Go to step ${idx + 1}`}
+                                        />
+                                    ))}
+                                </div>
                             </div>
                         </div>
 

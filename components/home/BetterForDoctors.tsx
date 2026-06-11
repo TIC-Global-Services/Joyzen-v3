@@ -57,7 +57,7 @@ const BetterForDoctors = () => {
     };
 
     return (
-        <section className="relative w-full pt-12 pb-8 md:pt-24 md:pb-32 px-4 md:px-12 bg-white font-satoshi overflow-hidden">
+        <section className="relative w-full pt-12 pb-8 md:pt-16 md:pb-32 px-4 md:px-12 bg-white font-satoshi overflow-hidden">
             <div className="max-w-[1440px] mx-auto">
 
                 {/* Header */}
