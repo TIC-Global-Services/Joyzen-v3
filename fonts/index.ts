@@ -1,5 +1,9 @@
 import localFont from "next/font/local";
-import { Epilogue } from "next/font/google";
+
+export const noria = localFont({
+  src: "./NoriaRegular.ttf",
+  variable: "--font-noria",
+});
 
 export const satoshi = localFont({
   src: [
@@ -55,10 +59,4 @@ export const satoshi = localFont({
     },
   ],
   variable: "--font-satoshi",
-});
-
-export const epilogue = Epilogue({
-  subsets: ["latin"],
-  variable: "--font-epilogue",
-  display: "swap",
 });

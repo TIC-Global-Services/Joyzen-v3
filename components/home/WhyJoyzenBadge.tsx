@@ -53,66 +53,31 @@ const WhyJoyzenBadge = () => {
     }, [])
 
     return (
-        <section className="relative w-full py-16 md:py-36 mb-10 md:mb-14 flex items-center justify-center bg-white font-satoshi overflow-hidden">
+        <section className="relative w-full h-screen py-16 md:py-20 flex items-center justify-center bg-white font-noria overflow-hidden">
+
+            {/* Top White Blend Gradient to transition from CareTimeline */}
+            <div
+                className="absolute top-0 left-0 w-full h-[150px] pointer-events-none z-0"
+                style={{
+                    background: 'linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%)'
+                }}
+            />
 
             {/* Visual Loader & Faded Logo Container (Background Layer) */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
-                <div className="relative w-[540px] h-[540px] sm:w-[580px] sm:h-[580px] md:w-[720px] md:h-[720px]">
-
-                    {/* SVG Radial Loading Animation */}
-                    <svg
-                        ref={svgRef}
-                        viewBox="0 0 600 600"
-                        className="absolute inset-0 w-full h-full z-0"
-                    >
-                        {ticks.map((tick, i) => (
-                            <line
-                                key={`tick-${i}`}
-                                x1={tick.x1}
-                                y1={tick.y1}
-                                x2={tick.x2}
-                                y2={tick.y2}
-                                className="tick-line"
-                                stroke="#D1D5DB"
-                                strokeWidth="1.25"
-                                strokeLinecap="round"
-                            />
-                        ))}
-                    </svg>
-
-                    {/* Faded Orange Logo Mark behind the text */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140px] h-[210px] sm:w-[160px] sm:h-[240px] opacity-[0.25] z-0">
-                        <svg width="100%" height="100%" viewBox="0 0 134 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M55.9273 93.8987C25.6612 93.8987 5.99071 80.9128 0 57.1953L133.333 57.2785V93.8987H55.9273Z" fill="#EF8F60" />
-                            <path d="M66.476 44.9891C54.1905 44.9891 43.8145 34.7734 43.8145 22.6859C43.8145 10.5984 54.1989 0 66.476 0C78.7532 0 89.5179 10.1741 89.5179 22.6859C89.5179 35.1977 78.9644 44.9891 66.476 44.9891Z" fill="#EF8F60" />
-                            <path d="M0 142.727V106.106H77.406C107.672 106.106 127.343 119.092 133.333 142.81L0 142.727Z" fill="#EF8F60" />
-                            <path d="M66.8573 200C54.1492 200 43.8154 189.826 43.8154 177.314C43.8154 164.802 54.3689 155.011 66.8573 155.011C79.3456 155.011 89.5104 165.226 89.5104 177.314C89.5104 189.401 79.1344 200 66.8573 200Z" fill="#EF8F60" />
-                        </svg>
-                    </div>
-
-                </div>
-            </div>
 
             {/* Foreground Content (Wider wrapper, can extend outside the loader circle) */}
-            <div className="relative z-10 text-center max-w-5xl px-6 flex flex-col items-center justify-center">
+            <div className="relative z-10 text-center max-w-7xl px-6 flex flex-col items-center justify-center">
 
-                <h3 className="text-2xl md:text-3xl font-medium tracking-tight mb-2">
+                <h3 className="text-2xl md:text-6xl font-medium tracking-tight mb-4">
                     What <span className="text-[#036132]">Joyzen</span> Is
                 </h3>
 
-                <span className="text-xl md:text-lg font-normal tracking-tight mb-4">
+                <span className="text-xl md:text-lg font-satoshi tracking-tight mb-8">
                     The Infrastructure for the Future of Healthcare.
                 </span>
 
-                {/* Paragraph is 32px on desktop and extends outside the loader circle */}
-                <p className="text-lg md:text-[32px] leading-[1.2] font-medium max-w-2xl">
-                    Joyzen is building a connected healthcare ecosystem where technology, diagnostics, patient care, wellness, and clinical operations work as one.
-                    <br />
-                    Designed to support every stage of a patient's journey, Joyzen transforms fragmented healthcare into a continuous care experience.
-                    <br />
-                    We don't just help clinics run better.
-                    <br />
-                    We help them become the healthcare systems of the future.
+                <p className="text-lg md:text-[32px] leading-[1.2] font-medium max-w-5xl">
+                    Joyzen unifies <span className=' text-[#EF8F60]'>technology, diagnostics, wellness, and patient care </span> into one connected ecosystem, transforming fragmented healthcare into seamless, continuous care and enabling clinics to lead the future of healthcare.
                 </p>
 
             </div>

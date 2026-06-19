@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { satoshi, epilogue } from "@/fonts";
+import { satoshi, noria } from "@/fonts";
 import "./globals.css";
 import SmoothScroll from "@/reUseable/SmoothScroll";
 import Navbar from "@/reUseable/NavBar";
@@ -52,7 +52,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${satoshi.variable} ${epilogue.variable}  h-full antialiased`}
+      className={`${noria.variable} ${satoshi.variable} h-full antialiased`}
     >
       <body className="min-h-full">
         <SmoothScroll>

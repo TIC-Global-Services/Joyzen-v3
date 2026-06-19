@@ -4,7 +4,6 @@ import WhyJoyzenBadge from '@/components/home/WhyJoyzenBadge'
 import IntegrationSection from '@/components/home/IntegrationSection'
 import BetterForDoctors from '@/components/home/BetterForDoctors'
 import DoctorGrowthGrid from '@/components/home/DoctorGrowthGrid'
-import HowClinicsGrow from '@/components/home/HowClinicsGrow'
 import JoinWaitlistCTA from '@/components/home/JoinWaitlistCTA'
 import IntakeForm from '@/components/home/IntakeForm'
 
@@ -17,7 +16,6 @@ export default function Home() {
       <IntegrationSection />
       <BetterForDoctors />
       <DoctorGrowthGrid />
-      <HowClinicsGrow />
       <JoinWaitlistCTA />
       <IntakeForm />
     </main>

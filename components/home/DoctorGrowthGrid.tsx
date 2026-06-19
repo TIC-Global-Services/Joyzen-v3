@@ -1,335 +1,146 @@
 "use client"
-import React from 'react'
-import Image, { StaticImageData } from 'next/image'
+import React, { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import grid1 from '@/assets/home/doctorgrowthgrid/grid1.png'
-import grid2 from '@/assets/home/doctorgrowthgrid/grid2.png'
-import grid3 from '@/assets/home/doctorgrowthgrid/grid3.png'
-import logo from '@/assets/home/general/logo.svg'
+const TOTAL_FRAMES = 297;
 
-interface GrowthItem {
-    title: string;
-    description?: string;
-    image?: StaticImageData;
-    isLarge?: boolean;
-    maxW?: string;
-    className?: string;
-    customGraphic?: React.ReactNode;
-}
-
-const GrowthCard = ({ item, idx, isMobile, className }: { item: GrowthItem, idx: number, isMobile?: boolean, className?: string }) => {
-    const aspectClass = (idx === 1 || idx === 4) ? 'aspect-[4/2.5]' : 'aspect-[4/3]';
-
-    if (idx === 0) {
-        return (
-            <div
-                className={`relative w-full ${isMobile ? 'h-[300px]' : aspectClass} rounded-3xl overflow-hidden group border border-white/60 bg-gradient-to-b from-white/75 to-white/45 backdrop-blur-xl shadow-[10px_10px_20px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,0.6)] hover:shadow-[16px_16px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.8)] hover:-translate-y-1 hover:-translate-x-1 hover:border-white/90 transition-all duration-500 ease-out flex-shrink-0 ${className || ''}`}
-                style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'translate3d(0,0,0)', WebkitTransform: 'translate3d(0,0,0)' }}
-            >
-                {/* Scaled down inline image placed above the text */}
-                <div className="relative w-full flex items-start justify-center pt-10 px-6">
-                    <div
-                        className="relative w-[300px] h-[140px] md:w-[350px] md:h-[170px] -ml-4 md:-ml-6 transition-transform duration-500 group-hover:scale-103"
-                        style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'translate3d(0,0,0)', WebkitTransform: 'translate3d(0,0,0)' }}
-                    >
-                        <Image
-                            src={item.image!}
-                            alt={item.title}
-                            fill
-                            className="object-contain"
-                            sizes="(max-width: 768px) 300px, 350px"
-                            style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
-                        />
-                    </div>
-                </div>
-                {/* Vignette Overlay */}
-                <div className="absolute inset-0 shadow-[inset_4px_4px_12px_rgba(0,0,0,0.05)] z-0 pointer-events-none rounded-3xl" />
-
-                {/* Text Overlay */}
-                <div className="absolute bottom-0 left-0 p-6 z-20 text-black w-full">
-                    <h3 className="text-xl md:text-2xl font-medium mb-1 md:mb-2 leading-[1.2] tracking-tight">
-                        {item.title}
-                    </h3>
-                    {item.description && (
-                        <p className="font-epilogue text-sm md:text-base opacity-90 leading-tight tracking-tighter">
-                            {item.description}
-                        </p>
-                    )}
-                </div>
-            </div>
-        );
-    }
-
-    return (
-        <div
-            className={`relative w-full ${isMobile ? 'h-[300px]' : aspectClass} rounded-3xl overflow-hidden group border border-white/60 bg-gradient-to-b from-white/75 to-white/45 backdrop-blur-xl shadow-[10px_10px_20px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,0.6)] hover:shadow-[16px_16px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.8)] hover:-translate-y-1 hover:-translate-x-1 hover:border-white/90 transition-all duration-500 ease-out flex-shrink-0 ${className || ''}`}
-            style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'translate3d(0,0,0)', WebkitTransform: 'translate3d(0,0,0)' }}
-        >
-
-            {/* Visual background */}
-            {item.image ? (
-                <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    sizes="(max-width: 768px) 200px, 50vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-103"
-                    style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'translate3d(0,0,0)', WebkitTransform: 'translate3d(0,0,0)' }}
-                />
-            ) : isMobile ? (
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none p-12 select-none">
-                    <div className="relative w-[100px] h-[100px]">
-                        <Image
-                            src={
-                                idx === 1
-                                    ? "/logo_purple.svg"
-                                    : idx === 3
-                                        ? "/logo_transparent.svg"
-                                        : logo
-                            }
-                            alt="Joyzen Logo"
-                            fill
-                            className="object-contain transition-all duration-500 group-hover:scale-105 group-hover:opacity-50"
-                            sizes="100px"
-                            style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'translate3d(0,0,0)', WebkitTransform: 'translate3d(0,0,0)' }}
-                        />
-                    </div>
-                </div>
-            ) : item.customGraphic ? (
-                item.customGraphic
-            ) : null}
-
-            {/* Gradient Overlay if visual background exists */}
-            {item.image && (
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/10 to-transparent z-10" />
-            )}
-
-            {/* Vignette Overlay on all edges */}
-            <div className="absolute inset-0 shadow-[inset_4px_4px_12px_rgba(0,0,0,0.07)] z-10 pointer-events-none rounded-3xl" />
-
-            {/* Text Overlay */}
-            <div className={`absolute bottom-0 left-0 p-6 z-20 ${item.image ? 'text-white' : 'text-black'}`}>
-                <h3 className="text-xl md:text-2xl font-medium mb-1 md:mb-2 leading-[1.2] tracking-tight">
-                    {item.title}
-                </h3>
-                {item.description && (
-                    <p className="font-epilogue text-sm md:text-base opacity-90 leading-tight tracking-tighter">
-                        {item.description}
-                    </p>
-                )}
-            </div>
-        </div>
-    );
-};
+const cloudTexts = [
+    { text: "Connect with more patients through the Joyzen ecosystem.", top: "15%", left: "5%" },
+    { text: "Build lasting patient relationships through continuous care.", top: "45%", left: "2%" },
+    { text: "Become a trusted partner throughout every patient journey.", top: "75%", left: "8%" },
+    { text: "Turn expertise into growth, retention, and influence.", top: "15%", right: "5%" },
+    { text: "Great doctors are remembered for the lives they change.", top: "45%", right: "2%" },
+    { text: "Build authority through education, insights, and trust.", top: "75%", right: "8%" },
+];
 
 const DoctorGrowthGrid = () => {
-    const [activeIndex, setActiveIndex] = React.useState(0);
-    const scrollRef = React.useRef<HTMLDivElement>(null);
-    const desktopCardsRef = React.useRef<(HTMLDivElement | null)[]>([]);
+    const sectionRef = useRef<HTMLDivElement>(null);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const cloudRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
 
-        const section = document.getElementById('doctor-growth');
-        if (!section) return;
+        if (!sectionRef.current || !canvasRef.current) return;
 
-        // We only animate desktop layout since mobile is a slider
-        const mm = gsap.matchMedia();
+        const canvas = canvasRef.current;
+        const context = canvas.getContext("2d");
+        if (!context) return;
 
-        mm.add("(min-width: 768px)", () => {
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top 10%",
-                    toggleActions: "play none none reverse",
+        canvas.width = 1920;
+        canvas.height = 1080;
+
+        // Preload images
+        const images: HTMLImageElement[] = [];
+        for (let i = 0; i < TOTAL_FRAMES; i++) {
+            const img = new Image();
+            // Pad the frame number to 6 digits, e.g., frame-000000.jpg
+            const frameNum = i.toString().padStart(6, '0');
+            img.src = `/3dbodyseq/frame-${frameNum}.jpg`;
+            images.push(img);
+        }
+
+        const renderFrame = (index: number) => {
+            if (images[index] && images[index].complete) {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                // Draw the optimized white-background JPEG
+                context.drawImage(images[index], 0, 0, canvas.width, canvas.height);
+            } else if (images[index]) {
+                images[index].onload = () => {
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+                    context.drawImage(images[index], 0, 0, canvas.width, canvas.height);
                 }
-            });
+            }
+        };
 
-            desktopCardsRef.current.forEach((card, idx) => {
-                if (!card) return;
+        // Draw first frame immediately
+        renderFrame(0);
 
-                let x = "0%";
-                let y = "0%";
+        const timeline = gsap.timeline({
+            scrollTrigger: {
+                trigger: sectionRef.current,
+                start: "top top",
+                end: "+=300%",
+                pin: true,
+                scrub: 0.5, // Smooth scrubbing
+            }
+        });
 
-                // X positioning: 0,3 move from right; 2,5 move from left
-                if (idx === 0 || idx === 3) x = "115%";
-                else if (idx === 2 || idx === 5) x = "-115%";
+        // 1. Animate the canvas frames based on scroll progress
+        const frameObj = { frame: 0 };
+        timeline.to(frameObj, {
+            frame: TOTAL_FRAMES - 1,
+            snap: "frame",
+            ease: "none",
+            duration: 1, // Timeline duration is 1, clouds will be mapped relative to this
+            onUpdate: () => {
+                renderFrame(Math.round(frameObj.frame));
+            }
+        }, 0);
 
-                // Y positioning: 0,1,2 move from bottom; 3,4,5 move from top
-                if (idx === 0 || idx === 1 || idx === 2) y = "60%";
-                else y = "-60%";
+        // 2. Animate the clouds appearing in random order
+        // Stagger their appearance across the timeline
+        const randomOrder = [0, 1, 2, 3, 4, 5].sort(() => Math.random() - 0.5);
 
-                tl.from(card, {
-                    x: x,
-                    y: y,
-                    opacity: 0,
-                    scale: 0.2,
-                    duration: 1.2,
-                    ease: "power3.out"
-                }, 0); // 0 start time = explode simultaneously
-            });
+        randomOrder.forEach((idx, i) => {
+            const cloud = cloudRefs.current[idx];
+            if (!cloud) return;
+
+            // Start appearing slightly after the scroll starts, staggered
+            const appearStart = 0.1 + (i * 0.12);
+
+            timeline.fromTo(cloud,
+                { opacity: 0, y: 20 },
+                { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+                appearStart
+            );
         });
 
         return () => {
-            mm.revert();
             ScrollTrigger.getAll().forEach(t => t.kill());
         };
     }, []);
 
-    const growthItems: GrowthItem[] = [
-        {
-            title: "Build Authority",
-            description: "Become a recognized voice in your specialty through education, insights, and patient trust.",
-            image: grid1,
-            maxW: "max-w-full",
-
-        },
-        {
-            title: "Expand Your Reach",
-            description: "Increase visibility across the Joyzen ecosystem and connect with more patients who need your expertise.",
-            maxW: "max-w-[220px]"
-        },
-        {
-            title: "Strengthen Patient Trust",
-            description: "Build long-term relationships through continuous care, engagement, and better outcomes.",
-            image: grid2,
-            maxW: "max-w-[180px]"
-        },
-        {
-            title: "Create Lasting Impact",
-            description: "Move beyond consultations and become a trusted healthcare partner throughout a patient's journey.",
-            maxW: "max-w-[180px]"
-        },
-        {
-            title: "Grow Your Practice",
-            description: "Turn clinical excellence into sustainable growth, stronger retention, and greater influence.",
-            image: grid3,
-            maxW: "max-w-[220px]"
-        },
-        {
-            title: "Build A Legacy",
-            description: "The most respected doctors are remembered not only for treatments, but for the lives they transform",
-            isLarge: true,
-            maxW: "max-w-[320px]"
-        }
-    ];
-
-    const handleScroll = () => {
-        if (scrollRef.current) {
-            const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-
-            // If scrolled to the very end, force the last index
-            if (scrollLeft + clientWidth >= scrollWidth - 10) {
-                if (activeIndex !== growthItems.length - 1) {
-                    setActiveIndex(growthItems.length - 1);
-                }
-                return;
-            }
-
-            const cardWidth = 296; // 280px card + 16px gap
-            const newIndex = Math.round(scrollLeft / cardWidth);
-            if (newIndex !== activeIndex) {
-                setActiveIndex(newIndex);
-            }
-        }
-    };
-
-
-
     return (
-        <section id="doctor-growth" className="relative pt-12 pb-6 md:pt-20 md:pb-36 px-4 md:px-14 overflow-hidden font-satoshi bg-white">
-            {/* Background Gradients */}
-            <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none transform-gpu">
-                <div className="absolute -bottom-[5%] -left-[40%] md:left-[-50%] w-[80%] h-[40%] bg-[#b4def7]/30 rounded-[100%] md:blur-[80px]" />
-                <div className="absolute -bottom-[5%] -right-[30%] w-[70%] h-[30%] bg-[#036132]/10 rounded-[100%] md:blur-[80px]" />
+        <section ref={sectionRef} className="relative w-full h-screen bg-white font-noria overflow-hidden flex items-center justify-center">
+            {/* Header Title Layer (if desired, optional based on design) */}
+            <div className="absolute top-12 md:top-20 w-full text-center z-20 pointer-events-none px-4">
+                <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-black">
+                    Growth Built into Care
+                </h2>
             </div>
 
-            <div className="max-w-[1440px] mx-auto">
+            {/* Image Sequence Canvas */}
+            <canvas
+                ref={canvasRef}
+                className="absolute w-full h-full object-contain scale-[0.8] pointer-events-none z-0 mt-12"
+            />
 
-                {/* Header */}
-                <div className="text-center mb-12 md:mb-16">
-                    <h2 className="text-2xl md:text-5xl font-medium tracking-tight leading-tight mb-4">
-                        The Joyzen Doctor Advantage
-                    </h2>
-                    <p className="font-epilogue max-w-2xl mx-auto text-lg md:text-2xl font-normal leading-[1.2]">
-                        A Reputation. An Impact. A Legacy. <br /> Doctors Don't Just Treat Patients. <br /> They Shape The Future Of Healthcare.
+            {/* Clouds Overlay */}
+            {cloudTexts.map((cloud, idx) => (
+                <div
+                    key={`cloud-${idx}`}
+                    ref={el => { cloudRefs.current[idx] = el; }}
+                    className="absolute w-[280px] sm:w-[350px] md:w-[400px] lg:w-[450px] aspect-[2.5/1] flex items-center justify-center p-4 md:p-8 opacity-0 z-10"
+                    style={{
+                        top: cloud.top,
+                        left: cloud.left,
+                        right: cloud.right,
+                    }}
+                >
+                    <div
+                        className="absolute inset-0 bg-no-repeat bg-center bg-contain opacity-90 scale-150"
+                        style={{ backgroundImage: 'url(/cloud-2.png)' }}
+                    />
+                    <div className="absolute inset-[-20%] rounded-[100%] bg-[radial-gradient(ellipse_at_center,transparent_15%,rgba(255,255,255,0.85)_50%,white_80%)] pointer-events-none z-0" />
+                    <p className="relative z-10 text-black text-center font-noria text-sm md:text-base lg:text-lg font-medium leading-tight max-w-[80%] pt-2">
+                        {cloud.text}
                     </p>
                 </div>
-
-                {/* Mobile Slider */}
-                <div className="md:hidden">
-                    <div
-                        ref={scrollRef}
-                        onScroll={handleScroll}
-                        className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-4 px-4 no-scrollbar scroll-smooth"
-                    >
-                        {growthItems.map((item, idx) => (
-                            <div key={`mobile-${idx}`} className="min-w-[280px] w-[280px] h-[320px] snap-center">
-                                <GrowthCard item={item} idx={idx} isMobile />
-                            </div>
-                        ))}
-                    </div>
-                    {/* Indicators */}
-                    <div className="flex justify-center gap-2 mt-6">
-                        {growthItems.map((_, idx) => (
-                            <div
-                                key={`dot-${idx}`}
-                                className={`h-1 rounded-full transition-all duration-300 ${activeIndex === idx ? 'w-8 bg-[#036132]' : 'w-2 bg-[#036132]/20'}`}
-                            />
-                        ))}
-                    </div>
-                </div>
-
-                {/* Desktop View — 3-Column Layout to respect card aspect ratios */}
-                <div className="hidden md:grid md:grid-cols-3 md:gap-5 relative z-10 perspective-1000">
-                    {/* Column 1 */}
-                    <div className="flex flex-col gap-5">
-                        <div ref={el => { if (el) desktopCardsRef.current[0] = el; }}>
-                            <GrowthCard item={growthItems[0]} idx={0} />
-                        </div>
-                        <div ref={el => { if (el) desktopCardsRef.current[3] = el; }}>
-                            <GrowthCard item={growthItems[3]} idx={3} />
-                        </div>
-                    </div>
-
-                    {/* Column 2 */}
-                    <div className="flex flex-col justify-between">
-                        <div ref={el => { if (el) desktopCardsRef.current[1] = el; }}>
-                            <GrowthCard item={growthItems[1]} idx={1} />
-                        </div>
-
-                        {/* Logo in the middle row (transparent orange SVG logo) */}
-                        <div className="relative w-full flex items-center justify-center pointer-events-none py-2 z-50">
-                            <div className="relative w-12 h-18 md:w-16 md:h-24 lg:w-20 lg:h-25 drop-shadow-xl">
-                                <svg width="100%" height="100%" viewBox="0 0 134 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M55.9273 93.8987C25.6612 93.8987 5.99071 80.9128 0 57.1953L133.333 57.2785V93.8987H55.9273Z" fill="#EF8F60" />
-                                    <path d="M66.476 44.9891C54.1905 44.9891 43.8145 34.7734 43.8145 22.6859C43.8145 10.5984 54.1989 0 66.476 0C78.7532 0 89.5179 10.1741 89.5179 22.6859C89.5179 35.1977 78.9644 44.9891 66.476 44.9891Z" fill="#EF8F60" />
-                                    <path d="M0 142.727V106.106H77.406C107.672 106.106 127.343 119.092 133.333 142.81L0 142.727Z" fill="#EF8F60" />
-                                    <path d="M66.8573 200C54.1492 200 43.8154 189.826 43.8154 177.314C43.8154 164.802 54.3689 155.011 66.8573 155.011C79.3456 155.011 89.5104 165.226 89.5104 177.314C89.5104 189.401 79.1344 200 66.8573 200Z" fill="#EF8F60" />
-                                </svg>
-                            </div>
-                        </div>
-
-                        <div ref={el => { if (el) desktopCardsRef.current[4] = el; }}>
-                            <GrowthCard item={growthItems[4]} idx={4} />
-                        </div>
-                    </div>
-
-                    {/* Column 3 */}
-                    <div className="flex flex-col gap-5">
-                        <div ref={el => { if (el) desktopCardsRef.current[2] = el; }}>
-                            <GrowthCard item={growthItems[2]} idx={2} />
-                        </div>
-                        <div ref={el => { if (el) desktopCardsRef.current[5] = el; }}>
-                            <GrowthCard item={growthItems[5]} idx={5} />
-                        </div>
-                    </div>
-                </div>
-            </div>
+            ))}
         </section>
-    )
-}
+    );
+};
 
-export default DoctorGrowthGrid
+export default DoctorGrowthGrid;

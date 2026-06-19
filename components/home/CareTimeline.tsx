@@ -1,9 +1,8 @@
 "use client"
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 import biggestChallenge from '@/assets/home/caretimeline/biggestChallenge.png'
 import impact from '@/assets/home/caretimeline/impactClinic.png'
@@ -13,209 +12,191 @@ import future from '@/assets/home/caretimeline/healthFuture.png'
 const timelineSteps = [
     {
         title: "Healthcare's Biggest Challenge",
-        description: "Patients move between consultations, diagnostics, treatments, follow-ups, and wellness support through disconnected systems that create inefficiencies and gaps in care.",
+        description: "Patients move through disconnected systems, creating inefficiencies and gaps in care.",
         image: biggestChallenge,
-        alignLeft: true,
     },
     {
         title: "The Impact on Clinics",
-        description: "Doctors work harder. Teams work longer. Yet sustainable growth and better patient outcomes remain difficult to achieve.",
+        description: "Doctors work harder. Teams work longer. Growth and outcomes remain a challenge.",
         image: impact,
-        alignLeft: false,
     },
     {
         title: "A Connected Healthcare Ecosystem",
-        description: "The future of healthcare requires more than great medicine. It requires a connected system. Joyzen helps clinics integrate technology, patient engagement, care coordination, diagnostics, and operational support into one seamless healthcare ecosystem.",
+        description: "Joyzen advances reproductive health through continuous care.",
         image: connected,
-        alignLeft: true,
     },
     {
         title: "The Future of Healthcare",
-        description: "Healthcare is becoming more connected, preventive, and continuous. By combining medical expertise, technology, and personalized care, Joyzen helps create better health outcomes beyond the clinic.",
+        description: "Technology, diagnostics, and care, connected in one ecosystem.",
         image: future,
-        alignLeft: false,
     }
 ]
 
 const CareTimeline = () => {
-    const [activeStep, setActiveStep] = useState(0)
-    const containerRef = useRef<HTMLDivElement>(null)
-    const lineProgressRef = useRef<HTMLDivElement>(null)
-    const stepsRef = useRef<HTMLDivElement[]>([])
+    const [activeIndex, setActiveIndex] = useState(0)
+    const sectionRef = useRef<HTMLDivElement>(null)
+    const split1Ref = useRef<HTMLDivElement>(null)
+    const split2Ref = useRef<HTMLDivElement>(null)
+    const split3Ref = useRef<HTMLDivElement>(null)
+    const split4Ref = useRef<HTMLDivElement>(null)
+    const blob1Ref = useRef<HTMLDivElement>(null)
+    const blob2Ref = useRef<HTMLDivElement>(null)
+    const blob3Ref = useRef<HTMLDivElement>(null)
+    const blob4Ref = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
 
-        if (!containerRef.current || !lineProgressRef.current) return;
+        if (!sectionRef.current) return;
 
-        // Progress bar scroll trigger
-        gsap.fromTo(lineProgressRef.current,
-            { height: "0%" },
-            {
-                height: "100%",
-                ease: "none",
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: "top 25%",
-                    end: "bottom 75%",
-                    scrub: true,
-                }
-            }
-        );
+        let currentIndex = 0;
 
-        // Step cards fade/slide in
-        stepsRef.current.forEach((step, index) => {
-            if (!step) return;
-
-            const textBlock = step.querySelector('.step-text');
-            const imageBlock = step.querySelector('.step-image');
-            const nodeBlock = step.querySelector('.step-node');
-
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: step,
-                    start: "top 80%",
-                    end: "top 50%",
-                    scrub: 0.5,
+        const ctx = gsap.context(() => {
+            // Scroll Pinning Logic
+            ScrollTrigger.create({
+                trigger: sectionRef.current,
+                start: "top top", // pin when the section hits the top of viewport
+                end: "+=300%",    // 3 viewport heights of scrolling to cycle through the cards
+                pin: true,
+                scrub: true,
+                onUpdate: (self) => {
+                    const numCards = timelineSteps.length;
+                    const newIndex = Math.min(numCards - 1, Math.floor(self.progress * numCards));
+                    if (newIndex !== currentIndex) {
+                        currentIndex = newIndex;
+                        setActiveIndex(newIndex);
+                    }
                 }
             });
 
-            // Animate text block sliding in
-            tl.fromTo(textBlock,
-                { opacity: 0, x: index % 2 === 0 ? -40 : 40 },
-                { opacity: 1, x: 0, duration: 1 },
-                0
-            );
 
-            // Animate image block sliding in
-            tl.fromTo(imageBlock,
-                { opacity: 0, x: index % 2 === 0 ? 40 : -40 },
-                { opacity: 1, x: 0, duration: 1 },
-                0
-            );
+            // Smooth Parallax
+            const handleMouseMove = (e: MouseEvent) => {
+                const x = (e.clientX / window.innerWidth - 0.5);
+                const y = (e.clientY / window.innerHeight - 0.5);
 
-            // Animate central circle/node pulsing/activating
-            tl.fromTo(nodeBlock,
-                { scale: 0.5, backgroundColor: "#E5E7EB" },
-                { scale: 1.2, backgroundColor: "#036132", duration: 0.5 },
-                0
-            );
+                if (blob1Ref.current?.parentElement) gsap.to(blob1Ref.current.parentElement, { x: x * 600, y: y * 300, duration: 2, ease: "power2.out" });
+                if (blob4Ref.current?.parentElement) gsap.to(blob4Ref.current.parentElement, { x: x * -500, y: y * -200, duration: 2, ease: "power2.out" });
+                if (blob3Ref.current?.parentElement) gsap.to(blob3Ref.current.parentElement, { x: x * 400, y: y * -240, duration: 2, ease: "power2.out" });
+                if (blob2Ref.current?.parentElement) gsap.to(blob2Ref.current.parentElement, { x: x * -700, y: y * 360, duration: 2, ease: "power2.out" });
+            };
+
+            window.addEventListener("mousemove", handleMouseMove);
+
+            return () => {
+                window.removeEventListener("mousemove", handleMouseMove);
+            };
         });
 
         return () => {
-            ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-        };
-    }, []);
+            ctx.revert(); // This safely cleans up the ScrollTrigger, mouse event, and animations
+        }
+    }, [])
 
     return (
-        <section ref={containerRef} className="relative w-full py-16 md:py-28 px-4 md:px-12 bg-white font-satoshi overflow-hidden">
-            <div className="max-w-[1440px] mx-auto relative">
+        <section ref={sectionRef} className="relative w-full h-screen px-6 md:px-12 xl:px-16 font-noria overflow-hidden flex items-center bg-gradient-to-b from-white to-[#f7f4ed]/80">
 
-                {/* Header */}
-                <div className="text-center mb-12 md:mb-32">
-                    <h2 className="text-xl md:text-4xl font-medium tracking-normal max-w-3xl mx-auto leading-tight">
+            {/* Interactive Mesh Gradient Background restricted to bottom area */}
+            <div className="absolute inset-0 w-full h-full -z-10 pointer-events-none overflow-hidden flex items-end">
+                <div className="relative w-full h-[20vh] opacity-100 mix-blend-multiply">
+                    {/* Light Yellow (Left) */}
+                    <div ref={split1Ref} className="absolute inset-0">
+                        <div className="absolute top-[50%] -translate-y-1/2 left-[-10%] w-[50vw] h-[42vw]"><div ref={blob1Ref} className="w-full h-full bg-[#f8e780] rounded-full filter blur-[60px] md:blur-[100px]" /></div>
+                    </div>
+                    {/* Coral Orange Slim (Middle Left) */}
+                    <div ref={split4Ref} className="absolute inset-0">
+                        <div className="absolute top-[50%] -translate-y-1/2 left-[25%] w-[20vw] h-[10vw]"><div ref={blob4Ref} className="w-full h-full bg-[#ef8f60] rounded-full filter blur-[60px] md:blur-[100px]" /></div>
+                    </div>
+                    {/* Periwinkle Purple (Middle Right) */}
+                    <div ref={split3Ref} className="absolute inset-0">
+                        <div className="absolute top-[50%] -translate-y-1/2 right-[25%] w-[45vw] h-[5vw]"><div ref={blob3Ref} className="w-full h-full bg-[#ddc4df] rounded-full filter blur-[60px] md:blur-[100px]" /></div>
+                    </div>
+                    {/* Icy Blue (Right) */}
+                    <div ref={split2Ref} className="absolute inset-0">
+                        <div className="absolute top-[50%] -translate-y-1/2 right-[-10%] w-[30vw] h-[35vw]"><div ref={blob2Ref} className="w-full h-full bg-[#b4def7] rounded-full filter blur-[60px] md:blur-[100px]" /></div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="max-w-[1440px] mx-auto w-full flex flex-col lg:flex-row justify-between items-center relative z-10 gap-12 lg:gap-16 pr-0 lg:pr-12">
+
+                {/* Left Column: Header */}
+                <div className="w-full lg:w-[45%] xl:w-[40%]">
+                    <h2 className="text-2xl md:text-4xl font-medium leading-[1.2] uppercase tracking-tight text-black">
                         The challenge in healthcare is no longer medical expertise. It's fragmentation.
                     </h2>
                 </div>
 
-                {/* Vertical Timeline Central Line */}
-                <div className="absolute left-1/2 top-[220px] bottom-10 w-[2px] bg-gray-200 -translate-x-1/2 hidden md:block">
-                    <div
-                        ref={lineProgressRef}
-                        className="absolute top-0 left-0 w-full bg-[#EF8F60] origin-top"
-                        style={{ height: "0%" }}
-                    />
-                </div>
+                {/* Right Column: Accordion */}
+                <div className="w-full lg:w-[50%] xl:w-[45%] max-w-[480px] flex flex-col gap-3 md:gap-4 lg:ml-auto py-8 md:py-12">
+                    {timelineSteps.map((step, idx) => {
+                        const isActive = activeIndex === idx;
 
-                {/* Steps (Desktop View) */}
-                <div className="hidden md:block space-y-36 relative z-10">
-                    {timelineSteps.map((step, idx) => (
-                        <div
-                            key={`step-${idx}`}
-                            ref={el => { if (el) stepsRef.current[idx] = el; }}
-                            className={`flex flex-col md:flex-row items-center justify-between gap-4 md:gap-16 w-full ${step.alignLeft ? '' : 'md:flex-row-reverse'
-                                }`}
-                        >
-                            {/* Text Column */}
-                            <div className="w-full md:w-[45%] step-text flex flex-col justify-center">
-                                <h3 className="text-xl md:text-3xl font-medium mb-4">
-                                    {idx + 1}. {step.title}
-                                </h3>
-                                <p className="font-epilogue text-base md:text-2xl leading-[1.2] tracking-tight font-normal">
-                                    {step.description}
-                                </p>
+                        return (
+                            <div
+                                key={`care-timeline-${idx}`}
+                                onClick={() => setActiveIndex(idx)}
+                                className={`relative cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden shadow-[8px_8px_20px_rgba(0,0,0,0.04)] ${isActive
+                                    ? 'h-[280px] sm:h-[340px] md:h-[380px] rounded-[2rem]' // Active: approx 5:4 aspect ratio for 480px max width
+                                    : 'h-[64px] md:h-[76px] rounded-[1.5rem] bg-gradient-to-br from-white/40 to-white/10 backdrop-blur-xl hover:from-white/50 hover:to-white/20 hover:shadow-[12px_12px_24px_rgba(0,0,0,0.06)]'
+                                    }`}
+                            >
+                                {/* Light Edge & Vignette Overlay */}
+                                <div className={`absolute inset-0 pointer-events-none shadow-[inset_1.5px_1.5px_0px_rgba(255,255,255,0.9),inset_8px_8px_24px_rgba(0,0,0,0.06)] z-20 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? 'rounded-[2rem]' : 'rounded-[1.5rem]'}`} />
+                                {/* Active State Background Image */}
+                                <div
+                                    className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${isActive ? 'opacity-100' : 'opacity-0'
+                                        }`}
+                                >
+                                    <Image
+                                        src={step.image}
+                                        alt={step.title}
+                                        fill
+                                        className="object-cover"
+                                        priority={idx === 0}
+                                    />
+                                    {/* Dark gradient for text readability */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                                </div>
+
+                                {/* Seamless Transition Text Wrapper */}
+                                <div
+                                    className="absolute left-0 w-full flex flex-col items-center px-6 md:px-10 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] z-10 pointer-events-none"
+                                    style={{
+                                        bottom: isActive ? '2.5rem' : '50%',
+                                        transform: isActive ? 'translateY(0)' : 'translateY(50%)'
+                                    }}
+                                >
+                                    <h3
+                                        className={`font-medium tracking-tight text-center transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? 'text-white text-2xl md:text-[28px] mb-2' : 'text-black text-lg md:text-2xl mb-0'
+                                            }`}
+                                    >
+                                        {step.title}
+                                    </h3>
+                                    <div
+                                        className={`overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? 'max-h-[200px] opacity-100' : 'max-h-0 opacity-0'
+                                            }`}
+                                    >
+                                        <p className="text-white/90 text-base md:text-xl font-satoshi max-w-2xl leading-tight tracking-tight text-center">
+                                            {step.description}
+                                        </p>
+                                    </div>
+                                </div>
+
                             </div>
-
-                            {/* Center Node / Circle */}
-                            <div className="hidden md:flex items-center justify-center absolute left-1/2 -translate-x-1/2 z-20">
-                                <div className="step-node w-4 h-4 rounded-full bg-gray-200 transition-all duration-300 shadow-md" />
-                            </div>
-
-                            {/* Image Column */}
-                            <div className="w-full md:w-[38%] step-image relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg group">
-                                <Image
-                                    src={step.image}
-                                    alt={step.title}
-                                    fill
-                                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                                    sizes="(max-width: 768px) 100vw, 38vw"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Steps (Mobile Slider View) */}
-                <div className="block md:hidden relative z-10 max-w-md mx-auto px-4">
-                    {/* Active Step Content */}
-                    <div key={activeStep} className="animate-fadeIn flex flex-col items-center">
-                        {/* Image */}
-                        <div className="w-full aspect-[4/3] relative rounded-2xl overflow-hidden shadow-md mb-8">
-                            <Image
-                                src={timelineSteps[activeStep].image}
-                                alt={timelineSteps[activeStep].title}
-                                fill
-                                className="object-cover"
-                                priority
-                                sizes="100vw"
-                            />
-                        </div>
-
-                        {/* Text Container with fixed height to prevent layout shifts */}
-                        <div className="flex flex-col items-center min-h-[240px] sm:min-h-[180px]">
-                            {/* Title */}
-                            <h3 className="text-xl font-medium text-center mb-4 font-satoshi leading-tight">
-                                {activeStep + 1}. {timelineSteps[activeStep].title}
-                            </h3>
-
-                            {/* Description */}
-                            <p className="font-epilogue text-base text-center leading-[1.4] tracking-normal font-normal opacity-85">
-                                {timelineSteps[activeStep].description}
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Controls */}
-                    <div className="flex justify-center items-center gap-4 mt-6">
-                        <button
-                            onClick={() => setActiveStep(prev => (prev === 0 ? timelineSteps.length - 1 : prev - 1))}
-                            className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center hover:scale-105 active:scale-95 transition-transform cursor-pointer"
-                            aria-label="Previous step"
-                        >
-                            <ArrowLeft className="w-5 h-5" />
-                        </button>
-                        <button
-                            onClick={() => setActiveStep(prev => (prev === timelineSteps.length - 1 ? 0 : prev + 1))}
-                            className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center hover:scale-105 active:scale-95 transition-transform cursor-pointer"
-                            aria-label="Next step"
-                        >
-                            <ArrowRight className="w-5 h-5" />
-                        </button>
-                    </div>
+                        )
+                    })}
                 </div>
 
             </div>
+
+            {/* Bottom White Blend Gradient to transition into WhyJoyzenBadge */}
+            <div 
+                className="absolute bottom-0 left-0 w-full h-[150px] pointer-events-none z-0"
+                style={{
+                    background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%)'
+                }}
+            />
         </section>
     )
 }

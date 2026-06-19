@@ -1,8 +1,7 @@
 "use client"
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 // Importing existing premium assets
 import care from '@/assets/home/intergrationSection/continuouscare.png'
@@ -11,10 +10,11 @@ import followups from '@/assets/home/intergrationSection/followups.png'
 import management from '@/assets/home/intergrationSection/patientmanagement.png'
 import clinic from '@/assets/home/intergrationSection/morethanclinic.png'
 import software from '@/assets/home/intergrationSection/healthcaresoftware.png'
+
 const steps = [
     {
         title: "Continuous Care, Not Isolated Visits",
-        description: "Joyzen extends care beyond the consultation by connecting clinics, online care, diagnostics, follow-ups, care coordination, and patient engagement into one unified experience.",
+        description: "Joyzen connects clinics, diagnostics, follow-ups, and patient engagement into one seamless care experience.",
         image: care
     },
     {
@@ -45,277 +45,151 @@ const steps = [
 ]
 
 const IntegrationSection = () => {
-    const pinContainerRef = useRef<HTMLDivElement>(null)
     const [activeStep, setActiveStep] = useState(0)
-    const [isMobile, setIsMobile] = useState(false)
 
-    const touchStartX = useRef(0)
-    const touchEndX = useRef(0)
+    const handleNext = () => {
+        setActiveStep((prev) => (prev + 1) % steps.length)
+    }
+
+    const handlePrev = () => {
+        setActiveStep((prev) => (prev === 0 ? steps.length - 1 : prev - 1))
+    }
+
+    // Touch handlers for mobile swipe
+    const [touchStart, setTouchStart] = useState(0)
+    const [touchEnd, setTouchEnd] = useState(0)
 
     const handleTouchStart = (e: React.TouchEvent) => {
-        touchStartX.current = e.targetTouches[0].clientX
-        touchEndX.current = e.targetTouches[0].clientX
+        setTouchStart(e.targetTouches[0].clientX)
+        setTouchEnd(e.targetTouches[0].clientX)
     }
 
     const handleTouchMove = (e: React.TouchEvent) => {
-        touchEndX.current = e.targetTouches[0].clientX
+        setTouchEnd(e.targetTouches[0].clientX)
     }
 
     const handleTouchEnd = () => {
-        const threshold = 50
-        const diff = touchStartX.current - touchEndX.current
-        if (diff > threshold) {
-            // swiped left -> next step
-            setActiveStep((prev) => (prev + 1) % steps.length)
-        } else if (diff < -threshold) {
-            // swiped right -> prev step
-            setActiveStep((prev) => (prev === 0 ? steps.length - 1 : prev - 1))
+        if (!touchStart || !touchEnd) return
+        const distance = touchStart - touchEnd
+        const isLeftSwipe = distance > 50
+        const isRightSwipe = distance < -50
+
+        if (isLeftSwipe) {
+            handleNext()
+        } else if (isRightSwipe) {
+            handlePrev()
+        }
+
+        // Reset
+        setTouchStart(0)
+        setTouchEnd(0)
+    }
+
+    const getStackStyles = (idx: number) => {
+        const distance = (idx - activeStep + steps.length) % steps.length;
+
+        switch (distance) {
+            case 0:
+                return { transform: 'translate(0px, 0px) rotate(-5deg) scale(1)', zIndex: 10, opacity: 1 };
+            case 1:
+                return { transform: 'translate(0px, -5px) rotate(0deg) scale(0.96)', zIndex: 9, opacity: 1 };
+            case 2:
+                return { transform: 'translate(0px, -10px) rotate(5deg) scale(0.92)', zIndex: 8, opacity: 1 };
+            case 3:
+                return { transform: 'translate(0px, -15px) rotate(-5deg) scale(0.88)', zIndex: 7, opacity: 1 };
+            case 4:
+                return { transform: 'translate(0px, -20px) rotate(0deg) scale(0.84)', zIndex: 6, opacity: 0 };
+            default:
+                return { transform: 'translate(0px, -25px) rotate(5deg) scale(0.80)', zIndex: 0, opacity: 0 };
         }
     }
 
-    useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth < 1024)
-        }
-        checkMobile()
-        window.addEventListener('resize', checkMobile)
-        return () => window.removeEventListener('resize', checkMobile)
-    }, [])
-
-    useEffect(() => {
-        if (!isMobile) return
-        const timer = setInterval(() => {
-            setActiveStep((prev) => (prev + 1) % steps.length)
-        }, 2000)
-        return () => clearInterval(timer)
-    }, [isMobile, activeStep])
-
-    useEffect(() => {
-        gsap.registerPlugin(ScrollTrigger);
-
-        const pinContainer = pinContainerRef.current;
-        if (!pinContainer) return;
-
-        const images = pinContainer.querySelectorAll('.integration-img');
-        const descriptions = pinContainer.querySelectorAll('.integration-desc');
-
-        let mm = gsap.matchMedia();
-
-        mm.add("(min-width: 1024px)", () => {
-            const titles = pinContainer.querySelectorAll('.integration-item');
-
-            // Apply to desktop
-            gsap.set(images, {
-                opacity: (i: number) => i === 0 ? 1 : 0,
-                zIndex: (i: number) => i,
-            });
-
-            // Initialize descriptions
-            gsap.set(descriptions, {
-                height: (i: number) => i === 0 ? "auto" : "0px",
-                opacity: (i: number) => i === 0 ? 1 : 0,
-                marginTop: (i: number) => i === 0 ? "12px" : "0px"
-            });
-
-            // Initialize titles
-            gsap.set(titles, {
-                color: (i: number) => i === 0 ? "#000000" : "#9CA3AF"
-            });
-
-            let currentActiveStep = 0;
-
-            const goToStep = (index: number) => {
-                images.forEach((img, i) => {
-                    gsap.to(img, {
-                        opacity: i === index ? 1 : 0,
-                        duration: 0.4,
-                        ease: "power2.out",
-                        overwrite: "auto"
-                    });
-                });
-
-                titles.forEach((title, i) => {
-                    gsap.to(title, {
-                        color: i === index ? "#000000" : "#9CA3AF",
-                        duration: 0.4,
-                        ease: "power2.out",
-                        overwrite: "auto"
-                    });
-                });
-
-                descriptions.forEach((desc, i) => {
-                    if (i === index) {
-                        gsap.to(desc, {
-                            height: "auto",
-                            opacity: 1,
-                            marginTop: "12px",
-                            duration: 0.4,
-                            ease: "power2.out",
-                            overwrite: "auto"
-                        });
-                    } else {
-                        gsap.to(desc, {
-                            height: "0px",
-                            opacity: 0,
-                            marginTop: "0px",
-                            duration: 0.4,
-                            ease: "power2.out",
-                            overwrite: "auto"
-                        });
-                    }
-                });
-            };
-
-            const trigger = ScrollTrigger.create({
-                trigger: pinContainer,
-                start: "top top",
-                end: "+=2400", // scroll distance for pinning
-                pin: true,
-                scrub: false,
-                snap: {
-                    snapTo: 1 / (steps.length - 1),
-                    duration: { min: 0.15, max: 0.4 },
-                    delay: 0.02,
-                    ease: "power2.out"
-                },
-                onUpdate: (self) => {
-                    const progress = self.progress;
-                    const numSteps = steps.length;
-
-                    // Determine the step index (0 to 3) based on scroll progress
-                    let step = Math.floor(progress * numSteps);
-                    if (step >= numSteps) step = numSteps - 1;
-
-                    if (step !== currentActiveStep) {
-                        currentActiveStep = step;
-                        goToStep(step);
-                    }
-                }
-            });
-        });
-
-        mm.add("(max-width: 1023px)", () => {
-            // Reset/clear GSAP properties on mobile resize
-            gsap.set(images, { clearProps: "all" });
-            gsap.set(descriptions, { clearProps: "all" });
-        });
-
-        return () => {
-            mm.revert();
-        };
-    }, []);
-
     return (
-        <div ref={pinContainerRef} className="w-full bg-white font-satoshi overflow-hidden">
-            <div className="max-w-[1440px] mx-auto px-4 md:px-8 flex flex-col justify-start pt-4 pb-2 md:pt-8 md:pb-4 lg:pt-[4vh] lg:pb-0 min-h-[500px] md:min-h-[550px] lg:h-screen lg:min-h-0">
+        <div className="w-full bg-white font-noria overflow-hidden py-16 lg:py-18">
+            <div className="max-w-[1440px] mx-auto px-4 md:px-8 flex flex-col justify-start">
 
                 {/* Header */}
-                <div className="mb-6 lg:mb-12">
-                    <h2 className="text-2xl md:text-5xl lg:text-6xl font-medium tracking-normal mb-4 md:mb-4">
-                        The Joyzen Care Layer
+                <div className="mb-16 lg:mb-24">
+                    <h2 className="text-3xl text-center md:text-5xl lg:text-6xl font-medium tracking-normal mb-4 md:mb-6 uppercase">
+                        How We Integrate With Clinics
                     </h2>
-                    <p className="font-epilogue text-lg md:text-2xl max-w-3xl leading-[1.2] mb-4">
-                        One system supporting every stage of the healthcare journey.
-                    </p>
-                    <p className="font-epilogue italic text-sm md:text-xl max-w-3xl leading-[1.2]">
-                        Healthcare doesn't begin at the consultation, and it doesn't end when the patient leaves. Joyzen creates a connected care experience across every stage of health.
+                    <p className="text-center font-satoshi text-lg md:text-2xl max-w-4xl leading-[1.3] mx-auto text-gray-800">
+                        We fit into your clinic, without taking control. Your clinic continues to operate under your medical expertise. Joyzen adds the system around you
                     </p>
                 </div>
 
                 {/* 2-Column Content */}
-                <div className="flex flex-col lg:flex-row items-start justify-between gap-6 lg:gap-12 xl:gap-20">
+                <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
 
-                    {/* Left Column: Fixed aspect stacked images */}
-                    <div
-                        onTouchStart={handleTouchStart}
-                        onTouchMove={handleTouchMove}
-                        onTouchEnd={handleTouchEnd}
-                        className="w-full lg:w-1/2 relative aspect-[3/2] md:aspect-[6/4] max-w-[700px] xl:max-h-[63vh] rounded-xl overflow-hidden"
-                    >
-                        {steps.map((step, idx) => (
-                            <div
-                                key={`img-${idx}`}
-                                className={`integration-img absolute inset-0 ${isMobile
-                                    ? `transition-opacity duration-700 ease-in-out ${activeStep === idx
-                                        ? "opacity-100 pointer-events-auto"
-                                        : "opacity-0 pointer-events-none"
-                                    }`
-                                    : ""
-                                    }`}
-                            >
-                                <Image
-                                    src={step.image}
-                                    alt={step.title}
-                                    fill
-                                    className="object-cover"
-                                    sizes="(max-width: 1024px) 100vw, 50vw"
-                                />
-                            </div>
+                    {/* Left Column: Carousel Controls + Image Stack */}
+                    <div className="flex flex-row items-center gap-4 sm:gap-8 lg:gap-12 w-full lg:w-1/2 justify-center lg:justify-end">
+                        {/* Left Arrow */}
+                        <button
+                            onClick={handlePrev}
+                            className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 bg-black text-white rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors z-20 shadow-lg"
+                            aria-label="Previous step"
+                        >
+                            <ArrowLeft className="w-6 h-6 md:w-7 md:h-7" />
+                        </button>
 
-                        ))}
-                    </div>
-
-                    {/* Right Column */}
-                    <div className="w-full lg:w-1/2 min-h-[150px] lg:min-h-0">
-
-                        {/* Mobile/Tablet View (Active Content Box UI) */}
+                        {/* Image Stack */}
                         <div
+                            className="relative w-[420px] h-[540px] sm:w-[350px] sm:h-[420px] md:w-[420px] md:h-[540px] rounded-xl flex-shrink-0"
                             onTouchStart={handleTouchStart}
                             onTouchMove={handleTouchMove}
                             onTouchEnd={handleTouchEnd}
-                            className="flex flex-col gap-2 w-full lg:hidden"
                         >
-                            <div className="min-h-[130px] flex flex-col justify-start pt-2">
-                                <h4 className="text-xl font-medium text-gray-900 leading-snug mb-1.5">
-                                    {steps[activeStep].title}
-                                </h4>
-                                <p className="font-epilogue text-base leading-tight tracking-tight">
-                                    {steps[activeStep].description}
-                                </p>
-                            </div>
-
-                            {/* Indicators */}
-                            <div className="flex justify-center gap-2 pt-4">
-                                {steps.map((_, idx) => (
-                                    <button
-                                        key={`dot-${idx}`}
-                                        onClick={() => setActiveStep(idx)}
-                                        className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${activeStep === idx
-                                            ? 'w-8 bg-[#036132]'
-                                            : 'w-2 bg-gray-200 hover:bg-gray-300'
-                                            }`}
-                                        aria-label={`Go to step ${idx + 1}`}
-                                    />
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Desktop View (Accordion list controlled by GSAP) */}
-                        <div className="hidden lg:flex lg:flex-col justify-start gap-4 md:gap-2 w-full">
                             {steps.map((step, idx) => (
                                 <div
-                                    key={`item-${idx}`}
-                                    className="border-b border-gray-200 pb-2 md:pb-6"
+                                    key={`img-${idx}`}
+                                    className="absolute inset-0 transition-all duration-500 ease-out rounded-xl overflow-hidden shadow-2xl bg-white"
+                                    style={getStackStyles(idx)}
                                 >
-                                    {/* Title */}
-                                    <h3
-                                        className="integration-item text-lg md:text-2xl font-medium text-gray-400"
-                                    >
-                                        {step.title}
-                                    </h3>
-
-                                    {/* Description (Expandable container) */}
-                                    <div
-                                        className="integration-desc overflow-hidden"
-                                    >
-                                        <p className="font-epilogue text-sm md:text-xl font-normal leading-tight tracking-tight">
-                                            {step.description}
-                                        </p>
+                                    <Image
+                                        src={step.image}
+                                        alt={step.title}
+                                        fill
+                                        className="object-cover"
+                                        sizes="(max-width: 768px) 300px, 420px"
+                                        priority={idx === 0}
+                                    />
+                                    {/* Overlay for text readability */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                                    {/* Title Overlaid */}
+                                    <div className="absolute bottom-6 left-6 right-6 lg:bottom-10 lg:left-8 lg:right-8">
+                                        <h3 className="text-white text-2xl md:text-3xl lg:text-4xl font-satoshi leading-tight drop-shadow-md">
+                                            {step.title}
+                                        </h3>
                                     </div>
                                 </div>
                             ))}
                         </div>
 
+                        {/* Right Arrow */}
+                        <button
+                            onClick={handleNext}
+                            className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 bg-black text-white rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors z-20 shadow-lg"
+                            aria-label="Next step"
+                        >
+                            <ArrowRight className="w-6 h-6 md:w-7 md:h-7" />
+                        </button>
+                    </div>
+
+                    {/* Right Column: Description */}
+                    <div className="w-full lg:w-1/2 flex items-center justify-center lg:justify-start px-4 lg:px-0 lg:pl-10 min-h-[150px] md:min-h-[200px]">
+                        <div className="relative w-full max-w-xl">
+                            {steps.map((step, idx) => (
+                                <p
+                                    key={`desc-${idx}`}
+                                    className={`text-center font-satoshi text-xl sm:text-2xl md:text-4xl font-normal leading-snug transition-all duration-500 ease-in-out ${activeStep === idx
+                                        ? 'opacity-100 blur-0 translate-y-0 static'
+                                        : 'opacity-0 blur-md translate-y-4 absolute top-0 left-0 right-0 pointer-events-none'
+                                        }`}
+                                >
+                                    {step.description}
+                                </p>
+                            ))}
+                        </div>
                     </div>
 
                 </div>

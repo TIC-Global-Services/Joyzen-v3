@@ -58,21 +58,18 @@ const Hero = ({
           <div className={`${contentMaxWidth} ${textColorClass}`}>
             <div className="flex flex-col">
               <h1
-                className="text-4xl sm:text-5xl lg:text-[3.750rem] font-epilogue font-normal leading-[1.2] tracking-tight mb-2 drop-shadow-md"
+                className="text-4xl sm:text-5xl lg:text-[3.750rem] font-noria font-normal leading-[1.2] tracking-tight mb-2 drop-shadow-md uppercase max-w-[650px]"
               >
                 {title}
               </h1>
 
-              <p className={`font-epilogue text-sm md:text-base leading-[1.2] max-w-4xl font-normal tracking-normal ${textColorClass} opacity-100 mb-2`}>
-                The future of healthcare is not isolated treatment. It is connected, continuous, and designed around long-term human health. Joyzen is building an integrated healthcare ecosystem where doctors, technology, diagnostics, wellness, and patient care work together seamlessly, beyond the walls of a clinic. Designed to support every specialty and every stage of life, Joyzen enables modern healthcare experiences focused on prevention, recovery, longevity, and lifelong wellbeing.
-                <span className='mt-4 block text-[#EF8F60] font-semibold'>
-                  {description1}
-                </span>
+              <p className={`font-satoshi text-2xl md:text-4xl leading-[1.2] max-w-4xl font-normal tracking-normal text-[#EF8F60] mb-2`}>
+                {description1} <br />
                 {description2}
               </p>
             </div>
 
-            <div className="mt-2 flex">
+            <div className="mt-2 flex font-noria">
               <button
                 onClick={() => {
                   if (typeof window !== "undefined" && (window as any).lenis) {
@@ -84,7 +81,7 @@ const Hero = ({
                     }
                   }
                 }}
-                className="group bg-[#1A1A1A] text-white hover:bg-[#036132] transition-all duration-300 tracking-tight px-6 py-3 rounded-[2.625rem] font-medium shadow-md hover:scale-105 active:scale-95 flex items-center justify-center gap-2 cursor-pointer w-fit"
+                className="group bg-[#ddc4df] text-black hover:bg-[#036132] transition-all duration-300 tracking-tight px-6 py-3 rounded-[2.625rem] font-medium shadow-md hover:scale-105 active:scale-95 flex items-center justify-center gap-2 cursor-pointer w-fit"
               >
                 Apply to partner with Joyzen
               </button>
@@ -92,10 +89,12 @@ const Hero = ({
           </div>
         </div>
       </div>
-      {!isOnlyHome && (
-        <div className="absolute inset-x-0 top-0 h-full z-11 bg-gradient-to-b from-black/50 via-black/25 to-transparent"></div>
-      )}
-    </div>
+      {
+        !isOnlyHome && (
+          <div className="absolute inset-x-0 top-0 h-full z-11 bg-gradient-to-b from-black/50 via-black/25 to-transparent"></div>
+        )
+      }
+    </div >
   )
 }
 

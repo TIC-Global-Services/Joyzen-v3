@@ -4,7 +4,7 @@ import Image from 'next/image'
 // import bgimage from '@/assets/home?'
 const Care = () => {
     return (
-        <section id="care" className="relative w-full py-16 md:py-36 flex flex-col items-center min-h-[50vh] md:min-h-screen justify-center text-center overflow-hidden font-satoshi bg-white">
+        <section id="care" className="relative w-full py-16 md:py-36 flex flex-col items-center min-h-[50vh] md:min-h-screen justify-center text-center overflow-hidden font-noria bg-white">
             {/* Background Soft Gradients and Logo */}
             <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none transform-gpu" style={{ transform: 'translateZ(0)' }}>
                 <div className="absolute -bottom-[5%] -left-[40%] md:left-[-50%] w-[80%] h-[40%] bg-[#b4def7] opacity-80 rounded-[100%] md:blur-[80px] md:block hidden" />
@@ -33,7 +33,7 @@ const Care = () => {
                     <h2 className="text-4xl md:text-5xl lg:text-[3.75rem] font-sans font-medium tracking-tight leading-[44px]">
                         <span className="text-[#036132]">Care</span>, Reimagined Around You
                     </h2>
-                    <p className="max-w-2xl mx-auto text-sm md:text-2xl font-epilogue leading-tight font-medium">
+                    <p className="max-w-2xl mx-auto text-sm md:text-2xl font-satoshi leading-tight font-medium">
                         A new standard in reproductive care – thoughtfully designed to be continuous, deeply personal, and centered entirely around you.
                     </p>
                 </div>
