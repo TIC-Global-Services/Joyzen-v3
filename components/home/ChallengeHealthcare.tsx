@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import TextReveal from '@/reUseable/TextReveal'
 
 import biggestChallenge from '@/assets/home/caretimeline/biggestChallenge.png'
 import impact from '@/assets/home/caretimeline/impactClinic.png'
@@ -32,7 +33,7 @@ const timelineSteps = [
     }
 ]
 
-const CareTimeline = () => {
+const ChallengeHealthcare = () => {
     const [activeIndex, setActiveIndex] = useState(0)
     const sectionRef = useRef<HTMLDivElement>(null)
     const split1Ref = useRef<HTMLDivElement>(null)
@@ -52,16 +53,26 @@ const CareTimeline = () => {
         let currentIndex = 0;
 
         const ctx = gsap.context(() => {
+            const isMobile = window.innerWidth < 768;
+            const scrollDistance = isMobile ? '+=120%' : '+=300%';
+
             // Scroll Pinning Logic
             ScrollTrigger.create({
                 trigger: sectionRef.current,
                 start: "top top", // pin when the section hits the top of viewport
-                end: "+=300%",    // 3 viewport heights of scrolling to cycle through the cards
+                end: scrollDistance, // Shorter scroll distance on mobile
                 pin: true,
                 scrub: true,
+                anticipatePin: 1,
+                snap: {
+                    snapTo: 1 / (timelineSteps.length - 1), // Snap to each card
+                    duration: { min: 0.2, max: 0.5 },
+                    delay: 0.05,
+                    ease: "power1.inOut"
+                },
                 onUpdate: (self) => {
                     const numCards = timelineSteps.length;
-                    const newIndex = Math.min(numCards - 1, Math.floor(self.progress * numCards));
+                    const newIndex = Math.min(numCards - 1, Math.round(self.progress * (numCards - 1)));
                     if (newIndex !== currentIndex) {
                         currentIndex = newIndex;
                         setActiveIndex(newIndex);
@@ -70,7 +81,7 @@ const CareTimeline = () => {
             });
 
 
-            // Smooth Parallax
+            // Smooth Parallax (Desktop Only)
             const handleMouseMove = (e: MouseEvent) => {
                 const x = (e.clientX / window.innerWidth - 0.5);
                 const y = (e.clientY / window.innerHeight - 0.5);
@@ -81,10 +92,15 @@ const CareTimeline = () => {
                 if (blob2Ref.current?.parentElement) gsap.to(blob2Ref.current.parentElement, { x: x * -700, y: y * 360, duration: 2, ease: "power2.out" });
             };
 
-            window.addEventListener("mousemove", handleMouseMove);
+            const isTouch = window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            if (!isTouch) {
+                window.addEventListener("mousemove", handleMouseMove);
+            }
 
             return () => {
-                window.removeEventListener("mousemove", handleMouseMove);
+                if (!isTouch) {
+                    window.removeEventListener("mousemove", handleMouseMove);
+                }
             };
         });
 
@@ -94,10 +110,24 @@ const CareTimeline = () => {
     }, [])
 
     return (
-        <section ref={sectionRef} className="relative w-full h-screen px-6 md:px-12 xl:px-16 font-noria overflow-hidden flex items-center bg-gradient-to-b from-white to-[#f7f4ed]/80">
+        <section ref={sectionRef} className="relative w-full h-screen px-6 md:px-12 xl:px-16 font-noria overflow-hidden flex items-center bg-transparent md:bg-gradient-to-b md:from-white md:to-[#f7f4ed]/80">
 
-            {/* Interactive Mesh Gradient Background restricted to bottom area */}
-            <div className="absolute inset-0 w-full h-full -z-10 pointer-events-none overflow-hidden flex items-end">
+            {/* Optimized Static Ambient Gradient for Mobile (No heavy filters or blend modes to ensure 60fps scrolling) */}
+            <div
+                className="absolute inset-0 w-full h-full -z-10 pointer-events-none md:hidden"
+                style={{
+                    background: `
+                        radial-gradient(circle at 5% 95%, rgba(248, 231, 128, 0.35) 0%, transparent 55%),
+                        radial-gradient(circle at 35% 90%, rgba(239, 143, 96, 0.22) 0%, transparent 45%),
+                        radial-gradient(circle at 65% 90%, rgba(221, 196, 223, 0.22) 0%, transparent 45%),
+                        radial-gradient(circle at 95% 95%, rgba(180, 222, 247, 0.35) 0%, transparent 55%),
+                        linear-gradient(to bottom, #ffffff 0%, #f7f4ed 100%)
+                    `
+                }}
+            />
+
+            {/* Interactive Mesh Gradient Background restricted to bottom area (Desktop Only for GPU optimization) */}
+            <div className="hidden md:flex absolute inset-0 w-full h-full -z-10 pointer-events-none overflow-hidden items-end">
                 <div className="relative w-full h-[20vh] opacity-100 mix-blend-multiply">
                     {/* Light Yellow (Left) */}
                     <div ref={split1Ref} className="absolute inset-0">
@@ -121,14 +151,18 @@ const CareTimeline = () => {
             <div className="max-w-[1440px] mx-auto w-full flex flex-col lg:flex-row justify-between items-center relative z-10 gap-12 lg:gap-16 pr-0 lg:pr-12">
 
                 {/* Left Column: Header */}
-                <div className="w-full lg:w-[45%] xl:w-[40%]">
-                    <h2 className="text-2xl md:text-4xl font-medium leading-[1.2] uppercase tracking-tight text-black">
+                <div className="w-full lg:w-[50%] xl:w-[42%] mt-8">
+                    <TextReveal
+                        tag="h2"
+                        type="words"
+                        className="text-2xl md:text-4xl font-medium leading-[1.2] uppercase tracking-tight text-black"
+                    >
                         The challenge in healthcare is no longer medical expertise. It's fragmentation.
-                    </h2>
+                    </TextReveal>
                 </div>
 
                 {/* Right Column: Accordion */}
-                <div className="w-full lg:w-[50%] xl:w-[45%] max-w-[480px] flex flex-col gap-3 md:gap-4 lg:ml-auto py-8 md:py-12">
+                <div className="w-full lg:w-[50%] xl:w-[45%] max-w-[480px] flex flex-col gap-3 md:gap-4 lg:ml-auto py-2 md:py-12">
                     {timelineSteps.map((step, idx) => {
                         const isActive = activeIndex === idx;
 
@@ -136,13 +170,13 @@ const CareTimeline = () => {
                             <div
                                 key={`care-timeline-${idx}`}
                                 onClick={() => setActiveIndex(idx)}
-                                className={`relative cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden shadow-[8px_8px_20px_rgba(0,0,0,0.04)] ${isActive
+                                className={`relative cursor-pointer transition-[height,border-radius,background-color,box-shadow] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden shadow-[8px_8px_20px_rgba(0,0,0,0.04)] ${isActive
                                     ? 'h-[280px] sm:h-[340px] md:h-[380px] rounded-[2rem]' // Active: approx 5:4 aspect ratio for 480px max width
-                                    : 'h-[64px] md:h-[76px] rounded-[1.5rem] bg-gradient-to-br from-white/40 to-white/10 backdrop-blur-xl hover:from-white/50 hover:to-white/20 hover:shadow-[12px_12px_24px_rgba(0,0,0,0.06)]'
+                                    : 'h-[64px] md:h-[76px] rounded-[1.5rem] bg-gradient-to-br from-white/90 to-white/80 md:from-white/40 md:to-white/10 md:backdrop-blur-xl hover:from-white/95 hover:to-white/90 hover:shadow-[12px_12px_24px_rgba(0,0,0,0.06)]'
                                     }`}
                             >
                                 {/* Light Edge & Vignette Overlay */}
-                                <div className={`absolute inset-0 pointer-events-none shadow-[inset_1.5px_1.5px_0px_rgba(255,255,255,0.9),inset_8px_8px_24px_rgba(0,0,0,0.06)] z-20 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? 'rounded-[2rem]' : 'rounded-[1.5rem]'}`} />
+                                <div className={`absolute inset-0 pointer-events-none shadow-[inset_1.5px_1.5px_0px_rgba(255,255,255,0.9),inset_8px_8px_24px_rgba(0,0,0,0.06)] z-20 transition-[border-radius] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? 'rounded-[2rem]' : 'rounded-[1.5rem]'}`} />
                                 {/* Active State Background Image */}
                                 <div
                                     className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${isActive ? 'opacity-100' : 'opacity-0'
@@ -160,15 +194,9 @@ const CareTimeline = () => {
                                 </div>
 
                                 {/* Seamless Transition Text Wrapper */}
-                                <div
-                                    className="absolute left-0 w-full flex flex-col items-center px-6 md:px-10 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] z-10 pointer-events-none"
-                                    style={{
-                                        bottom: isActive ? '2.5rem' : '50%',
-                                        transform: isActive ? 'translateY(0)' : 'translateY(50%)'
-                                    }}
-                                >
+                                <div className="absolute top-1/2 left-0 w-full flex flex-col items-center px-6 md:px-10 -translate-y-1/2 z-10 pointer-events-none">
                                     <h3
-                                        className={`font-medium tracking-tight text-center transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? 'text-white text-2xl md:text-[28px] mb-2' : 'text-black text-lg md:text-2xl mb-0'
+                                        className={`font-medium tracking-tight text-center transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? 'text-white text-lg md:text-2xl mb-2' : 'text-black text-lg md:text-2xl mb-0'
                                             }`}
                                     >
                                         {step.title}
@@ -191,7 +219,7 @@ const CareTimeline = () => {
             </div>
 
             {/* Bottom White Blend Gradient to transition into WhyJoyzenBadge */}
-            <div 
+            <div
                 className="absolute bottom-0 left-0 w-full h-[150px] pointer-events-none z-0"
                 style={{
                     background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%)'
@@ -201,4 +229,4 @@ const CareTimeline = () => {
     )
 }
 
-export default CareTimeline
+export default ChallengeHealthcare

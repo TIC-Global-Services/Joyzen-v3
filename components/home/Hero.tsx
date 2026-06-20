@@ -6,11 +6,7 @@ const HeroSection = () => {
   return (
     <div>
       <Hero
-        title={
-          <>
-            Healthcare Was Built for Visits. <br /> We Built It for Life.
-          </>
-        }
+        title="Healthcare Was Built for Visits. We Built It for Life."
         description1="Built for Life. Designed for Longevity."
         description2="For clinics ready to evolve with the future of healthcare."
         backgroundVideo='/dnaseq-2.mp4'

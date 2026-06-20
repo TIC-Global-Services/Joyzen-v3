@@ -21,26 +21,36 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       history.scrollRestoration = "manual";
     }
 
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      wheelMultiplier: 1,
-      syncTouch: false,
-    });
+    // Detect touch-capable devices and coarse pointers (mobile/tablets)
+    const isTouch = window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    let lenis: Lenis | null = null;
+    let rafCallback: ((time: number) => void) | null = null;
 
-    lenisRef.current = lenis;
-    (window as any).lenis = lenis;
+    if (!isTouch) {
+      lenis = new Lenis({
+        duration: 1.2,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        wheelMultiplier: 1,
+        syncTouch: false,
+      });
 
-    lenis.on("scroll", ScrollTrigger.update);
+      lenisRef.current = lenis;
+      (window as any).lenis = lenis;
 
-    const rafCallback = (time: number) => {
-      lenis.raf(time * 1000);
-    };
-    gsap.ticker.add(rafCallback);
+      lenis.on("scroll", ScrollTrigger.update);
+
+      rafCallback = (time: number) => {
+        lenis?.raf(time * 1000);
+      };
+      gsap.ticker.add(rafCallback);
+    }
 
     gsap.ticker.lagSmoothing(0);
 
-    const handleResize = () => ScrollTrigger.refresh();
+    const handleResize = () => {
+      lenis?.resize();
+      ScrollTrigger.refresh();
+    };
     window.addEventListener("resize", handleResize);
 
     // Initial refresh — sets up pin positions with current DOM state
@@ -48,7 +58,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
 
     // Refresh after images, fonts, and all assets finish loading
     const handleLoad = () => {
-      lenis.resize();
+      lenis?.resize();
       ScrollTrigger.sort();
       ScrollTrigger.refresh();
     };
@@ -56,7 +66,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
 
     // Refresh after web fonts load (fonts affect text height → section size → pin position)
     document.fonts?.ready.then(() => {
-      lenis.resize();
+      lenis?.resize();
       ScrollTrigger.sort();
       ScrollTrigger.refresh();
     });
@@ -64,9 +74,11 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("load", handleLoad);
-      gsap.ticker.remove(rafCallback);
-      delete (window as any).lenis;
-      lenis.destroy();
+      if (rafCallback) gsap.ticker.remove(rafCallback);
+      if (lenis) {
+        delete (window as any).lenis;
+        lenis.destroy();
+      }
     };
   }, []);
 

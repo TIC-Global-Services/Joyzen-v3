@@ -5,6 +5,7 @@ import toast, { Toaster } from 'react-hot-toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import gsap from 'gsap'
+import TextReveal from '@/reUseable/TextReveal'
 
 const intakeFormSchema = z.object({
     name: z.string()
@@ -146,12 +147,21 @@ const IntakeForm = () => {
 
                 {/* Header */}
                 <div className="text-left mb-8">
-                    <h2 className="text-2xl md:text-4xl font-medium tracking-tight mb-6 uppercase">
+                    <TextReveal
+                        tag="h2"
+                        type="words"
+                        className="text-2xl md:text-4xl font-medium tracking-tight mb-6 uppercase"
+                    >
                         Why This Is The Future
-                    </h2>
-                    <p className="font-satoshi text-lg md:text-lg max-w-3xl leading-[1.2] font-normal">
+                    </TextReveal>
+                    <TextReveal
+                        tag="p"
+                        type="words"
+                        delay={0.15}
+                        className="font-satoshi text-lg md:text-lg max-w-3xl leading-[1.2] font-normal"
+                    >
                         Healthcare is shifting from treatment to continuous, long-term care. Joyzen is leading this change, starting with reproductive health.
-                    </p>
+                    </TextReveal>
                 </div>
 
                 {/* Form Container with Side Logo */}
