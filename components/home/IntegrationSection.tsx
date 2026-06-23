@@ -278,15 +278,6 @@ const IntegrationSection = () => {
 
                     {/* Left Column: Carousel Controls + Image Stack */}
                     <div className="flex flex-row items-center gap-4 sm:gap-8 lg:gap-12 w-full lg:w-1/2 justify-center lg:justify-end">
-                        {/* Left Arrow */}
-                        <button
-                            onClick={handlePrev}
-                            className="hidden sm:flex flex-shrink-0 w-12 h-12 md:w-14 md:h-14 bg-black text-white rounded-full items-center justify-center hover:bg-gray-800 transition-colors z-20 shadow-lg"
-                            aria-label="Previous step"
-                        >
-                            <ArrowLeft className="w-6 h-6 md:w-7 md:h-7" />
-                        </button>
-
                         {/* Image Stack */}
                         <div className="relative w-[280px] h-[360px] sm:w-[320px] sm:h-[400px] md:w-[400px] md:h-[520px] rounded-xl flex-shrink-0">
                             {steps.map((step, idx) => (

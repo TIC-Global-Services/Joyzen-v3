@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import TextReveal from '@/reUseable/TextReveal'
 
 const TOTAL_FRAMES = 274;
-const START_FRAME = 25;
+const START_FRAME = 0;
 
 const BePart = () => {
     const containerRef = useRef<HTMLDivElement>(null)
@@ -31,9 +31,9 @@ const BePart = () => {
         const images: HTMLImageElement[] = [];
         for (let i = 0; i < TOTAL_FRAMES; i++) {
             const img = new Image();
-            // Pad the frame number to 6 digits, e.g., frame-000025.jpg
+            // Pad the frame number to 6 digits, e.g., frame-000000.jpg
             const frameNum = (i + START_FRAME).toString().padStart(6, '0');
-            img.src = `/joyzenhands/frame-${frameNum}.jpg`;
+            img.src = `/joyzenhandsnew/frame-${frameNum}.jpg`;
             images.push(img);
         }
 
@@ -266,7 +266,7 @@ const BePart = () => {
             {/* Image Sequence Canvas */}
             <canvas
                 ref={canvasRef}
-                className="absolute w-full h-full object-cover scale-[1.2] rotate-[20deg] pointer-events-none z-10 opacity-0"
+                className="absolute w-full h-full object-cover scale-[1.2] pointer-events-none z-10 opacity-0"
             />
 
 
