@@ -112,7 +112,7 @@ const BePart = () => {
                 isAutoplaying.current = true;
                 const targetScroll = trigger.direction === 1 ? trigger.end : trigger.start;
                 const targetProgress = trigger.direction === 1 ? 1 : 0;
-                
+
                 // Smoothly animate scroll position to override native inertia
                 const scrollObj = { y: window.scrollY };
                 activeTween = gsap.to(scrollObj, {
@@ -200,19 +200,19 @@ const BePart = () => {
                         if (!trigger.isActive) return;
 
                         const currentProgress = timeline.progress();
-                        
+
                         // Only trigger scroll-to-reveal or scroll-to-hide if not already at the boundaries
                         if (currentProgress > 0.01 && currentProgress < 0.99) {
                             const lenis = (window as any).lenis;
-                            
+
                             // If scrolling down, autoplay forward by scrolling the viewport to trigger.end.
                             // If scrolling up (backward), autoplay backward by scrolling the viewport to trigger.start.
                             const targetScroll = self.direction === 1 ? trigger.end : trigger.start;
-                            
+
                             // Calculate duration proportional to remaining scroll distance
                             const distanceFraction = self.direction === 1 ? (1 - self.progress) : self.progress;
                             const duration = Math.max(0.5, distanceFraction * 3.5); // Slower, premium transition
-                            
+
                             if (lenis) {
                                 lenis.scrollTo(targetScroll, {
                                     duration: duration,
@@ -266,7 +266,7 @@ const BePart = () => {
             {/* Image Sequence Canvas */}
             <canvas
                 ref={canvasRef}
-                className="absolute w-full h-full object-cover sm:object-contain scale-[1.1] pointer-events-none z-10 opacity-0"
+                className="absolute w-full h-full object-cover scale-[1.2] rotate-[20deg] pointer-events-none z-10 opacity-0"
             />
 
 

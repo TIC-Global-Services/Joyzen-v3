@@ -178,7 +178,7 @@ const IntakeForm = () => {
                                 {...register("name")}
                                 onFocus={() => handleFocus(0)}
                                 onBlur={handleBlur}
-                                className={`w-full py-3.5 px-6 rounded-full backdrop-blur-sm border-[0.5px] focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base ${errors.name ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
+                                className={`w-full py-3.5 px-6 rounded-full backdrop-blur-sm border-[0.5px] focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base ${errors.name ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
                                     }`}
                             />
                             {errors.name && <span className="text-red-500 text-xs mt-1.5 pl-6">{errors.name.message}</span>}
@@ -192,7 +192,7 @@ const IntakeForm = () => {
                                 {...register("specialty")}
                                 onFocus={() => handleFocus(1)}
                                 onBlur={handleBlur}
-                                className={`w-full py-3.5 px-6 rounded-full backdrop-blur-sm border-[0.5px] focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base ${errors.specialty ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
+                                className={`w-full py-3.5 px-6 rounded-full backdrop-blur-sm border-[0.5px] focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base ${errors.specialty ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
                                     }`}
                             />
                             {errors.specialty && <span className="text-red-500 text-xs mt-1.5 pl-6">{errors.specialty.message}</span>}
@@ -206,7 +206,7 @@ const IntakeForm = () => {
                                 {...register("city")}
                                 onFocus={() => handleFocus(2)}
                                 onBlur={handleBlur}
-                                className={`w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border-[0.75px] focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base ${errors.city ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
+                                className={`w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border-[0.75px] focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base ${errors.city ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
                                     }`}
                             />
                             {errors.city && <span className="text-red-500 text-xs mt-1.5 pl-6">{errors.city.message}</span>}
@@ -220,7 +220,7 @@ const IntakeForm = () => {
                                 {...register("address")}
                                 onFocus={() => handleFocus(3)}
                                 onBlur={handleBlur}
-                                className={`w-full py-3.5 px-6 rounded-full backdrop-blur-sm border-[0.75px] focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base ${errors.address ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
+                                className={`w-full py-3.5 px-6 rounded-full backdrop-blur-sm border-[0.75px] focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base ${errors.address ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
                                     }`}
                             />
                             {errors.address && <span className="text-red-500 text-xs mt-1.5 pl-6">{errors.address.message}</span>}
@@ -239,7 +239,7 @@ const IntakeForm = () => {
                                 })}
                                 onFocus={() => handleFocus(4)}
                                 onBlur={handleBlur}
-                                className={`w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border-[0.75px] focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base ${errors.phone ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
+                                className={`w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border-[0.75px] focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base ${errors.phone ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
                                     }`}
                             />
                             {errors.phone && <span className="text-red-500 text-xs mt-1.5 pl-6">{errors.phone.message}</span>}
@@ -253,7 +253,7 @@ const IntakeForm = () => {
                                 {...register("email")}
                                 onFocus={() => handleFocus(5)}
                                 onBlur={handleBlur}
-                                className={`w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border-[0.75px] focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base ${errors.email ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
+                                className={`w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border-[0.75px] focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base ${errors.email ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
                                     }`}
                             />
                             {errors.email && <span className="text-red-500 text-xs mt-1.5 pl-6">{errors.email.message}</span>}
@@ -267,7 +267,7 @@ const IntakeForm = () => {
                                 {...register("patientVolume")}
                                 onFocus={() => handleFocus(6)}
                                 onBlur={handleBlur}
-                                className="w-full py-3.5 px-6 rounded-full backdrop-blur-sm border-[0.75px] border-white/30 focus:outline-none focus:border-[#036132]/30 transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base"
+                                className="w-full py-3.5 px-6 rounded-full backdrop-blur-sm border-[0.75px] border-white/30 focus:outline-none focus:border-[#036132]/30 transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base"
                             />
                         </div>
 
@@ -279,7 +279,7 @@ const IntakeForm = () => {
                                 {...register("comments")}
                                 onFocus={() => handleFocus(7)}
                                 onBlur={handleBlur}
-                                className="w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border-[0.75px] border-white/30 focus:outline-none focus:border-[#036132]/30 transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-sm md:text-base"
+                                className="w-full py-3.5 px-6 rounded-full  backdrop-blur-sm border-[0.75px] border-white/30 focus:outline-none focus:border-[#036132]/30 transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base"
                             />
                         </div>
 

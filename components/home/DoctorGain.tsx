@@ -6,10 +6,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import TextReveal from '@/reUseable/TextReveal'
 
 // Importing existing assets to use as background images
-import img1 from '@/assets/home/betterfordoctors/01.png'
-import img2 from '@/assets/home/betterfordoctors/02.png'
-import img3 from '@/assets/home/betterfordoctors/03.png'
-import img4 from '@/assets/home/betterfordoctors/04.png'
+import img1 from '@/assets/home/betterfordoctors/01.webp'
+import img2 from '@/assets/home/betterfordoctors/02.webp'
+import img3 from '@/assets/home/betterfordoctors/03.webp'
+import img4 from '@/assets/home/betterfordoctors/04.webp'
 
 const cardData = [
     {
@@ -130,11 +130,11 @@ const DoctorGain = () => {
     }, []);
 
     return (
-        <section ref={sectionRef} className="relative w-full h-screen bg-white font-noria overflow-hidden flex flex-col items-center justify-center py-10 [@media(max-height:768px)]:py-4">
+        <section ref={sectionRef} style={{ background: 'linear-gradient(to bottom, #FFFFFF 0%, #FFFFFF 88%, #C5E6FF 100%)' }} className="relative w-full h-screen font-noria overflow-hidden flex flex-col items-center justify-center py-10 [@media(max-height:768px)]:py-4">
             <div className="max-w-[1440px] w-full mx-auto px-4 md:px-12 flex flex-col items-center justify-center h-full">
 
                 {/* Header */}
-                <div className="mb-12 md:mb-16 w-full text-center shrink-0 [@media(max-height:768px)]:mb-6 [@media(max-height:650px)]:mb-3 flex flex-col items-center justify-center">
+                <div className="mb-12 md:mb-10 w-full text-center shrink-0 [@media(max-height:768px)]:mb-6 [@media(max-height:650px)]:mb-3 flex flex-col items-center justify-center">
                     <TextReveal
                         tag="h2"
                         type="words"
@@ -146,7 +146,7 @@ const DoctorGain = () => {
                         tag="p"
                         type="words"
                         delay={0.15}
-                        className="font-satoshi text-xl md:text-3xl max-w-4xl leading-[1.2] mx-auto text-gray-800 [@media(max-height:768px)]:text-lg [@media(max-height:650px)]:text-base justify-center"
+                        className="font-satoshi text-xl md:text-3xl max-w-4xl leading-[1.2] mx-auto text-gray-800 [@media(max-height:768px)]:text-lg [@media(max-height:650px)]:text-base justify-center mb-8"
                     >
                         More time. Better structure. Stronger outcomes.
                     </TextReveal>

@@ -194,7 +194,12 @@ const ChallengeHealthcare = () => {
                                 </div>
 
                                 {/* Seamless Transition Text Wrapper */}
-                                <div className="absolute top-1/2 left-0 w-full flex flex-col items-center px-6 md:px-10 -translate-y-1/2 z-10 pointer-events-none">
+                                <div
+                                    className={`absolute top-0 left-0 w-full h-full flex flex-col items-center justify-end px-6 md:px-10 z-10 pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive
+                                        ? 'pb-6 md:pb-8'
+                                        : 'pb-[18px] md:pb-[22px]'
+                                        }`}
+                                >
                                     <h3
                                         className={`font-medium tracking-tight text-center transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? 'text-white text-lg md:text-2xl mb-2' : 'text-black text-lg md:text-2xl mb-0'
                                             }`}

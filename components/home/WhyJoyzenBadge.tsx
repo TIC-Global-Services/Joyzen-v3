@@ -112,7 +112,7 @@ const WhyJoyzenBadge = () => {
     }, [])
 
     return (
-        <section className="relative w-full h-[450px] md:h-screen py-16 md:py-20 flex items-center justify-center bg-white font-noria overflow-hidden">
+        <section className="relative w-full h-[450px] md:h-screen py-16 md:py-10 flex items-center justify-center bg-white font-noria overflow-hidden">
 
             {/* Top White Blend Gradient to transition from ChallengeHealthcare */}
             <div
@@ -125,7 +125,7 @@ const WhyJoyzenBadge = () => {
             {/* Visual Loader & Faded Logo Container (Background Layer) */}
 
             {/* Foreground Content (Wider wrapper, can extend outside the loader circle) */}
-            <div className="relative z-10 text-center max-w-7xl px-6 flex flex-col items-center justify-center translate-y-6 md:translate-y-10">
+            <div className="relative z-10 text-center max-w-7xl px-6 flex flex-col items-center justify-center">
 
                 <TextReveal
                     tag="h3"

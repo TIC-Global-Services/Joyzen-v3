@@ -251,7 +251,7 @@ const IntegrationSection = () => {
     }
 
     return (
-        <div className="w-full bg-white font-noria overflow-hidden py-8 lg:py-18">
+        <div className="w-full bg-white font-noria overflow-hidden py-8 lg:py-16">
             <div className="max-w-[1440px] mx-auto px-4 md:px-8 flex flex-col justify-start">
 
                 {/* Header */}
