@@ -67,7 +67,7 @@ const WhyJoyzenBadge = () => {
             />
 
             {/* Foreground Content */}
-            <div className="relative z-10 text-center max-w-7xl px-6 flex flex-col items-center justify-center flex-1 mt-10">
+            <div className="relative z-10 text-center max-w-7xl px-6 flex flex-col items-center justify-center flex-1">
 
                 <TextReveal
                     tag="h3"
