@@ -4,8 +4,6 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import TextReveal from '@/reUseable/TextReveal'
 
-const TOTAL_FRAMES = 381;
-
 const DoctorAdvantage = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -20,16 +18,22 @@ const DoctorAdvantage = () => {
         const context = canvas.getContext("2d");
         if (!context) return;
 
-        canvas.width = 1920;
-        canvas.height = 1080;
+        const isMobile = window.innerWidth < 768;
+        
+        // Mobile video is 9:16, Desktop is 16:9
+        canvas.width = isMobile ? 1080 : 1920;
+        canvas.height = isMobile ? 1920 : 1080;
+
+        const frameCount = isMobile ? 442 : 381;
+        const sequencePath = isMobile ? '/3dbodymobseq' : '/3dbodyupscaledseq';
 
         // Preload images
         const images: HTMLImageElement[] = [];
-        for (let i = 0; i < TOTAL_FRAMES; i++) {
+        for (let i = 0; i < frameCount; i++) {
             const img = new Image();
             // ffmpeg outputs frames starting from 1
             const frameNum = (i + 1).toString().padStart(6, '0');
-            img.src = `/3dbodyupscaledseq/frame-${frameNum}.jpg`;
+            img.src = `${sequencePath}/frame-${frameNum}.jpg`;
             images.push(img);
         }
 
@@ -69,7 +73,7 @@ const DoctorAdvantage = () => {
 
         const frameObj = { frame: 0 };
         timeline.to(frameObj, {
-            frame: TOTAL_FRAMES - 1,
+            frame: frameCount - 1,
             snap: "frame",
             ease: "none",
             duration: 1, // Set explicit duration so the 0.15 header duration is relative to this
@@ -91,7 +95,7 @@ const DoctorAdvantage = () => {
             {/* Image Sequence Canvas */}
             <canvas
                 ref={canvasRef}
-                className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0 mix-blend-multiply scale-[0.85] md:scale-100 origin-bottom md:origin-center"
+                className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0 mix-blend-multiply scale-100 origin-bottom md:origin-center"
             />
 
             {/* Header Title Layer */}
