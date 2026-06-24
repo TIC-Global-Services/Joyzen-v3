@@ -130,7 +130,7 @@ const DoctorGain = () => {
     }, []);
 
     return (
-        <section ref={sectionRef} style={{ background: 'linear-gradient(to bottom, #FFFFFF 0%, #FFFFFF 88%, #C5E6FF 100%)' }} className="relative w-full h-screen font-noria overflow-hidden flex flex-col items-center justify-center py-10 [@media(max-height:768px)]:py-4">
+        <section ref={sectionRef} className="relative w-full h-screen font-noria overflow-hidden flex flex-col items-center justify-center py-10 [@media(max-height:768px)]:py-4">
             <div className="max-w-[1440px] w-full mx-auto px-4 md:px-12 flex flex-col items-center justify-center h-full">
 
                 {/* Header */}
