@@ -24,7 +24,7 @@ const DoctorAdvantage = () => {
         canvas.width = isMobile ? 1080 : 1920;
         canvas.height = isMobile ? 1920 : 1080;
 
-        const frameCount = isMobile ? 442 : 381;
+        const frameCount = isMobile ? 472 : 373;
         const sequencePath = isMobile ? '/3dbodymobseq' : '/3dbodyupscaledseq';
 
         // Preload images
@@ -102,14 +102,14 @@ const DoctorAdvantage = () => {
             <div ref={headerRef} className="absolute top-12 md:top-24 left-0 w-full max-w-[1440px] px-6 md:px-12 xl:px-16 z-20 pointer-events-none flex flex-col items-start justify-start">
                 <TextReveal
                     tag="h2"
-                    className="text-3xl md:text-5xl lg:text-[56px] font-medium leading-[1.1] tracking-tight text-black uppercase text-left max-w-xl"
+                    className="text-3xl md:text-5xl lg:text-[56px] font-medium leading-[1.1] tracking-tight text-black uppercase text-left max-w-[280px] sm:max-w-xl"
                 >
                     The <span className="text-[#EF8F60]">Joyzen</span> doctor advantage
                 </TextReveal>
                 <TextReveal
                     tag="p"
                     delay={0.1}
-                    className="font-satoshi text-xl md:text-2xl lg:text-3xl max-w-lg leading-[1.2] text-gray-800 mt-4 text-left"
+                    className="font-satoshi text-xl md:text-2xl lg:text-3xl md:max-w-lg max-w-[300px] leading-[1.2] text-gray-800 mt-4 text-left"
                 >
                     Growth is no longer dependent only on patient volume.
                 </TextReveal>

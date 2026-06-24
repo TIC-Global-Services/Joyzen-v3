@@ -158,7 +158,7 @@ const DoctorGain = () => {
                         const isEven = idx % 2 === 0;
                         const bgColor = isEven ? 'bg-[#ef8f60]' : 'bg-[#f7f4ed]';
                         // Colors are static since cards slide in and stay focused until stacked over
-                        const numColor = 'text-black';
+                        const numColor = isEven ? 'text-white' : 'text-black';
                         const titleColor = 'text-black';
                         const descColor = isEven ? 'text-white' : 'text-gray-900';
 

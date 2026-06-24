@@ -303,7 +303,7 @@ const BePart = () => {
                             }
                         }
                     }}
-                    className="group text-[16px] md:text-[17px] bg-[#1A1A1A] text-white hover:bg-[#036132] transition-all duration-300 tracking-tight px-12 py-4 rounded-full font-medium shadow-md hover:scale-105 active:scale-95 flex items-center gap-2"
+                    className="group text-[16px] md:text-[17px] bg-[#1A1A1A] text-white hover:bg-[#b4def7] hover:text-[#1A1A1A] transition-all duration-300 tracking-tight px-12 py-4 rounded-full font-medium shadow-md hover:scale-105 active:scale-95 flex items-center gap-2"
                     style={{ paddingTop: '16px', paddingBottom: '16px' }}
                 >
                     Join Now

@@ -101,7 +101,7 @@ const Hero = ({
                     }
                   }
                 }}
-                className="group bg-[#ddc4df] text-black hover:bg-[#036132] transition-all duration-300 tracking-tight px-6 py-3 rounded-[2.625rem] font-medium shadow-md hover:scale-105 active:scale-95 flex items-center justify-center gap-2 cursor-pointer w-fit"
+                className="group px-8 py-3 rounded-full backdrop-blur-sm border-[0.75px] border-white/30 transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 text-sm md:text-base font-medium hover:border-[#036132]/30 active:scale-95 flex items-center justify-center gap-2 cursor-pointer w-fit"
               >
                 Apply to partner with Joyzen
               </button>

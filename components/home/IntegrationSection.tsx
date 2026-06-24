@@ -278,40 +278,59 @@ const IntegrationSection = () => {
 
                     {/* Left Column: Carousel Controls + Image Stack */}
                     <div className="flex flex-row items-center gap-4 sm:gap-8 lg:gap-12 w-full lg:w-1/2 justify-center lg:justify-end">
-                        {/* Image Stack */}
-                        <div className="relative w-[280px] h-[360px] sm:w-[320px] sm:h-[400px] md:w-[400px] md:h-[520px] rounded-xl flex-shrink-0">
-                            {steps.map((step, idx) => (
-                                <div
-                                    key={`img-${idx}`}
-                                    className={`absolute inset-0 transition-all duration-500 ease-out rounded-xl overflow-hidden shadow-2xl bg-white select-none ${idx === activeStep ? 'cursor-grab active:cursor-grabbing' : ''}`}
-                                    style={getStackStyles(idx)}
-                                    onMouseDown={mounted && idx === activeStep ? handleDragStart : undefined}
-                                    onTouchStart={mounted && idx === activeStep ? handleDragStart : undefined}
-                                >
-                                    <Image
-                                        src={step.image}
-                                        alt={step.title}
-                                        fill
-                                        className="object-cover pointer-events-none"
-                                        sizes="(max-width: 768px) 300px, 420px"
-                                        priority={idx === 0}
-                                    />
-                                    {/* Overlay for text readability */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
-                                    {/* Title Overlaid */}
-                                    <div className="absolute bottom-6 left-6 right-6 lg:bottom-10 lg:left-8 lg:right-8 pointer-events-none">
-                                        <h3 className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl font-satoshi leading-[1.2] drop-shadow-md">
-                                            {step.title}
-                                        </h3>
+                        {/* Wrapper for Stack + Indicator */}
+                        <div className="flex flex-col items-center gap-6">
+                            {/* Image Stack */}
+                            <div className="relative w-[280px] h-[360px] sm:w-[320px] sm:h-[400px] md:w-[400px] md:h-[520px] rounded-xl flex-shrink-0">
+                                {steps.map((step, idx) => (
+                                    <div
+                                        key={`img-${idx}`}
+                                        className={`absolute inset-0 transition-all duration-500 ease-out rounded-xl overflow-hidden shadow-2xl bg-white select-none ${idx === activeStep ? 'cursor-grab active:cursor-grabbing' : ''}`}
+                                        style={getStackStyles(idx)}
+                                        onMouseDown={mounted && idx === activeStep ? handleDragStart : undefined}
+                                        onTouchStart={mounted && idx === activeStep ? handleDragStart : undefined}
+                                    >
+                                        <Image
+                                            src={step.image}
+                                            alt={step.title}
+                                            fill
+                                            className="object-cover pointer-events-none"
+                                            sizes="(max-width: 768px) 300px, 420px"
+                                            priority={idx === 0}
+                                        />
+                                        {/* Overlay for text readability */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+                                        {/* Title Overlaid */}
+                                        <div className="absolute bottom-6 left-6 right-6 lg:bottom-10 lg:left-8 lg:right-8 pointer-events-none">
+                                            <h3 className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl font-satoshi leading-[1.2] drop-shadow-md">
+                                                {step.title}
+                                            </h3>
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
+
+                            {/* Dot Indicators */}
+                            <div className="flex gap-2.5 mt-2">
+                                {steps.map((_, idx) => (
+                                    <button
+                                        key={`dot-${idx}`}
+                                        onClick={() => setActiveStep(idx)}
+                                        className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                                            idx === activeStep
+                                                ? 'w-8 bg-[#036132]'
+                                                : 'w-2 bg-gray-300 hover:bg-gray-400'
+                                        }`}
+                                        aria-label={`Go to step ${idx + 1}`}
+                                    />
+                                ))}
+                            </div>
                         </div>
 
                         {/* Right Arrow */}
                         <button
                             onClick={handleNext}
-                            className="hidden sm:flex flex-shrink-0 w-12 h-12 md:w-14 md:h-14 bg-black text-white rounded-full items-center justify-center hover:bg-gray-800 transition-colors z-20 shadow-lg"
+                            className="hidden sm:flex flex-shrink-0 w-12 h-12 md:w-14 md:h-14 bg-black text-white rounded-full items-center justify-center hover:bg-gray-800 transition-colors z-20 shadow-lg cursor-pointer"
                             aria-label="Next step"
                         >
                             <ArrowRight className="w-6 h-6 md:w-7 md:h-7" />
