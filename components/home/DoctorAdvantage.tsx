@@ -19,7 +19,7 @@ const DoctorAdvantage = () => {
         if (!context) return;
 
         const isMobile = window.innerWidth < 768;
-        
+
         // Mobile video is 9:16, Desktop is 16:9
         canvas.width = isMobile ? 1080 : 1920;
         canvas.height = isMobile ? 1920 : 1080;
@@ -95,21 +95,21 @@ const DoctorAdvantage = () => {
             {/* Image Sequence Canvas */}
             <canvas
                 ref={canvasRef}
-                className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0 mix-blend-multiply scale-100 origin-bottom md:origin-center"
+                className="absolute inset-0 w-full h-full object-cover object-[50%_20%] pointer-events-none z-0 mix-blend-multiply scale-100 origin-bottom md:origin-center"
             />
 
             {/* Header Title Layer */}
             <div ref={headerRef} className="absolute top-12 md:top-24 left-0 w-full max-w-[1440px] px-6 md:px-12 xl:px-16 z-20 pointer-events-none flex flex-col items-start justify-start">
                 <TextReveal
                     tag="h2"
-                    className="text-3xl md:text-5xl lg:text-[56px] font-medium leading-[1.1] tracking-tight text-black uppercase text-left max-w-2xl"
+                    className="text-3xl md:text-5xl lg:text-[56px] font-medium leading-[1.1] tracking-tight text-black uppercase text-left max-w-xl"
                 >
                     The <span className="text-[#EF8F60]">Joyzen</span> doctor advantage
                 </TextReveal>
                 <TextReveal
                     tag="p"
                     delay={0.1}
-                    className="font-satoshi text-xl md:text-2xl lg:text-3xl max-w-xl leading-[1.2] text-gray-800 mt-4 text-left"
+                    className="font-satoshi text-xl md:text-2xl lg:text-3xl max-w-lg leading-[1.2] text-gray-800 mt-4 text-left"
                 >
                     Growth is no longer dependent only on patient volume.
                 </TextReveal>
