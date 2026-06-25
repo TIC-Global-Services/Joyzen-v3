@@ -266,7 +266,7 @@ const BePart = () => {
             {/* Image Sequence Canvas */}
             <canvas
                 ref={canvasRef}
-                className="absolute w-full h-full object-cover scale-[1.2] pointer-events-none z-10 opacity-0"
+                className="absolute w-full h-full object-contain md:object-cover scale-100 md:scale-[1.2] pointer-events-none z-10 opacity-0"
             />
 
 

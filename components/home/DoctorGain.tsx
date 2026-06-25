@@ -10,6 +10,7 @@ import img1 from '@/assets/home/betterfordoctors/01.webp'
 import img2 from '@/assets/home/betterfordoctors/02.webp'
 import img3 from '@/assets/home/betterfordoctors/03.webp'
 import img4 from '@/assets/home/betterfordoctors/04.webp'
+import { is } from 'zod/locales'
 
 const cardData = [
     {
@@ -159,7 +160,7 @@ const DoctorGain = () => {
                         const bgColor = isEven ? 'bg-[#ef8f60]' : 'bg-[#f7f4ed]';
                         // Colors are static since cards slide in and stay focused until stacked over
                         const numColor = isEven ? 'text-white' : 'text-black';
-                        const titleColor = 'text-black';
+                        const titleColor = isEven ? 'text-white' : 'text-black';
                         const descColor = isEven ? 'text-white' : 'text-gray-900';
 
                         return (

@@ -24,7 +24,7 @@ const DoctorAdvantage = () => {
         canvas.width = isMobile ? 1080 : 1920;
         canvas.height = isMobile ? 1920 : 1080;
 
-        const frameCount = isMobile ? 472 : 373;
+        const frameCount = isMobile ? 724 : 497;
         const sequencePath = isMobile ? '/3dbodymobseq' : '/3dbodyupscaledseq';
 
         // Preload images
@@ -95,7 +95,7 @@ const DoctorAdvantage = () => {
             {/* Image Sequence Canvas */}
             <canvas
                 ref={canvasRef}
-                className="absolute inset-0 w-full h-full object-cover object-[50%_20%] pointer-events-none z-0 mix-blend-multiply scale-100 origin-bottom md:origin-center"
+                className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0 mix-blend-normal scale-100 origin-bottom md:origin-center"
             />
 
             {/* Header Title Layer */}
@@ -109,7 +109,7 @@ const DoctorAdvantage = () => {
                 <TextReveal
                     tag="p"
                     delay={0.1}
-                    className="font-satoshi text-xl md:text-2xl lg:text-3xl md:max-w-lg max-w-[300px] leading-[1.2] text-gray-800 mt-4 text-left"
+                    className="font-satoshi text-xl md:text-2xl lg:text-3xl md:max-w-lg max-w-[200px] leading-[1.2] text-gray-800 mt-4 text-left"
                 >
                     Growth is no longer dependent only on patient volume.
                 </TextReveal>
