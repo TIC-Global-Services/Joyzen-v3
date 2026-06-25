@@ -95,7 +95,7 @@ const DoctorAdvantage = () => {
             {/* Image Sequence Canvas */}
             <canvas
                 ref={canvasRef}
-                className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0 mix-blend-normal scale-100 origin-bottom md:origin-center"
+                className="absolute inset-0 w-full h-full object-cover md:object-[50%_20%] pointer-events-none z-0 mix-blend-normal scale-100 origin-bottom md:origin-center"
             />
 
             {/* Header Title Layer */}

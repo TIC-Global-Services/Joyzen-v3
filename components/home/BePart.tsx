@@ -4,9 +4,6 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import TextReveal from '@/reUseable/TextReveal'
 
-const TOTAL_FRAMES = 274;
-const START_FRAME = 0;
-
 const BePart = () => {
     const containerRef = useRef<HTMLDivElement>(null)
     const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -23,17 +20,23 @@ const BePart = () => {
         const context = canvas.getContext("2d");
         if (!context) return;
 
-        // Set high resolution for rendering
-        canvas.width = 1920;
-        canvas.height = 1080;
+        const isMobile = window.innerWidth < 768;
+
+        // Mobile video is 9:16, Desktop is 16:9
+        canvas.width = isMobile ? 1080 : 1920;
+        canvas.height = isMobile ? 1920 : 1080;
+
+        const frameCount = isMobile ? 272 : 274;
+        const startFrame = isMobile ? 1 : 0;
+        const sequencePath = isMobile ? '/joyzenhandsmob' : '/joyzenhandsnew';
 
         // Preload images
         const images: HTMLImageElement[] = [];
-        for (let i = 0; i < TOTAL_FRAMES; i++) {
+        for (let i = 0; i < frameCount; i++) {
             const img = new Image();
             // Pad the frame number to 6 digits, e.g., frame-000000.jpg
-            const frameNum = (i + START_FRAME).toString().padStart(6, '0');
-            img.src = `/joyzenhandsnew/frame-${frameNum}.jpg`;
+            const frameNum = (i + startFrame).toString().padStart(6, '0');
+            img.src = `${sequencePath}/frame-${frameNum}.jpg`;
             images.push(img);
         }
 
@@ -69,7 +72,7 @@ const BePart = () => {
         // 1. Animate the canvas frames based on scroll progress
         const frameObj = { frame: 0 };
         timeline.to(frameObj, {
-            frame: TOTAL_FRAMES - 1,
+            frame: frameCount - 1,
             snap: "frame",
             ease: "none",
             duration: 1,
@@ -266,7 +269,7 @@ const BePart = () => {
             {/* Image Sequence Canvas */}
             <canvas
                 ref={canvasRef}
-                className="absolute w-full h-full object-contain md:object-cover scale-100 md:scale-[1.2] pointer-events-none z-10 opacity-0"
+                className="absolute w-full h-full object-cover scale-100 md:scale-[1.2] pointer-events-none z-10 opacity-0"
             />
 
 
