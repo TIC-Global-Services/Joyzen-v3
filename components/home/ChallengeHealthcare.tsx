@@ -5,10 +5,10 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import TextReveal from '@/reUseable/TextReveal'
 
-import biggestChallenge from '@/assets/home/caretimeline/biggestChallenge.png'
-import impact from '@/assets/home/caretimeline/impactClinic.png'
-import connected from '@/assets/home/caretimeline/connectedHealthcare.png'
-import future from '@/assets/home/caretimeline/healthFuture.png'
+import biggestChallenge from '@/assets/home/caretimeline/biggestChallenge.webp'
+import impact from '@/assets/home/caretimeline/impactClinic.webp'
+import connected from '@/assets/home/caretimeline/connectedHealthcare.webp'
+import future from '@/assets/home/caretimeline/healthFuture.webp'
 
 const timelineSteps = [
     {

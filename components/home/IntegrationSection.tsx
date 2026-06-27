@@ -6,12 +6,12 @@ import gsap from 'gsap'
 import TextReveal from '@/reUseable/TextReveal'
 
 // Importing existing premium assets
-import care from '@/assets/home/intergrationSection/continuouscare.png'
-import records from '@/assets/home/intergrationSection/medicalrecords.png'
-import followups from '@/assets/home/intergrationSection/followups.png'
-import management from '@/assets/home/intergrationSection/patientmanagement.png'
-import clinic from '@/assets/home/intergrationSection/morethanclinic.png'
-import software from '@/assets/home/intergrationSection/healthcaresoftware.png'
+import care from '@/assets/home/intergrationSection/continuouscare.webp'
+import records from '@/assets/home/intergrationSection/medicalrecords.webp'
+import followups from '@/assets/home/intergrationSection/followups.webp'
+import management from '@/assets/home/intergrationSection/patientmanagement.webp'
+import clinic from '@/assets/home/intergrationSection/morethanclinic.webp'
+import software from '@/assets/home/intergrationSection/healthcaresoftware.webp'
 
 const steps = [
     {
@@ -316,11 +316,10 @@ const IntegrationSection = () => {
                                     <button
                                         key={`dot-${idx}`}
                                         onClick={() => setActiveStep(idx)}
-                                        className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                                            idx === activeStep
+                                        className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${idx === activeStep
                                                 ? 'w-8 bg-[#036132]'
                                                 : 'w-2 bg-gray-300 hover:bg-gray-400'
-                                        }`}
+                                            }`}
                                         aria-label={`Go to step ${idx + 1}`}
                                     />
                                 ))}
