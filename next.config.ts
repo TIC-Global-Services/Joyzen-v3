@@ -4,7 +4,13 @@ const nextConfig: NextConfig = {
   /* config options here */
   output: "export",
   images: {
-    domains: ["ik.imagekit.io"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "ik.imagekit.io",
+        pathname: "/**",
+      },
+    ],
     unoptimized: true,
   },
   trailingSlash: true,
