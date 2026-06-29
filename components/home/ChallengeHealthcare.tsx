@@ -150,9 +150,9 @@ const ChallengeHealthcare = () => {
                             <div
                                 key={`care-timeline-${idx}`}
                                 onClick={() => setActiveIndex(idx)}
-                                className={`relative cursor-pointer transition-[height,border-radius,background-color,box-shadow] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden shadow-[8px_8px_20px_rgba(0,0,0,0.04)] ${isActive
-                                    ? 'h-[280px] sm:h-[340px] md:h-[380px] rounded-[2rem]' // Active: approx 5:4 aspect ratio for 480px max width
-                                    : 'h-[64px] md:h-[76px] rounded-[1.5rem] bg-gradient-to-br from-white/90 to-white/80 md:from-white/40 md:to-white/10 md:backdrop-blur-xl hover:from-white/95 hover:to-white/90 hover:shadow-[12px_12px_24px_rgba(0,0,0,0.06)]'
+                                className={`relative flex flex-col justify-end cursor-pointer transition-[min-height,border-radius,background-color,box-shadow] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden shadow-[8px_8px_20px_rgba(0,0,0,0.04)] ${isActive
+                                    ? 'min-h-[280px] sm:min-h-[340px] md:min-h-[380px] rounded-[2rem]' // Active: approx 5:4 aspect ratio for 480px max width
+                                    : 'min-h-[64px] md:min-h-[76px] rounded-[1.5rem] bg-gradient-to-br from-white/90 to-white/80 md:from-white/40 md:to-white/10 md:backdrop-blur-xl hover:from-white/95 hover:to-white/90 hover:shadow-[12px_12px_24px_rgba(0,0,0,0.06)]'
                                     }`}
                             >
                                 {/* Light Edge & Vignette Overlay */}
@@ -175,9 +175,9 @@ const ChallengeHealthcare = () => {
 
                                 {/* Seamless Transition Text Wrapper */}
                                 <div
-                                    className={`absolute top-0 left-0 w-full h-full flex flex-col items-center justify-end px-6 md:px-10 z-10 pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive
-                                        ? 'pb-6 md:pb-8'
-                                        : 'pb-[18px] md:pb-[22px]'
+                                    className={`relative w-full flex flex-col items-center justify-end px-6 md:px-10 z-10 pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive
+                                        ? 'pb-6 md:pb-8 pt-10'
+                                        : 'py-[18px] md:py-[22px]'
                                         }`}
                                 >
                                     <h3
