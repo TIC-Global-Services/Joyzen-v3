@@ -14,7 +14,7 @@ const BePart = () => {
 
     useEffect(() => {
         const isMobile = window.innerWidth < 768;
-        setVideoSrc(isMobile ? '/joyzenhandsmob.mp4' : '/joyzenhandsnew.mp4');
+        setVideoSrc(isMobile ? '/joyzenhandsmob_keyframe.mp4' : '/joyzenhandsnew.mp4');
     }, []);
 
     useEffect(() => {

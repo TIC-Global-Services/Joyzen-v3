@@ -12,7 +12,7 @@ const DoctorAdvantage = () => {
 
     useEffect(() => {
         const isMobile = window.innerWidth < 768;
-        setVideoSrc(isMobile ? '/3dbodymobseq.mp4' : '/3dbodyupscaledseq.mp4');
+        setVideoSrc(isMobile ? '/3dbodymobseq3_keyframe.mp4' : '/3dbodyupscaledseq.mp4');
     }, []);
 
     useEffect(() => {
@@ -23,13 +23,14 @@ const DoctorAdvantage = () => {
         const video = videoRef.current;
 
         const setupAnimation = () => {
+            const isMobile = window.innerWidth < 768;
             const timeline = gsap.timeline({
                 scrollTrigger: {
                     trigger: sectionRef.current,
                     start: "top top",
-                    end: "+=600%", // Increased from 300% to 600% to make the video play slower over a longer scroll distance
+                    end: isMobile ? "+=500%" : "+=600%", // Shorter scroll distance on mobile
                     pin: true,
-                    scrub: true, // Increased from 0.5 to 1.5 to add more smoothing/easing to the video scrubbing
+                    scrub: true,
                 }
             });
 
