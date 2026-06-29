@@ -21,7 +21,7 @@ const DoctorAdvantage = () => {
         if (!sectionRef.current || !videoRef.current || !videoSrc) return;
 
         const video = videoRef.current;
-        
+
         const setupAnimation = () => {
             const timeline = gsap.timeline({
                 scrollTrigger: {
@@ -44,13 +44,13 @@ const DoctorAdvantage = () => {
             }
 
             // Scrub video
-            timeline.fromTo(video, 
-                { currentTime: 0 }, 
-                { 
-                    currentTime: video.duration || 1, 
-                    ease: "none", 
-                    duration: 1 
-                }, 
+            timeline.fromTo(video,
+                { currentTime: 0 },
+                {
+                    currentTime: video.duration || 1,
+                    ease: "none",
+                    duration: 1
+                },
                 0
             );
 
@@ -73,7 +73,7 @@ const DoctorAdvantage = () => {
         if (playPromise !== undefined) {
             playPromise.then(() => {
                 video.pause();
-            }).catch(() => {});
+            }).catch(() => { });
         }
 
         return () => {
@@ -115,6 +115,14 @@ const DoctorAdvantage = () => {
                     Growth is no longer dependent only on patient volume.
                 </TextReveal>
             </div>
+
+            {/* Bottom Blur/Gradient to fade into the next section */}
+            <div
+                className="absolute bottom-0 left-0 w-full h-10 pointer-events-none z-10"
+                style={{
+                    background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 1) 100%)'
+                }}
+            />
         </section>
     );
 };

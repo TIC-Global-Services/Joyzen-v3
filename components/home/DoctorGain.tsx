@@ -154,7 +154,7 @@ const DoctorGain = () => {
                 </div>
 
                 {/* Stacked Cards Container */}
-                <div ref={containerRef} className="relative w-full h-[450px] sm:h-[420px] lg:h-[400px] [@media(max-height:768px)]:h-[350px] [@media(max-height:650px)]:h-[290px] max-w-[960px] mx-auto perspective-1000 shrink-0">
+                <div ref={containerRef} className="relative w-full h-[450px] sm:h-[420px] lg:h-[350px] [@media(max-height:768px)]:h-[350px] [@media(max-height:650px)]:h-[290px] max-w-[960px] mx-auto perspective-1000 shrink-0">
                     {cardData.map((card, idx) => {
                         const isEven = idx % 2 === 0;
                         const bgColor = isEven ? 'bg-[#ef8f60]' : 'bg-[#f7f4ed]';
@@ -171,7 +171,7 @@ const DoctorGain = () => {
                                 <div className="card-overlay absolute inset-0 bg-white pointer-events-none z-50 opacity-0" />
                                 <div className="flex flex-col sm:flex-row h-full p-6 sm:p-8 md:p-12 gap-4 sm:gap-8 items-stretch justify-between relative z-10">
                                     {/* Left Text Side */}
-                                    <div className="flex flex-col justify-center w-full sm:w-1/2 sm:p-0">
+                                    <div className="flex flex-col justify-center w-full sm:w-[55%] md:w-[60%] sm:p-0">
                                         <span className={`font-satoshi text-5xl sm:text-6xl md:text-7xl lg:text-[100px] font-medium leading-none mb-2 md:mb-6 ${numColor} [@media(max-height:768px)]:text-5xl [@media(max-height:650px)]:text-4xl`}>
                                             {card.num}
                                         </span>
@@ -184,7 +184,7 @@ const DoctorGain = () => {
                                     </div>
 
                                     {/* Right Image Side */}
-                                    <div className="w-full sm:w-1/2 flex-1 sm:flex-none flex items-stretch sm:items-center sm:justify-end">
+                                    <div className="w-full sm:w-[45%] md:w-[40%] flex-1 sm:flex-none flex items-stretch sm:items-center sm:justify-end">
                                         <div className="relative w-full h-full sm:w-[220px] sm:h-[220px] md:w-[260px] md:h-[260px] rounded-[16px] sm:rounded-3xl overflow-hidden bg-black/10">
                                             <Image
                                                 src={card.image}
