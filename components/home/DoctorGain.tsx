@@ -57,7 +57,7 @@ const DoctorGain = () => {
                 const isMobile = window.innerWidth < 768;
                 const isShortScreen = window.innerHeight < 768;
 
-                const scrollDistance = isMobile ? '+=160%' : `+=${cards.length * 100}%`;
+                const scrollDistance = isMobile ? '+=160%' : `+=${cards.length * 50}%`;
                 const stackOffset = isMobile ? 12 : (isShortScreen ? 15 : 30);
                 const pushUpOffset = isMobile ? 8 : (isShortScreen ? 10 : 20);
 

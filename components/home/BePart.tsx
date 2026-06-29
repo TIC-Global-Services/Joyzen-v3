@@ -116,7 +116,7 @@ const BePart = () => {
             trigger = ScrollTrigger.create({
                 trigger: containerRef.current,
                 start: "top top",
-                end: "+=250%",
+                end: "+=100%",
                 pin: true,
                 onUpdate: (self) => {
                     if (isAutoplaying.current) return;

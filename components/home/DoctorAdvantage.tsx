@@ -29,7 +29,7 @@ const DoctorAdvantage = () => {
                     start: "top top",
                     end: "+=600%", // Increased from 300% to 600% to make the video play slower over a longer scroll distance
                     pin: true,
-                    scrub: 1.5, // Increased from 0.5 to 1.5 to add more smoothing/easing to the video scrubbing
+                    scrub: true, // Increased from 0.5 to 1.5 to add more smoothing/easing to the video scrubbing
                 }
             });
 

@@ -54,7 +54,7 @@ const ChallengeHealthcare = () => {
 
         const ctx = gsap.context(() => {
             const isMobile = window.innerWidth < 768;
-            const scrollDistance = isMobile ? '+=120%' : '+=300%';
+            const scrollDistance = isMobile ? '+=120%' : '+=200%';
 
             // Scroll Pinning Logic
             ScrollTrigger.create({
