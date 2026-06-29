@@ -84,22 +84,7 @@ const IntakeForm = () => {
         };
     }, [focusedIndex, errors, updateLogoPosition]);
 
-    useEffect(() => {
-        const handleMouseMove = (e: MouseEvent) => {
-            const x = (e.clientX / window.innerWidth - 0.5);
-            const y = (e.clientY / window.innerHeight - 0.5);
 
-            if (blob1Ref.current?.parentElement) gsap.to(blob1Ref.current.parentElement, { x: x * 350, y: y * 180, duration: 2, ease: "power2.out" });
-            if (blob2Ref.current?.parentElement) gsap.to(blob2Ref.current.parentElement, { x: x * -300, y: y * 200, duration: 2, ease: "power2.out" });
-            if (blob3Ref.current?.parentElement) gsap.to(blob3Ref.current.parentElement, { x: x * 250, y: y * -150, duration: 2, ease: "power2.out" });
-            if (blob4Ref.current?.parentElement) gsap.to(blob4Ref.current.parentElement, { x: x * -200, y: y * -120, duration: 2, ease: "power2.out" });
-        };
-
-        window.addEventListener("mousemove", handleMouseMove);
-        return () => {
-            window.removeEventListener("mousemove", handleMouseMove);
-        };
-    }, []);
 
     const onSubmit = async (data: IntakeFormData) => {
         const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbyA4JtUq62yvksXHhICXf5TvVE-G5bOMJ87Qfrr_5aElr1XQ7ubJ3IK6r3FgUi0JrVC/exec";

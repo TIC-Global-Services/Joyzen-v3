@@ -81,27 +81,7 @@ const ChallengeHealthcare = () => {
             });
 
 
-            // Smooth Parallax (Desktop Only)
-            const handleMouseMove = (e: MouseEvent) => {
-                const x = (e.clientX / window.innerWidth - 0.5);
-                const y = (e.clientY / window.innerHeight - 0.5);
 
-                if (blob1Ref.current?.parentElement) gsap.to(blob1Ref.current.parentElement, { x: x * 600, y: y * 300, duration: 2, ease: "power2.out" });
-                if (blob4Ref.current?.parentElement) gsap.to(blob4Ref.current.parentElement, { x: x * -500, y: y * -200, duration: 2, ease: "power2.out" });
-                if (blob3Ref.current?.parentElement) gsap.to(blob3Ref.current.parentElement, { x: x * 400, y: y * -240, duration: 2, ease: "power2.out" });
-                if (blob2Ref.current?.parentElement) gsap.to(blob2Ref.current.parentElement, { x: x * -700, y: y * 360, duration: 2, ease: "power2.out" });
-            };
-
-            const isTouch = window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-            if (!isTouch) {
-                window.addEventListener("mousemove", handleMouseMove);
-            }
-
-            return () => {
-                if (!isTouch) {
-                    window.removeEventListener("mousemove", handleMouseMove);
-                }
-            };
         });
 
         return () => {
