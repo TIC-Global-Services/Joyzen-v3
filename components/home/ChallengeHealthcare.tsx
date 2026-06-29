@@ -167,7 +167,7 @@ const ChallengeHealthcare = () => {
                                         alt={step.title}
                                         fill
                                         className="object-cover"
-                                        priority={idx === 0}
+                                        priority
                                     />
                                     {/* Dark gradient for text readability */}
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />

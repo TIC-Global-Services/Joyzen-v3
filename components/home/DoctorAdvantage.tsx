@@ -85,14 +85,14 @@ const DoctorAdvantage = () => {
     return (
         <section ref={sectionRef} className="relative w-full h-screen font-noria overflow-hidden flex items-center justify-center bg-white">
             {/* Background Sky Image */}
-            <img src="/sky.png" alt="Sky Background" className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0" />
+            <img src="/sky.png" alt="Sky Background" className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0 scale-[1.01]" />
 
             {/* Video Sequence */}
             {videoSrc && (
                 <video
                     ref={videoRef}
                     src={videoSrc}
-                    className="absolute inset-0 w-full h-full object-cover md:object-[50%_20%] pointer-events-none z-0 mix-blend-normal scale-100 origin-bottom md:origin-center"
+                    className="absolute inset-0 w-full h-full object-cover md:object-[50%_20%] pointer-events-none z-0 mix-blend-normal scale-[1.01] origin-bottom md:origin-center"
                     muted
                     playsInline
                     preload="auto"

@@ -8,7 +8,7 @@ const NavBar = () => {
             <div className="max-w-[1440px] mx-auto w-full">
                 <nav className="w-full flex items-center justify-center">
                     <Link href="/" className="flex items-center justify-center">
-                        <Image src="/orange_logo.svg" alt="Logo" width={147} height={44} className='w-25 h-10 lg:w-34 lg:h-10' />
+                        <Image src="/orange_logo.svg" alt="Logo" width={147} height={44} className='w-25 h-10 lg:w-34 lg:h-10' priority />
                     </Link>
                 </nav>
             </div>

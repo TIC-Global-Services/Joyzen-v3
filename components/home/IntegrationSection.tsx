@@ -296,7 +296,7 @@ const IntegrationSection = () => {
                                             fill
                                             className="object-cover pointer-events-none"
                                             sizes="(max-width: 768px) 300px, 420px"
-                                            priority={idx === 0}
+                                            priority
                                         />
                                         {/* Overlay for text readability */}
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
