@@ -38,6 +38,8 @@ const Hero = ({
             loop
             muted
             playsInline
+            preload="auto"
+            poster="/dna-poster.jpg"
             className="absolute opacity-75 md:opacity-90 inset-0 w-full h-full object-cover object-[25%_50%]"
           >
             <source src={backgroundVideo} type="video/mp4" />

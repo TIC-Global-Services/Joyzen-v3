@@ -1,102 +1,94 @@
 "use client"
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import TextReveal from '@/reUseable/TextReveal'
 
 const DoctorAdvantage = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
-    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
     const headerRef = useRef<HTMLDivElement>(null);
+    const [videoSrc, setVideoSrc] = useState<string>('');
+
+    useEffect(() => {
+        const isMobile = window.innerWidth < 768;
+        setVideoSrc(isMobile ? '/3dbodymobseq.mp4' : '/3dbodyupscaledseq.mp4');
+    }, []);
 
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
 
-        if (!sectionRef.current || !canvasRef.current) return;
+        if (!sectionRef.current || !videoRef.current || !videoSrc) return;
 
-        const canvas = canvasRef.current;
-        const context = canvas.getContext("2d");
-        if (!context) return;
-
-        const isMobile = window.innerWidth < 768;
-
-        // Mobile video is 9:16, Desktop is 16:9
-        canvas.width = isMobile ? 1080 : 1920;
-        canvas.height = isMobile ? 1920 : 1080;
-
-        const frameCount = isMobile ? 724 : 497;
-        const sequencePath = isMobile ? '/3dbodymobseq' : '/3dbodyupscaledseq';
-
-        // Preload images
-        const images: HTMLImageElement[] = [];
-        for (let i = 0; i < frameCount; i++) {
-            const img = new Image();
-            // ffmpeg outputs frames starting from 1
-            const frameNum = (i + 1).toString().padStart(6, '0');
-            img.src = `${sequencePath}/frame-${frameNum}.jpg`;
-            images.push(img);
-        }
-
-        const renderFrame = (index: number) => {
-            if (images[index] && images[index].complete) {
-                context.clearRect(0, 0, canvas.width, canvas.height);
-                context.drawImage(images[index], 0, 0, canvas.width, canvas.height);
-            } else if (images[index]) {
-                images[index].onload = () => {
-                    context.clearRect(0, 0, canvas.width, canvas.height);
-                    context.drawImage(images[index], 0, 0, canvas.width, canvas.height);
+        const video = videoRef.current;
+        
+        const setupAnimation = () => {
+            const timeline = gsap.timeline({
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: "top top",
+                    end: "+=600%", // Increased from 300% to 600% to make the video play slower over a longer scroll distance
+                    pin: true,
+                    scrub: 1.5, // Increased from 0.5 to 1.5 to add more smoothing/easing to the video scrubbing
                 }
+            });
+
+            if (headerRef.current) {
+                // Blur and fade out header at the start of scroll (15% of timeline)
+                timeline.to(headerRef.current, {
+                    opacity: 0,
+                    filter: "blur(12px)",
+                    duration: 0.15,
+                    ease: "power1.inOut"
+                }, 0);
             }
+
+            // Scrub video
+            timeline.fromTo(video, 
+                { currentTime: 0 }, 
+                { 
+                    currentTime: video.duration || 1, 
+                    ease: "none", 
+                    duration: 1 
+                }, 
+                0
+            );
+
+            // Force recalculation since this is created asynchronously after loadedmetadata
+            setTimeout(() => {
+                ScrollTrigger.sort();
+                ScrollTrigger.refresh();
+            }, 50);
         };
 
-        renderFrame(0);
-
-        const timeline = gsap.timeline({
-            scrollTrigger: {
-                trigger: sectionRef.current,
-                start: "top top",
-                end: "+=300%",
-                pin: true,
-                scrub: 0.5,
-            }
-        });
-
-        if (headerRef.current) {
-            // Blur and fade out header at the start of scroll (15% of timeline)
-            timeline.to(headerRef.current, {
-                opacity: 0,
-                filter: "blur(12px)",
-                duration: 0.15,
-                ease: "power1.inOut"
-            }, 0);
+        if (video.readyState >= 1) {
+            setupAnimation();
+        } else {
+            video.addEventListener('loadedmetadata', setupAnimation);
         }
-
-        const frameObj = { frame: 0 };
-        timeline.to(frameObj, {
-            frame: frameCount - 1,
-            snap: "frame",
-            ease: "none",
-            duration: 1, // Set explicit duration so the 0.15 header duration is relative to this
-            onUpdate: () => {
-                renderFrame(Math.round(frameObj.frame));
-            }
-        }, 0); // Both start at timeline beginning
 
         return () => {
+            video.removeEventListener('loadedmetadata', setupAnimation);
             ScrollTrigger.getAll().forEach(t => t.kill());
         };
-    }, []);
+    }, [videoSrc]);
 
     return (
         <section ref={sectionRef} className="relative w-full h-screen font-noria overflow-hidden flex items-center justify-center bg-white">
             {/* Background Sky Image */}
             <img src="/sky.png" alt="Sky Background" className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0" />
 
-            {/* Image Sequence Canvas */}
-            <canvas
-                ref={canvasRef}
-                className="absolute inset-0 w-full h-full object-cover md:object-[50%_20%] pointer-events-none z-0 mix-blend-normal scale-100 origin-bottom md:origin-center"
-            />
+            {/* Video Sequence */}
+            {videoSrc && (
+                <video
+                    ref={videoRef}
+                    src={videoSrc}
+                    className="absolute inset-0 w-full h-full object-cover md:object-[50%_20%] pointer-events-none z-0 mix-blend-normal scale-100 origin-bottom md:origin-center"
+                    muted
+                    playsInline
+                    preload="auto"
+                />
+            )}
 
             {/* Header Title Layer */}
             <div ref={headerRef} className="absolute top-12 md:top-24 left-0 w-full max-w-[1440px] px-6 md:px-12 xl:px-16 z-20 pointer-events-none flex flex-col items-start justify-start">
