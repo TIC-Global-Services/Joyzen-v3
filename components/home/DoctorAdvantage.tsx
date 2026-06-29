@@ -67,6 +67,15 @@ const DoctorAdvantage = () => {
             video.addEventListener('loadedmetadata', setupAnimation);
         }
 
+        // Force mobile browsers to load and unlock the video
+        video.load();
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                video.pause();
+            }).catch(() => {});
+        }
+
         return () => {
             video.removeEventListener('loadedmetadata', setupAnimation);
             ScrollTrigger.getAll().forEach(t => t.kill());

@@ -231,6 +231,15 @@ const BePart = () => {
             };
         }
 
+        // Force mobile browsers to load and unlock the video
+        video.load();
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                video.pause();
+            }).catch(() => {});
+        }
+
         return () => {
             if (idleTimeout) clearTimeout(idleTimeout);
             if (activeTween) activeTween.kill();
