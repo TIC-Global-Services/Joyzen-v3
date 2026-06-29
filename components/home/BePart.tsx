@@ -23,7 +23,7 @@ const BePart = () => {
         if (!containerRef.current || !videoRef.current || !contentRef.current || !videoSrc) return;
 
         const video = videoRef.current;
-        
+
         let idleTimeout: ReturnType<typeof setTimeout> | null = null;
         let activeTween: gsap.core.Tween | null = null;
         let trigger: ScrollTrigger;
@@ -237,7 +237,7 @@ const BePart = () => {
         if (playPromise !== undefined) {
             playPromise.then(() => {
                 video.pause();
-            }).catch(() => {});
+            }).catch(() => { });
         }
 
         return () => {
@@ -287,7 +287,7 @@ const BePart = () => {
                     active={isActive}
                     className="font-satoshi text-xl md:text-[32px] leading-tight font-normal mb-12 max-w-5xl text-black drop-shadow-sm justify-center"
                 >
-                    Joyzen is reimagining how healthcare is delivered, experienced, and connected—creating a future where every patient, provider, and clinic is part of one continuous care ecosystem.
+                    Joyzen is reimagining how healthcare is delivered, experienced, and connected, creating a future where every patient, provider, and clinic is part of one continuous care ecosystem.
                 </TextReveal>
 
                 <button
