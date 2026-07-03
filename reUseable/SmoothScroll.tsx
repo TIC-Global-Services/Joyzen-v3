@@ -3,8 +3,8 @@
 import { ReactNode, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Lenis from "lenis";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import gsap from "gsap";
+import { ScrollTrigger } from '@/lib/gsap';
+import { gsap } from '@/lib/gsap';
 
 interface SmoothScrollProps {
   children: ReactNode;
@@ -15,8 +15,6 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
   const pathname = usePathname();
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
     if ("scrollRestoration" in history) {
       history.scrollRestoration = "manual";
     }

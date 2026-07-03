@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { gsap } from '@/lib/gsap'
+import { ScrollTrigger } from '@/lib/gsap'
 
 interface TextRevealProps {
   children: React.ReactNode;
@@ -24,7 +24,7 @@ const splitReactChildrenIntoWords = (children: React.ReactNode, blur: boolean): 
         return (
           <span
             key={i}
-            className="reveal-word reveal-item inline-block mr-[0.25em] will-change-[transform,opacity,filter]"
+            className="reveal-word reveal-item inline-block mr-[0.25em]"
             style={{
               opacity: 0,
               filter: blur ? 'blur(10px)' : 'none',
@@ -114,7 +114,8 @@ export default function TextReveal({
               {
                 opacity: 0,
                 y: type === 'words' ? 10 : 15,
-                filter: blur ? 'blur(10px)' : 'blur(0px)'
+                filter: blur ? 'blur(10px)' : 'blur(0px)',
+                willChange: 'transform, opacity, filter'
               },
               {
                 opacity: 1,
@@ -123,7 +124,12 @@ export default function TextReveal({
                 duration: duration,
                 delay: delay,
                 stagger: type === 'words' ? 0.015 : 0,
-                ease: 'power2.out'
+                ease: 'power2.out',
+                onComplete: () => {
+                  lineWords.forEach((el) => {
+                    (el as HTMLElement).style.willChange = 'auto';
+                  });
+                }
               },
               lineIdx * (type === 'words' ? 0.06 : 0.08)
             );
@@ -159,18 +165,18 @@ export default function TextReveal({
     const timer = setTimeout(initScrollTrigger, 100);
 
     let lastWidth = window.innerWidth;
-    const handleResize = () => {
+    const ro = new ResizeObserver(() => {
       const currentWidth = window.innerWidth;
       if (currentWidth !== lastWidth) {
         lastWidth = currentWidth;
         initScrollTrigger();
       }
-    };
-    window.addEventListener('resize', handleResize);
+    });
+    ro.observe(document.documentElement);
 
     return () => {
       clearTimeout(timer);
-      window.removeEventListener('resize', handleResize);
+      ro.disconnect();
       if (ctx) ctx.revert();
     };
   }, [type, blur, delay, duration, manual, children]);

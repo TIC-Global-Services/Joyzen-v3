@@ -1,8 +1,8 @@
 "use client"
 import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { gsap } from '@/lib/gsap'
+import { ScrollTrigger } from '@/lib/gsap'
 import TextReveal from '@/reUseable/TextReveal'
 
 import biggestChallenge from '@/assets/home/caretimeline/biggestChallenge.webp'
@@ -46,8 +46,6 @@ const ChallengeHealthcare = () => {
     const blob4Ref = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        gsap.registerPlugin(ScrollTrigger);
-
         if (!sectionRef.current) return;
 
         let currentIndex = 0;

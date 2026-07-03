@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useRef, useEffect, useCallback } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import toast, { Toaster } from 'react-hot-toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -30,27 +30,29 @@ const intakeFormSchema = z.object({
 
 type IntakeFormData = z.infer<typeof intakeFormSchema>;
 
+const getFieldNameByIndex = (index: number): keyof IntakeFormData => {
+    const fields: (keyof IntakeFormData)[] = ["name", "specialty", "city", "address", "phone", "email", "patientVolume", "comments"];
+    return fields[index];
+};
+
 const IntakeForm = () => {
-    const { register, handleSubmit, reset, watch, formState: { errors, isSubmitting } } = useForm<IntakeFormData>({
+    const { register, handleSubmit, reset, control, formState: { errors, isSubmitting } } = useForm<IntakeFormData>({
         resolver: zodResolver(intakeFormSchema),
         mode: "onChange"
     })
 
-    const watchedValues = watch()
     const [focusedIndex, setFocusedIndex] = useState<number>(0)
     const [isFocused, setIsFocused] = useState<boolean>(false)
     const [logoTop, setLogoTop] = useState<number | null>(null)
+
+    // Watch only the currently focused field — avoids full re-render on every keystroke in all fields
+    const focusedFieldValue = useWatch({ control, name: getFieldNameByIndex(focusedIndex) })
     const fieldRefs = useRef<(HTMLDivElement | null)[]>([])
 
     const blob1Ref = useRef<HTMLDivElement>(null)
     const blob2Ref = useRef<HTMLDivElement>(null)
     const blob3Ref = useRef<HTMLDivElement>(null)
     const blob4Ref = useRef<HTMLDivElement>(null)
-
-    const getFieldNameByIndex = (index: number): keyof IntakeFormData => {
-        const fields: (keyof IntakeFormData)[] = ["name", "specialty", "city", "address", "phone", "email", "patientVolume", "comments"];
-        return fields[index];
-    };
 
     const handleFocus = (index: number) => {
         setFocusedIndex(index);
@@ -298,9 +300,8 @@ const IntakeForm = () => {
                             style={{
                                 top: logoTop !== null ? `${logoTop}px` : '28px',
                                 transform: isFocused
-                                    ? `translateY(-50%) translateY(-10px) scale(1.15) rotate(${watchedValues &&
-                                        watchedValues[getFieldNameByIndex(focusedIndex)] &&
-                                        String(watchedValues[getFieldNameByIndex(focusedIndex)]).length > 0
+                                    ? `translateY(-50%) translateY(-10px) scale(1.15) rotate(${focusedFieldValue &&
+                                        String(focusedFieldValue).length > 0
                                         ? '8deg'
                                         : '0deg'
                                     })`

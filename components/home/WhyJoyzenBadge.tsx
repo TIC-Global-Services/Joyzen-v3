@@ -1,11 +1,12 @@
 "use client"
 import React, { useEffect, useRef } from 'react'
-import gsap from 'gsap'
+import Image from 'next/image'
+import { gsap } from '@/lib/gsap'
 import TextReveal from '@/reUseable/TextReveal'
 
 const WhyJoyzenBadge = () => {
     const svgRef = useRef<SVGSVGElement>(null)
-    const hoverImages = ['/hover/hover1.png', '/hover/hover2.png', '/hover/hover3.png', '/hover/hover4.png']
+    const hoverImages = ['/hover/hover1.webp', '/hover/hover2.webp', '/hover/hover3.webp', '/hover/hover4.webp']
     const marqueeImages = [...hoverImages, ...hoverImages]
 
     const totalTicks = 120
@@ -102,7 +103,13 @@ const WhyJoyzenBadge = () => {
                     <div className="flex gap-6 pr-6">
                         {marqueeImages.map((src, idx) => (
                             <div key={idx} className="flex-shrink-0 w-[180px] h-[180px] md:w-[280px] md:h-[280px] relative rounded-2xl overflow-hidden shadow-md transition-transform duration-300 hover:scale-[1.03]">
-                                <img src={src} alt={`Joyzen Aspect ${idx + 1}`} className="w-full h-full object-cover" />
+                                <Image
+                                    src={src}
+                                    alt={`Joyzen Aspect ${idx + 1}`}
+                                    fill
+                                    loading="lazy"
+                                    className="object-cover"
+                                />
                             </div>
                         ))}
                     </div>
@@ -110,7 +117,13 @@ const WhyJoyzenBadge = () => {
                     <div className="flex gap-6 pr-6">
                         {marqueeImages.map((src, idx) => (
                             <div key={`dup-${idx}`} className="flex-shrink-0 w-[180px] h-[180px] md:w-[280px] md:h-[280px] relative rounded-2xl overflow-hidden shadow-md transition-transform duration-300 hover:scale-[1.03]">
-                                <img src={src} alt={`Joyzen Aspect ${idx + 1} Duplicate`} className="w-full h-full object-cover" />
+                                <Image
+                                    src={src}
+                                    alt={`Joyzen Aspect ${idx + 1} Duplicate`}
+                                    fill
+                                    loading="lazy"
+                                    className="object-cover"
+                                />
                             </div>
                         ))}
                     </div>

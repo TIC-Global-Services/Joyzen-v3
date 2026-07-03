@@ -27,7 +27,7 @@ export default function Preloader() {
     const timer = setTimeout(() => {
       gsap.to(preloaderRef.current, {
         opacity: 0,
-        duration: 1.5,
+        duration: 0.8,
         ease: "power2.out",
         onComplete: () => setIsComplete(true),
       });

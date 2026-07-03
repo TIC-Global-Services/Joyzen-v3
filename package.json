@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "convert-frames": "node scripts/convert-frames-to-webp.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -16,7 +17,6 @@
     "lenis": "^1.3.23",
     "lucide-react": "^1.14.0",
     "next": "16.2.4",
-    "ogl": "^1.0.11",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-hook-form": "^7.75.0",

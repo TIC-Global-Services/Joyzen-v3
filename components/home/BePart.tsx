@@ -1,34 +1,134 @@
 "use client"
 import React, { useEffect, useRef, useState } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { gsap } from '@/lib/gsap'
+import { ScrollTrigger } from '@/lib/gsap'
 import TextReveal from '@/reUseable/TextReveal'
+import { loadFramesBatched } from '@/lib/loadFrames'
 
 const BePart = () => {
     const containerRef = useRef<HTMLDivElement>(null)
-    const videoRef = useRef<HTMLVideoElement>(null)
     const contentRef = useRef<HTMLDivElement>(null)
     const isAutoplaying = useRef(false)
     const [isActive, setIsActive] = useState(false)
-    const [videoSrc, setVideoSrc] = useState<string>('')
 
+    const [isMobileDevice, setIsMobileDevice] = useState<boolean | null>(null);
+    const [firstFrameLoaded, setFirstFrameLoaded] = useState(false);
+    const [imagesLoaded, setImagesLoaded] = useState(false);
+    const [loadProgress, setLoadProgress] = useState(0);
+    
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const imagesRef = useRef<HTMLImageElement[]>([]);
+    const currentFrameRef = useRef<number>(1);
+    const [totalFrames, setTotalFrames] = useState(92);
+
+    // Draw a specific frame to the canvas with cover sizing
+    const drawFrame = (frameIndex: number) => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const context = canvas.getContext('2d');
+        if (!context) return;
+
+        let img = imagesRef.current[frameIndex - 1];
+        
+        // Fallback to nearest loaded image if the requested frame isn't fully loaded yet
+        if (!img || !img.complete) {
+            let found = false;
+            // Search backward first
+            for (let i = frameIndex - 1; i >= 0; i--) {
+                if (imagesRef.current[i] && imagesRef.current[i].complete) {
+                    img = imagesRef.current[i];
+                    found = true;
+                    break;
+                }
+            }
+            // Search forward if still not found
+            if (!found) {
+                for (let i = frameIndex; i < totalFrames; i++) {
+                    if (imagesRef.current[i] && imagesRef.current[i].complete) {
+                        img = imagesRef.current[i];
+                        found = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (!img || !img.complete) return;
+
+        // Clear canvas
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        const imgWidth = img.naturalWidth;
+        const imgHeight = img.naturalHeight;
+        const canvasWidth = canvas.width;
+        const canvasHeight = canvas.height;
+
+        const imgRatio = imgWidth / imgHeight;
+        const canvasRatio = canvasWidth / canvasHeight;
+
+        let drawWidth, drawHeight, drawX, drawY;
+
+        if (canvasRatio > imgRatio) {
+            // Canvas is wider than image aspect ratio
+            drawWidth = canvasWidth;
+            drawHeight = canvasWidth / imgRatio;
+            drawX = 0;
+            drawY = (canvasHeight - drawHeight) / 2;
+        } else {
+            // Canvas is taller than image aspect ratio
+            drawWidth = canvasHeight * imgRatio;
+            drawHeight = canvasHeight;
+            drawX = (canvasWidth - drawWidth) / 2;
+            drawY = 0;
+        }
+
+        context.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+    };
+
+    const handleResize = () => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        drawFrame(currentFrameRef.current);
+    };
+
+    // Determine device type on mount
     useEffect(() => {
         const isMobile = window.innerWidth < 768;
-        setVideoSrc(isMobile ? '/joyzenhandsmob_keyframe.mp4' : '/joyzenhandsnew.mp4');
+        setIsMobileDevice(isMobile);
+        setTotalFrames(isMobile ? 91 : 92);
     }, []);
 
+    // Preload images once device type is determined
     useEffect(() => {
-        gsap.registerPlugin(ScrollTrigger);
+        if (isMobileDevice === null) return;
 
-        if (!containerRef.current || !videoRef.current || !contentRef.current || !videoSrc) return;
+        const tempImages: HTMLImageElement[] = [];
+        imagesRef.current = tempImages;
 
-        const video = videoRef.current;
+        const folder = isMobileDevice ? 'joyzenhandsmobnew-webp' : 'joyzenhandsnew-webp';
 
-        let idleTimeout: ReturnType<typeof setTimeout> | null = null;
-        let activeTween: gsap.core.Tween | null = null;
-        let trigger: ScrollTrigger;
+        loadFramesBatched(
+            folder,
+            totalFrames,
+            'webp',
+            tempImages,
+            () => setFirstFrameLoaded(true),
+            (loaded) => setLoadProgress(Math.round((loaded / totalFrames) * 100)),
+            () => setImagesLoaded(true)
+        );
+    }, [isMobileDevice, totalFrames]);
 
-        const setupAnimation = () => {
+    // Set up ScrollTrigger and resize listener
+    useEffect(() => {
+        if (isMobileDevice === null || !firstFrameLoaded) return;
+
+        const ctx = gsap.context(() => {
+            // Initial sizing and drawing
+            handleResize();
+            window.addEventListener('resize', handleResize);
+
             const timeline = gsap.timeline({
                 paused: true,
                 onUpdate: () => {
@@ -36,39 +136,54 @@ const BePart = () => {
                 }
             });
 
-            // 0. Fade in video at the start of the sequence
-            timeline.fromTo(video,
-                { opacity: 0 },
-                { opacity: 1, duration: 0.1, ease: "power2.out" },
-                0
-            );
+            const canvas = canvasRef.current;
+            if (canvas) {
+                // 0. Fade in canvas at the start of the sequence
+                timeline.fromTo(canvas,
+                    { opacity: 0 },
+                    { opacity: 1, duration: 0.1, ease: "power2.out" },
+                    0
+                );
+            }
 
-            // 1. Animate the video time based on scroll progress
-            const timeObj = { time: 0 };
-            timeline.to(timeObj, {
-                time: video.duration || 1,
+            // 1. Scrub canvas frames based on scroll progress
+            const frameObj = { frame: 1 };
+            timeline.to(frameObj, {
+                frame: totalFrames,
                 ease: "none",
                 duration: 1,
                 onUpdate: () => {
-                    video.currentTime = timeObj.time;
+                    const frameIndex = Math.min(
+                        totalFrames,
+                        Math.max(1, Math.floor(frameObj.frame))
+                    );
+                    currentFrameRef.current = frameIndex;
+                    drawFrame(frameIndex);
                 }
             }, 0);
 
-            // 2. Blur the video at the end of the timeline
-            timeline.to(video, {
-                filter: "blur(20px)", // Blur transition to act as background
-                duration: 0.2, // 20% of the scroll timeline
-                ease: "power2.inOut"
-            }, 0.8); // Starts when sequence is 80% done
+            // 2. Blur canvas at the end of the timeline
+            if (canvas) {
+                timeline.to(canvas, {
+                    filter: "blur(20px)",
+                    duration: 0.2,
+                    ease: "power2.inOut"
+                }, 0.8);
+            }
 
             // 3. Fade in the text content wrapper
-            timeline.fromTo(contentRef.current,
-                { opacity: 0, scale: 0.98 },
-                { opacity: 1, scale: 1, duration: 0.15, ease: "power2.out" },
-                0.85
-            );
+            if (contentRef.current) {
+                timeline.fromTo(contentRef.current,
+                    { opacity: 0, scale: 0.98 },
+                    { opacity: 1, scale: 1, duration: 0.15, ease: "power2.out" },
+                    0.85
+                );
+            }
 
             const isTouch = window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            let activeTween: gsap.core.Tween | null = null;
+            let idleTimeout: ReturnType<typeof setTimeout> | null = null;
+            let trigger: ScrollTrigger;
 
             const handleTouchStart = () => {
                 isAutoplaying.current = false;
@@ -141,7 +256,6 @@ const BePart = () => {
                         activeTween = gsap.to(timeline, {
                             progress: targetProgress,
                             duration: 0.25,
-                            ease: "power1.out",
                             overwrite: "auto"
                         });
                     } else {
@@ -200,53 +314,21 @@ const BePart = () => {
                 }
             });
 
-            // Need to return a cleanup function specifically for the touch listeners added within setupAnimation
             return () => {
                 if (isTouch) {
                     window.removeEventListener('touchstart', handleTouchStart);
                     window.removeEventListener('touchend', handleTouchEnd);
                 }
+                if (idleTimeout) clearTimeout(idleTimeout);
+                if (activeTween) activeTween.kill();
             };
-        };
-
-        let innerCleanup: (() => void) | undefined;
-
-        if (video.readyState >= 1) {
-            innerCleanup = setupAnimation();
-            setTimeout(() => {
-                ScrollTrigger.sort();
-                ScrollTrigger.refresh();
-            }, 50);
-        } else {
-            const onLoadedMetadata = () => {
-                innerCleanup = setupAnimation();
-                setTimeout(() => {
-                    ScrollTrigger.sort();
-                    ScrollTrigger.refresh();
-                }, 50);
-            };
-            video.addEventListener('loadedmetadata', onLoadedMetadata);
-            innerCleanup = () => {
-                video.removeEventListener('loadedmetadata', onLoadedMetadata);
-            };
-        }
-
-        // Force mobile browsers to load and unlock the video
-        video.load();
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-            playPromise.then(() => {
-                video.pause();
-            }).catch(() => { });
-        }
+        }, containerRef);
 
         return () => {
-            if (idleTimeout) clearTimeout(idleTimeout);
-            if (activeTween) activeTween.kill();
-            if (innerCleanup) innerCleanup();
-            ScrollTrigger.getAll().forEach(t => t.kill());
+            window.removeEventListener('resize', handleResize);
+            ctx.revert();
         };
-    }, [videoSrc]);
+    }, [isMobileDevice, firstFrameLoaded, totalFrames]);
 
     return (
         <section ref={containerRef} id="waitlist" className="relative w-full h-screen bg-white font-noria overflow-hidden flex items-center justify-center">
@@ -257,16 +339,24 @@ const BePart = () => {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-[radial-gradient(circle,rgba(3,97,50,0.05)_0%,transparent_80%)]" />
             </div>
 
-            {/* Video Container */}
-            {videoSrc && (
-                <video
-                    ref={videoRef}
-                    src={videoSrc}
-                    className="absolute w-full h-full object-cover scale-100 md:scale-[1.2] pointer-events-none z-10 opacity-0"
-                    muted
-                    playsInline
-                    preload="auto"
+            {/* Canvas Container */}
+            {firstFrameLoaded && (
+                <canvas
+                    ref={canvasRef}
+                    className="absolute inset-0 w-full h-full pointer-events-none z-10 opacity-0"
                 />
+            )}
+
+            {/* Subtle Progress Bar Overlay while preloading hands */}
+            {!imagesLoaded && firstFrameLoaded && (
+                <div className="absolute bottom-16 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 bg-white/80 backdrop-blur-md px-6 py-3 rounded-full border border-gray-100 shadow-lg transition-opacity duration-300">
+                    <div className="flex items-center gap-3">
+                        <div className="w-4 h-4 border-2 border-[#EF8F60] border-t-transparent rounded-full animate-spin" />
+                        <span className="font-satoshi text-xs font-semibold text-black uppercase tracking-wider">
+                            Optimizing view {loadProgress}%
+                        </span>
+                    </div>
+                </div>
             )}
 
             {/* Central Content (Hidden until end of scroll) */}

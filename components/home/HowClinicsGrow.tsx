@@ -1,8 +1,8 @@
 "use client"
 import React, { useRef, useEffect } from 'react'
 import Image from 'next/image'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { gsap } from '@/lib/gsap'
+import { ScrollTrigger } from '@/lib/gsap'
 import clinicGrowBanner from '@/assets/home/general/clinicGrowBanner.png'
 
 const HowClinicsGrow = () => {
@@ -13,8 +13,6 @@ const HowClinicsGrow = () => {
     const textLeftRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        gsap.registerPlugin(ScrollTrigger);
-
         if (!containerRef.current || !imageWrapperRef.current || !textOverlayRef.current || !overlayBgRef.current || !textLeftRef.current) return;
 
         let mm = gsap.matchMedia();
@@ -72,7 +70,6 @@ const HowClinicsGrow = () => {
 
         return () => {
             mm.revert();
-            ScrollTrigger.getAll().forEach(t => t.kill());
         };
     }, []);
 

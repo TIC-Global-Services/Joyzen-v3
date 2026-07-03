@@ -1,32 +1,33 @@
-import React from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 const Footer = () => {
+  // Pick the correct video for the device — do it client-side to avoid SSR mismatch.
+  // Default to desktop so there's no flash of no-video on first paint.
+  const [videoSrc, setVideoSrc] = useState('/joyzen_glass_footer.mp4');
+
+  useEffect(() => {
+    if (window.innerWidth < 640) {
+      setVideoSrc('/joyzenfooterMobile.mp4');
+    }
+  }, []);
+
   return (
     <footer className="relative w-full h-[50svh] sm:h-[60svh] lg:h-[90svh] bg-gradient-to-r from-[#EBF3F8] via-[#D1E0EC] to-[#A9BFCF] flex flex-col justify-between p-8 sm:p-10 lg:p-[4rem] overflow-hidden">
-      {/* Background Video (Defined first so overlays render on top) */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none  z-0">
-        <div className="relative w-full h-full will-change-transform">
-          {/* Mobile footer video */}
+      {/* Background Video — single stream, source chosen by device at mount */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+        <div className="relative w-full h-full">
           <video
+            key={videoSrc}
             autoPlay
             loop
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-cover sm:hidden scale-100"
+            preload="auto"
+            className="absolute inset-0 w-full h-full object-cover"
           >
-            <source src="/joyzenfooterMobile.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          {/* Desktop footer video */}
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover hidden sm:block"
-          >
-            <source src="/joyzen_glass_footer.mp4" type="video/mp4" />
+            <source src={videoSrc} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>

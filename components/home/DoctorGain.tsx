@@ -1,8 +1,8 @@
 "use client"
 import React, { useEffect, useRef } from 'react'
 import Image from 'next/image'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { gsap } from '@/lib/gsap'
+import { ScrollTrigger } from '@/lib/gsap'
 import TextReveal from '@/reUseable/TextReveal'
 
 // Importing existing assets to use as background images
@@ -10,8 +10,6 @@ import img1 from '@/assets/home/betterfordoctors/01.webp'
 import img2 from '@/assets/home/betterfordoctors/02.webp'
 import img3 from '@/assets/home/betterfordoctors/03.webp'
 import img4 from '@/assets/home/betterfordoctors/04.webp'
-import { is } from 'zod/locales'
-
 const cardData = [
     {
         num: "01",
@@ -44,8 +42,6 @@ const DoctorGain = () => {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        gsap.registerPlugin(ScrollTrigger);
-
         if (!sectionRef.current) return;
 
         const cards = gsap.utils.toArray('.doctor-card') as HTMLElement[];
@@ -126,7 +122,6 @@ const DoctorGain = () => {
 
         return () => {
             mm.revert();
-            ScrollTrigger.getAll().forEach(t => t.kill());
         };
     }, []);
 
