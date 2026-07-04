@@ -27,7 +27,8 @@ export async function loadFramesBatched(
   onFirstLoaded: () => void,
   onProgress: (loaded: number, total: number) => void,
   onComplete: () => void,
-  batchSize: number = DEFAULT_BATCH_SIZE
+  batchSize: number = DEFAULT_BATCH_SIZE,
+  namingFormat: 'hyphen' | 'underscore_padded' = 'hyphen'
 ): Promise<void> {
   let loadedCount = 0;
   let firstSignaled = false;
@@ -35,7 +36,13 @@ export async function loadFramesBatched(
   const loadOne = (i: number): Promise<void> =>
     new Promise((resolve) => {
       const img = new Image();
-      img.src = `/${folder}/frame-${i}.${ext}`;
+      
+      if (namingFormat === 'underscore_padded') {
+        const pad = String(i - 1).padStart(4, '0');
+        img.src = `/${folder}/frame_${pad}.${ext}`;
+      } else {
+        img.src = `/${folder}/frame-${i}.${ext}`;
+      }
 
       const finish = () => {
         loadedCount++;

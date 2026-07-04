@@ -35,7 +35,7 @@ const DoctorAdvantage = () => {
     const [firstFrameLoaded, setFirstFrameLoaded] = useState(false);
     const [imagesLoaded, setImagesLoaded] = useState(false);
     const [loadProgress, setLoadProgress] = useState(0);
-    const [totalFrames, setTotalFrames] = useState(224);
+    const [totalFrames, setTotalFrames] = useState(443);
 
     // Draw a specific frame to the canvas with cover sizing (and alignment offsets)
     const drawFrame = (frameIndex: number) => {
@@ -132,7 +132,7 @@ const DoctorAdvantage = () => {
     useEffect(() => {
         const checkMobile = window.innerWidth < 768;
         setIsMobileDevice(checkMobile);
-        setTotalFrames(checkMobile ? 240 : 224);
+        setTotalFrames(checkMobile ? 240 : 443);
     }, []);
 
     // Preload images once device type is determined
@@ -142,7 +142,7 @@ const DoctorAdvantage = () => {
         const tempImages: HTMLImageElement[] = [];
         imagesRef.current = tempImages;
 
-        const folder = isMobileDevice ? '3dbodymobframes-webp' : '3dbodyframes-webp';
+        const folder = isMobileDevice ? '3dbodymobframes-webp' : '3dwebpframes';
 
         loadFramesBatched(
             folder,
@@ -151,7 +151,9 @@ const DoctorAdvantage = () => {
             tempImages,
             () => setFirstFrameLoaded(true),
             (loaded) => setLoadProgress(Math.round((loaded / totalFrames) * 100)),
-            () => setImagesLoaded(true)
+            () => setImagesLoaded(true),
+            12, // batch size
+            isMobileDevice ? 'hyphen' : 'underscore_padded' // naming format
         );
     }, [isMobileDevice, totalFrames]);
 
@@ -165,13 +167,15 @@ const DoctorAdvantage = () => {
             window.addEventListener('resize', handleResize);
 
             const isMobile = window.innerWidth < 768;
+            const getP = (f: number) => (f - 1) / (totalFrames - 1);
+
             const timeline = gsap.timeline({
                 scrollTrigger: {
                     trigger: sectionRef.current,
                     start: "top top",
-                    end: isMobile ? "+=300%" : "+=450%",
+                    end: isMobile ? "+=400%" : "+=550%",
                     pin: true,
-                    scrub: true,
+                    scrub: 0.5,
                     onUpdate: (self) => {
                         const progress = self.progress;
                         const frameIndex = Math.min(
@@ -197,38 +201,36 @@ const DoctorAdvantage = () => {
                 }, 0);
             }
 
-            const getP = (f: number) => (f - 1) / (totalFrames - 1);
-
             const textConfigs = [
                 {
                     ref: middleLeftRef,
-                    desktop: { start: 35, end: 50, exit: 50 }, // Frame 50 Left
-                    mobile: { start: 12, end: 30, exit: 35 }   // Frame 30 Left
+                    desktop: { start: 62, end: 77, exit: 100 }, // Milestone 77 (Left Text)
+                    mobile: { start: 12, end: 30, exit: 35 }
                 },
                 {
                     ref: middleRightRef,
-                    desktop: { start: 35, end: 50, exit: 50 }, // Frame 50 Right
-                    mobile: { start: 46, end: 60, exit: 67 }   // Frame 60 Right
+                    desktop: { start: 62, end: 77, exit: 100 }, // Milestone 77 (Right Text)
+                    mobile: { start: 46, end: 60, exit: 67 }
                 },
                 {
                     ref: frame92TextRef,
-                    desktop: { start: 75, end: 92, exit: 92 },
+                    desktop: { start: 133, end: 148, exit: 190 }, // Milestone 148
                     mobile: { start: 85, end: 100, exit: 110 }
                 },
                 {
                     ref: frame145TextRef,
-                    desktop: { start: 128, end: 145, exit: 145 },
+                    desktop: { start: 240, end: 255, exit: 290 }, // Milestone 255
                     mobile: { start: 140, end: 155, exit: 165 }
                 },
                 {
                     ref: frame190TextRef,
-                    desktop: { start: 173, end: 190, exit: 190 },
+                    desktop: { start: 340, end: 355, exit: 380 }, // Milestone 355
                     mobile: { start: 195, end: 210, exit: 220 }
                 },
                 {
                     ref: frame212TextRef,
-                    desktop: { start: 202, end: 212 }, // remains visible
-                    mobile: { start: 230, end: 240 }    // remains visible
+                    desktop: { start: 405, end: 420 }, // Milestone 420 (remains visible)
+                    mobile: { start: 230, end: 240 }
                 }
             ];
 
