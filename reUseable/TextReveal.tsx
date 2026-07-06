@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useMemo } from 'react'
 import { gsap } from '@/lib/gsap'
 import { ScrollTrigger } from '@/lib/gsap'
 
@@ -13,6 +13,7 @@ interface TextRevealProps {
   tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
   manual?: boolean;
   active?: boolean;
+  toggleActions?: string;
 }
 
 const splitReactChildrenIntoWords = (children: React.ReactNode, blur: boolean): React.ReactNode => {
@@ -59,7 +60,8 @@ export default function TextReveal({
   duration = 0.8,
   tag: Tag = 'p',
   manual = false,
-  active
+  active,
+  toggleActions = 'play none none none'
 }: TextRevealProps) {
   const containerRef = useRef<HTMLElement>(null);
   const isFirstRender = useRef(true);
@@ -68,7 +70,6 @@ export default function TextReveal({
   // 1. Automatic ScrollTrigger Animation (when manual is false)
   useEffect(() => {
     if (!containerRef.current || manual) return;
-    gsap.registerPlugin(ScrollTrigger);
 
     const container = containerRef.current;
     let ctx: gsap.Context;
@@ -104,7 +105,7 @@ export default function TextReveal({
               trigger: triggerEl,
               start: 'top 95%',
               end: 'bottom 5%',
-              toggleActions: 'play reverse play reverse',
+              toggleActions: toggleActions,
             }
           });
 
@@ -153,7 +154,7 @@ export default function TextReveal({
                 trigger: triggerEl,
                 start: 'top 95%',
                 end: 'bottom 5%',
-                toggleActions: 'play reverse play reverse',
+                toggleActions: toggleActions,
               }
             }
           );
@@ -172,7 +173,7 @@ export default function TextReveal({
         initScrollTrigger();
       }
     });
-    ro.observe(document.documentElement);
+    ro.observe(container);
 
     return () => {
       clearTimeout(timer);
@@ -282,7 +283,11 @@ export default function TextReveal({
     return () => window.removeEventListener('resize', handleResize);
   }, [active, manual]);
 
-  const splitChildren = splitReactChildrenIntoWords(children, blur);
+  // Memoize the split so the recursive children walk only runs when children or blur changes
+  const splitChildren = useMemo(
+    () => splitReactChildrenIntoWords(children, blur),
+    [children, blur]
+  );
   const isCentered = className.includes('justify-center') || className.includes('text-center');
 
   return (

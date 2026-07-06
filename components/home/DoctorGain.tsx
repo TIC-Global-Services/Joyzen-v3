@@ -186,7 +186,7 @@ const DoctorGain = () => {
                                                 alt={card.title}
                                                 fill
                                                 className="object-cover"
-                                                priority
+                                                priority={idx === 0}
                                             />
                                         </div>
                                     </div>

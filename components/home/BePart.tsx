@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { gsap } from '@/lib/gsap'
 import { ScrollTrigger } from '@/lib/gsap'
 import TextReveal from '@/reUseable/TextReveal'
@@ -17,15 +17,16 @@ const BePart = () => {
     const [loadProgress, setLoadProgress] = useState(0);
     
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const contextRef = useRef<CanvasRenderingContext2D | null>(null);
     const imagesRef = useRef<HTMLImageElement[]>([]);
     const currentFrameRef = useRef<number>(1);
     const [totalFrames, setTotalFrames] = useState(92);
 
     // Draw a specific frame to the canvas with cover sizing
-    const drawFrame = (frameIndex: number) => {
+    const drawFrame = useCallback((frameIndex: number) => {
         const canvas = canvasRef.current;
         if (!canvas) return;
-        const context = canvas.getContext('2d');
+        const context = contextRef.current;
         if (!context) return;
 
         let img = imagesRef.current[frameIndex - 1];
@@ -83,15 +84,17 @@ const BePart = () => {
         }
 
         context.drawImage(img, drawX, drawY, drawWidth, drawHeight);
-    };
+    }, [totalFrames]);
 
-    const handleResize = () => {
+    const handleResize = useCallback(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        // Re-cache the context whenever canvas dimensions change (context is reset on resize)
+        contextRef.current = canvas.getContext('2d');
         drawFrame(currentFrameRef.current);
-    };
+    }, [drawFrame]);
 
     // Determine device type on mount
     useEffect(() => {

@@ -1,5 +1,4 @@
 import React from 'react'
-import banner from '@/assets/home/home_hero_banner.png'
 import Hero from '@/reUseable/Hero'
 
 const HeroSection = () => {

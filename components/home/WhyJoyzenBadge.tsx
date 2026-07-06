@@ -1,61 +1,12 @@
 "use client"
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import Image from 'next/image'
-import { gsap } from '@/lib/gsap'
 import TextReveal from '@/reUseable/TextReveal'
 
+const hoverImages = ['/hover/hover1.webp', '/hover/hover2.webp', '/hover/hover3.webp', '/hover/hover4.webp']
+const marqueeImages = [...hoverImages, ...hoverImages]
+
 const WhyJoyzenBadge = () => {
-    const svgRef = useRef<SVGSVGElement>(null)
-    const hoverImages = ['/hover/hover1.webp', '/hover/hover2.webp', '/hover/hover3.webp', '/hover/hover4.webp']
-    const marqueeImages = [...hoverImages, ...hoverImages]
-
-    const totalTicks = 120
-    const rStart = 260
-    const rEnd = 290
-
-    // Compute tick coordinates dynamically and round to 3 decimal places to prevent SSR hydration mismatches
-    const ticks = Array.from({ length: totalTicks }).map((_, i) => {
-        const angle = (i * 360 / totalTicks) * (Math.PI / 180)
-        const cos = Math.cos(angle)
-        const sin = Math.sin(angle)
-        const round = (num: number) => Math.round(num * 1000) / 1000
-        return {
-            x1: round(300 + rStart * cos),
-            y1: round(300 + rStart * sin),
-            x2: round(300 + rEnd * cos),
-            y2: round(300 + rEnd * sin),
-        }
-    })
-
-    useEffect(() => {
-        if (!svgRef.current) return
-        const lines = svgRef.current.querySelectorAll('.tick-line')
-
-        gsap.killTweensOf(lines)
-
-        // Sweeping loader animation - waves of green light around the circle
-        gsap.fromTo(lines,
-            { stroke: "#D1D5DB", opacity: 0.15 },
-            {
-                stroke: "#036132",
-                opacity: 0.90,
-                duration: 1.2,
-                repeat: -1,
-                yoyo: true,
-                stagger: {
-                    each: 2.0 / totalTicks,
-                    repeat: -1,
-                    yoyo: true
-                },
-                ease: "power1.inOut"
-            }
-        )
-
-        return () => {
-            gsap.killTweensOf(lines)
-        }
-    }, [])
-
     return (
         <section className="relative w-full min-h-[600px] md:min-h-screen py-16 md:py-20 flex flex-col items-center justify-between bg-white font-noria overflow-hidden">
 

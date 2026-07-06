@@ -1,10 +1,9 @@
 "use client"
 import React, { useState, useRef, useEffect, useCallback } from 'react'
-import { useForm, useWatch } from 'react-hook-form'
+import { useForm, useWatch, Control } from 'react-hook-form'
 import toast, { Toaster } from 'react-hot-toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import gsap from 'gsap'
 import TextReveal from '@/reUseable/TextReveal'
 
 const intakeFormSchema = z.object({
@@ -35,20 +34,57 @@ const getFieldNameByIndex = (index: number): keyof IntakeFormData => {
     return fields[index];
 };
 
+/**
+ * FieldWatcher — isolated sub-component that subscribes to a single field value.
+ * Keeping useWatch here means only this tiny component re-renders on each keystroke,
+ * not the entire IntakeForm.
+ */
+interface FieldWatcherProps {
+    control: Control<IntakeFormData>;
+    focusedIndex: number;
+    isFocused: boolean;
+    logoTop: number | null;
+}
+
+const FieldWatcher = ({ control, focusedIndex, isFocused, logoTop }: FieldWatcherProps) => {
+    const focusedFieldValue = useWatch({ control, name: getFieldNameByIndex(focusedIndex) });
+    const hasValue = focusedFieldValue !== undefined && String(focusedFieldValue).length > 0;
+
+    return (
+        <div
+            className={`absolute right-0 pointer-events-none z-20 transition-all duration-500 ease-out ${logoTop === null ? 'opacity-0' : 'opacity-60'
+                }`}
+            style={{
+                top: logoTop !== null ? `${logoTop}px` : '28px',
+                transform: isFocused
+                    ? `translateY(-50%) translateY(-10px) scale(1.15) rotate(${hasValue ? '8deg' : '0deg'})`
+                    : 'translateY(-50%) scale(1) rotate(0deg)',
+            }}
+        >
+            <div className="relative w-8 h-12 md:w-10 md:h-14 transition-all duration-300">
+                <svg width="100%" height="100%" viewBox="0 0 134 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M55.9273 93.8987C25.6612 93.8987 5.99071 80.9128 0 57.1953L133.333 57.2785V93.8987H55.9273Z" fill="#EF8F60" />
+                    <path d="M66.476 44.9891C54.1905 44.9891 43.8145 34.7734 43.8145 22.6859C43.8145 10.5984 54.1989 0 66.476 0C78.7532 0 89.5179 10.1741 89.5179 22.6859C89.5179 35.1977 78.9644 44.9891 66.476 44.9891Z" fill="#EF8F60" />
+                    <path d="M0 142.727V106.106H77.406C107.672 106.106 127.343 119.092 133.333 142.81L0 142.727Z" fill="#EF8F60" />
+                    <path d="M66.8573 200C54.1492 200 43.8154 189.826 43.8154 177.314C43.8154 164.802 54.3689 155.011 66.8573 155.011C79.3456 155.011 89.5104 165.226 89.5104 177.314C89.5104 189.401 79.1344 200 66.8573 200Z" fill="#EF8F60" />
+                </svg>
+            </div>
+        </div>
+    );
+};
+
+
 const IntakeForm = () => {
     const { register, handleSubmit, reset, control, formState: { errors, isSubmitting } } = useForm<IntakeFormData>({
         resolver: zodResolver(intakeFormSchema),
-        mode: "onChange"
+        mode: "onBlur" // validate on field blur, not on every keystroke
     })
 
     const [focusedIndex, setFocusedIndex] = useState<number>(0)
     const [isFocused, setIsFocused] = useState<boolean>(false)
     const [logoTop, setLogoTop] = useState<number | null>(null)
 
-    // Watch only the currently focused field — avoids full re-render on every keystroke in all fields
-    const focusedFieldValue = useWatch({ control, name: getFieldNameByIndex(focusedIndex) })
     const fieldRefs = useRef<(HTMLDivElement | null)[]>([])
-
     const blob1Ref = useRef<HTMLDivElement>(null)
     const blob2Ref = useRef<HTMLDivElement>(null)
     const blob3Ref = useRef<HTMLDivElement>(null)
@@ -165,7 +201,7 @@ const IntakeForm = () => {
                                 {...register("name")}
                                 onFocus={() => handleFocus(0)}
                                 onBlur={handleBlur}
-                                className={`w-full py-3.5 px-6 rounded-full bg-white/10 border-[0.5px] focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base ${errors.name ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
+                                className={`w-full py-3.5 px-6 rounded-full bg-white/10 border-[0.5px] focus:outline-none transition-[border-color,box-shadow] duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base ${errors.name ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
                                     }`}
                             />
                             {errors.name && <span className="text-red-500 text-xs mt-1.5 pl-6">{errors.name.message}</span>}
@@ -179,7 +215,7 @@ const IntakeForm = () => {
                                 {...register("specialty")}
                                 onFocus={() => handleFocus(1)}
                                 onBlur={handleBlur}
-                                className={`w-full py-3.5 px-6 rounded-full bg-white/10 border-[0.5px] focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base ${errors.specialty ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
+                                className={`w-full py-3.5 px-6 rounded-full bg-white/10 border-[0.5px] focus:outline-none transition-[border-color,box-shadow] duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base ${errors.specialty ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
                                     }`}
                             />
                             {errors.specialty && <span className="text-red-500 text-xs mt-1.5 pl-6">{errors.specialty.message}</span>}
@@ -193,7 +229,7 @@ const IntakeForm = () => {
                                 {...register("city")}
                                 onFocus={() => handleFocus(2)}
                                 onBlur={handleBlur}
-                                className={`w-full py-3.5 px-6 rounded-full  bg-white/10 border-[0.75px] focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base ${errors.city ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
+                                className={`w-full py-3.5 px-6 rounded-full  bg-white/10 border-[0.75px] focus:outline-none transition-[border-color,box-shadow] duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base ${errors.city ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
                                     }`}
                             />
                             {errors.city && <span className="text-red-500 text-xs mt-1.5 pl-6">{errors.city.message}</span>}
@@ -207,7 +243,7 @@ const IntakeForm = () => {
                                 {...register("address")}
                                 onFocus={() => handleFocus(3)}
                                 onBlur={handleBlur}
-                                className={`w-full py-3.5 px-6 rounded-full bg-white/10 border-[0.75px] focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base ${errors.address ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
+                                className={`w-full py-3.5 px-6 rounded-full bg-white/10 border-[0.75px] focus:outline-none transition-[border-color,box-shadow] duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base ${errors.address ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
                                     }`}
                             />
                             {errors.address && <span className="text-red-500 text-xs mt-1.5 pl-6">{errors.address.message}</span>}
@@ -226,7 +262,7 @@ const IntakeForm = () => {
                                 })}
                                 onFocus={() => handleFocus(4)}
                                 onBlur={handleBlur}
-                                className={`w-full py-3.5 px-6 rounded-full  bg-white/10 border-[0.75px] focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base ${errors.phone ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
+                                className={`w-full py-3.5 px-6 rounded-full  bg-white/10 border-[0.75px] focus:outline-none transition-[border-color,box-shadow] duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base ${errors.phone ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
                                     }`}
                             />
                             {errors.phone && <span className="text-red-500 text-xs mt-1.5 pl-6">{errors.phone.message}</span>}
@@ -240,7 +276,7 @@ const IntakeForm = () => {
                                 {...register("email")}
                                 onFocus={() => handleFocus(5)}
                                 onBlur={handleBlur}
-                                className={`w-full py-3.5 px-6 rounded-full  bg-white/10 border-[0.75px] focus:outline-none transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base ${errors.email ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
+                                className={`w-full py-3.5 px-6 rounded-full  bg-white/10 border-[0.75px] focus:outline-none transition-[border-color,box-shadow] duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base ${errors.email ? 'border-red-300 focus:border-red-400' : 'border-white/30 focus:border-[#036132]/30'
                                     }`}
                             />
                             {errors.email && <span className="text-red-500 text-xs mt-1.5 pl-6">{errors.email.message}</span>}
@@ -254,7 +290,7 @@ const IntakeForm = () => {
                                 {...register("patientVolume")}
                                 onFocus={() => handleFocus(6)}
                                 onBlur={handleBlur}
-                                className="w-full py-3.5 px-6 rounded-full bg-white/10 border-[0.75px] border-white/30 focus:outline-none focus:border-[#036132]/30 transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base"
+                                className="w-full py-3.5 px-6 rounded-full bg-white/10 border-[0.75px] border-white/30 focus:outline-none focus:border-[#036132]/30 transition-[border-color,box-shadow] duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base"
                             />
                         </div>
 
@@ -266,7 +302,7 @@ const IntakeForm = () => {
                                 {...register("comments")}
                                 onFocus={() => handleFocus(7)}
                                 onBlur={handleBlur}
-                                className="w-full py-3.5 px-6 rounded-full  bg-white/10 border-[0.75px] border-white/30 focus:outline-none focus:border-[#036132]/30 transition-all duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base"
+                                className="w-full py-3.5 px-6 rounded-full  bg-white/10 border-[0.75px] border-white/30 focus:outline-none focus:border-[#036132]/30 transition-[border-color,box-shadow] duration-300 shadow-[8px_8px_16px_rgba(0,0,0,0.04),inset_3px_3px_8px_rgba(0,0,0,0.05)] text-gray-800 placeholder-[#6E6E6E] text-base"
                             />
                         </div>
 
@@ -294,29 +330,12 @@ const IntakeForm = () => {
                             </button>
                         </div>
 
-                        <div
-                            className={`absolute right-0 pointer-events-none z-20 transition-all duration-500 ease-out ${logoTop === null ? 'opacity-0' : 'opacity-60'
-                                }`}
-                            style={{
-                                top: logoTop !== null ? `${logoTop}px` : '28px',
-                                transform: isFocused
-                                    ? `translateY(-50%) translateY(-10px) scale(1.15) rotate(${focusedFieldValue &&
-                                        String(focusedFieldValue).length > 0
-                                        ? '8deg'
-                                        : '0deg'
-                                    })`
-                                    : 'translateY(-50%) scale(1) rotate(0deg)',
-                            }}
-                        >
-                            <div className="relative w-8 h-12 md:w-10 md:h-14 transition-all duration-300">
-                                <svg width="100%" height="100%" viewBox="0 0 134 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M55.9273 93.8987C25.6612 93.8987 5.99071 80.9128 0 57.1953L133.333 57.2785V93.8987H55.9273Z" fill="#EF8F60" />
-                                    <path d="M66.476 44.9891C54.1905 44.9891 43.8145 34.7734 43.8145 22.6859C43.8145 10.5984 54.1989 0 66.476 0C78.7532 0 89.5179 10.1741 89.5179 22.6859C89.5179 35.1977 78.9644 44.9891 66.476 44.9891Z" fill="#EF8F60" />
-                                    <path d="M0 142.727V106.106H77.406C107.672 106.106 127.343 119.092 133.333 142.81L0 142.727Z" fill="#EF8F60" />
-                                    <path d="M66.8573 200C54.1492 200 43.8154 189.826 43.8154 177.314C43.8154 164.802 54.3689 155.011 66.8573 155.011C79.3456 155.011 89.5104 165.226 89.5104 177.314C89.5104 189.401 79.1344 200 66.8573 200Z" fill="#EF8F60" />
-                                </svg>
-                            </div>
-                        </div>
+                        <FieldWatcher
+                            control={control}
+                            focusedIndex={focusedIndex}
+                            isFocused={isFocused}
+                            logoTop={logoTop}
+                        />
 
                     </form>
 

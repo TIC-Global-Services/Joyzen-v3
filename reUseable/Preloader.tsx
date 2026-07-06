@@ -23,7 +23,7 @@ export default function Preloader() {
       return () => clearTimeout(reducedTimer);
     }
 
-    // Wait for the CSS animation (3.5 seconds) plus a tiny delay, then fade out
+    // Wait for the CSS animation (3.5 seconds) to complete, then fade out
     const timer = setTimeout(() => {
       gsap.to(preloaderRef.current, {
         opacity: 0,
@@ -31,7 +31,7 @@ export default function Preloader() {
         ease: "power2.out",
         onComplete: () => setIsComplete(true),
       });
-    }, 4000);
+    }, 3500);
 
     return () => clearTimeout(timer);
   }, []);

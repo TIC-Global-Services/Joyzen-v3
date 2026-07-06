@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useCallback } from 'react'
 import Image from 'next/image'
 import { gsap } from '@/lib/gsap'
 import { ScrollTrigger } from '@/lib/gsap'
@@ -21,6 +21,7 @@ const SplitText = ({ children }: { children: string }) => {
 const DoctorAdvantage = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const contextRef = useRef<CanvasRenderingContext2D | null>(null);
     const headerRef = useRef<HTMLDivElement>(null);
     const imagesRef = useRef<HTMLImageElement[]>([]);
     const currentFrameRef = useRef<number>(1);
@@ -38,10 +39,10 @@ const DoctorAdvantage = () => {
     const [totalFrames, setTotalFrames] = useState(443);
 
     // Draw a specific frame to the canvas with cover sizing (and alignment offsets)
-    const drawFrame = (frameIndex: number) => {
+    const drawFrame = useCallback((frameIndex: number) => {
         const canvas = canvasRef.current;
         if (!canvas) return;
-        const context = canvas.getContext('2d');
+        const context = contextRef.current;
         if (!context) return;
 
         let img = imagesRef.current[frameIndex - 1];
@@ -108,9 +109,9 @@ const DoctorAdvantage = () => {
         }
 
         context.drawImage(img, drawX, drawY, drawWidth, drawHeight);
-    };
+    }, [isMobileDevice, totalFrames]);
 
-    const handleResize = () => {
+    const handleResize = useCallback(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
 
@@ -123,10 +124,12 @@ const DoctorAdvantage = () => {
         if (canvas.width !== width || canvas.height !== height) {
             canvas.width = width;
             canvas.height = height;
+            // Re-cache the context whenever canvas dimensions change (context is reset on resize)
+            contextRef.current = canvas.getContext('2d');
         }
 
         drawFrame(currentFrameRef.current);
-    };
+    }, [drawFrame]);
 
     // Determine device type on mount
     useEffect(() => {
@@ -153,7 +156,7 @@ const DoctorAdvantage = () => {
             (loaded) => setLoadProgress(Math.round((loaded / totalFrames) * 100)),
             () => setImagesLoaded(true),
             12, // batch size
-            isMobileDevice ? 'hyphen' : 'underscore_padded' // naming format
+            isMobileDevice ? 'hyphen' : 'underscore_padded'
         );
     }, [isMobileDevice, totalFrames]);
 
@@ -173,7 +176,7 @@ const DoctorAdvantage = () => {
                 scrollTrigger: {
                     trigger: sectionRef.current,
                     start: "top top",
-                    end: isMobile ? "+=400%" : "+=550%",
+                    end: isMobile ? "+=400%" : "+=400%",
                     pin: true,
                     scrub: 0.5,
                     onUpdate: (self) => {
@@ -205,32 +208,32 @@ const DoctorAdvantage = () => {
                 {
                     ref: middleLeftRef,
                     desktop: { start: 62, end: 77, exit: 100 }, // Milestone 77 (Left Text)
-                    mobile: { start: 12, end: 30, exit: 35 }
+                    mobile: { start: 12, end: 30, exit: 35 }   // Milestone 77 (Left Text)
                 },
                 {
                     ref: middleRightRef,
                     desktop: { start: 62, end: 77, exit: 100 }, // Milestone 77 (Right Text)
-                    mobile: { start: 46, end: 60, exit: 67 }
+                    mobile: { start: 46, end: 60, exit: 67 } // Milestone 158 (Right Text)
                 },
                 {
                     ref: frame92TextRef,
                     desktop: { start: 133, end: 148, exit: 190 }, // Milestone 148
-                    mobile: { start: 85, end: 100, exit: 110 }
+                    mobile: { start: 85, end: 100, exit: 110 }  // Milestone 270
                 },
                 {
                     ref: frame145TextRef,
                     desktop: { start: 240, end: 255, exit: 290 }, // Milestone 255
-                    mobile: { start: 140, end: 155, exit: 165 }
+                    mobile: { start: 140, end: 155, exit: 165 }  // Milestone 435
                 },
                 {
                     ref: frame190TextRef,
                     desktop: { start: 340, end: 355, exit: 380 }, // Milestone 355
-                    mobile: { start: 195, end: 210, exit: 220 }
+                    mobile: { start: 195, end: 210, exit: 220 }  // Milestone 600
                 },
                 {
                     ref: frame212TextRef,
                     desktop: { start: 405, end: 420 }, // Milestone 420 (remains visible)
-                    mobile: { start: 230, end: 240 }
+                    mobile: { start: 230, end: 240 }    // Milestone 715 (remains visible)
                 }
             ];
 
@@ -315,6 +318,7 @@ const DoctorAdvantage = () => {
             <div ref={headerRef} className="absolute top-12 md:top-24 left-0 w-full max-w-[1440px] px-6 md:px-12 xl:px-16 z-20 pointer-events-none flex flex-col items-start justify-start">
                 <TextReveal
                     tag="h2"
+                    toggleActions="play reverse play reverse"
                     className="text-3xl md:text-5xl lg:text-[56px] font-medium leading-[1.1] tracking-tight text-black uppercase text-left max-w-[280px] sm:max-w-xl"
                 >
                     The <span className="text-[#EF8F60]">Joyzen</span> doctor advantage
@@ -322,6 +326,7 @@ const DoctorAdvantage = () => {
                 <TextReveal
                     tag="p"
                     delay={0.1}
+                    toggleActions="play reverse play reverse"
                     className="font-satoshi text-xl md:text-2xl lg:text-3xl md:max-w-lg max-w-[200px] leading-[1.2] text-gray-800 mt-4 text-left"
                 >
                     Growth is no longer dependent only on patient volume.

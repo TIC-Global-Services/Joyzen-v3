@@ -4,12 +4,14 @@ import Link from 'next/link';
 
 const Footer = () => {
   // Pick the correct video for the device — do it client-side to avoid SSR mismatch.
-  // Default to desktop so there's no flash of no-video on first paint.
-  const [videoSrc, setVideoSrc] = useState('/joyzen_glass_footer.mp4');
+  // Default to null so no video is fetched until the client-side device check runs.
+  const [videoSrc, setVideoSrc] = useState<string | null>(null);
 
   useEffect(() => {
     if (window.innerWidth < 640) {
       setVideoSrc('/joyzenfooterMobile.mp4');
+    } else {
+      setVideoSrc('/joyzen_glass_footer.mp4');
     }
   }, []);
 
@@ -18,18 +20,20 @@ const Footer = () => {
       {/* Background Video — single stream, source chosen by device at mount */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
         <div className="relative w-full h-full">
-          <video
-            key={videoSrc}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source src={videoSrc} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          {videoSrc && (
+            <video
+              key={videoSrc}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              className="absolute inset-0 w-full h-full object-cover"
+            >
+              <source src={videoSrc} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          )}
         </div>
       </div>
 

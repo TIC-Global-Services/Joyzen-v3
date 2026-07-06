@@ -1,8 +1,8 @@
 "use client"
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import Image from 'next/image'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
-import gsap from 'gsap'
+import { ArrowRight } from 'lucide-react'
+import { gsap } from '@/lib/gsap'
 import TextReveal from '@/reUseable/TextReveal'
 
 // Importing existing premium assets
@@ -54,13 +54,13 @@ const IntegrationSection = () => {
         setMounted(true)
     }, [])
 
-    const handleNext = () => {
+    const handleNext = useCallback(() => {
         setActiveStep((prev) => (prev + 1) % steps.length)
-    }
+    }, [])
 
-    const handlePrev = () => {
+    const handlePrev = useCallback(() => {
         setActiveStep((prev) => (prev === 0 ? steps.length - 1 : prev - 1))
-    }
+    }, [])
 
     // Interactive Drag / Swipe State and Handlers
     const activeCardRef = useRef<HTMLDivElement | null>(null);
@@ -71,36 +71,8 @@ const IntegrationSection = () => {
     const isDragging = useRef(false);
     const dragDirection = useRef<'none' | 'horizontal' | 'vertical'>('none');
 
-    const handleDragStart = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
-        // Prevent default browser dragging of images on desktop mouse clicks
-        if (e.type === 'mousedown') {
-            e.preventDefault();
-        }
 
-        isDragging.current = true;
-        dragDirection.current = e.type === 'mousedown' ? 'horizontal' : 'none';
-
-        const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
-        const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
-
-        startX.current = clientX;
-        startY.current = clientY;
-        currentX.current = clientX;
-        currentY.current = clientY;
-
-        activeCardRef.current = e.currentTarget;
-
-        // Temporarily disable the CSS transition to make dragging feel instant
-        activeCardRef.current.style.transition = 'none';
-
-        // Add listeners to window to track dragging globally
-        window.addEventListener('mousemove', handleDragMove);
-        window.addEventListener('mouseup', handleDragEnd);
-        window.addEventListener('touchmove', handleDragMove, { passive: false });
-        window.addEventListener('touchend', handleDragEnd);
-    };
-
-    const handleDragMove = (e: MouseEvent | TouchEvent) => {
+    const handleDragMove = useCallback((e: MouseEvent | TouchEvent) => {
         if (!isDragging.current || !activeCardRef.current) return;
 
         const clientX = 'touches' in e ? (e as TouchEvent).touches[0].clientX : (e as MouseEvent).clientX;
@@ -166,9 +138,9 @@ const IntegrationSection = () => {
             scale: 1.02, // slightly grow while dragging
             overwrite: "auto"
         });
-    };
+    }, []);
 
-    const handleDragEnd = () => {
+    const handleDragEnd = useCallback(() => {
         if (!isDragging.current || !activeCardRef.current) return;
 
         isDragging.current = false;
@@ -229,26 +201,56 @@ const IntegrationSection = () => {
                 }
             });
         }
-    };
+    }, [handleNext, handleDragMove]);
 
-    const getStackStyles = (idx: number) => {
-        const distance = (idx - activeStep + steps.length) % steps.length;
-
-        switch (distance) {
-            case 0:
-                return { transform: 'translate(0px, 0px) rotate(-5deg) scale(1)', zIndex: 10, opacity: 1 };
-            case 1:
-                return { transform: 'translate(0px, -5px) rotate(0deg) scale(0.96)', zIndex: 9, opacity: 1 };
-            case 2:
-                return { transform: 'translate(0px, -10px) rotate(5deg) scale(0.92)', zIndex: 8, opacity: 1 };
-            case 3:
-                return { transform: 'translate(0px, -15px) rotate(-5deg) scale(0.88)', zIndex: 7, opacity: 1 };
-            case 4:
-                return { transform: 'translate(0px, -20px) rotate(0deg) scale(0.84)', zIndex: 6, opacity: 0 };
-            default:
-                return { transform: 'translate(0px, -25px) rotate(5deg) scale(0.80)', zIndex: 0, opacity: 0 };
+    const handleDragStart = useCallback((e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
+        // Prevent default browser dragging of images on desktop mouse clicks
+        if (e.type === 'mousedown') {
+            e.preventDefault();
         }
-    }
+
+        isDragging.current = true;
+        dragDirection.current = e.type === 'mousedown' ? 'horizontal' : 'none';
+
+        const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+        const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+
+        startX.current = clientX;
+        startY.current = clientY;
+        currentX.current = clientX;
+        currentY.current = clientY;
+
+        activeCardRef.current = e.currentTarget;
+
+        // Temporarily disable the CSS transition to make dragging feel instant
+        activeCardRef.current.style.transition = 'none';
+
+        // Add listeners to window to track dragging globally
+        window.addEventListener('mousemove', handleDragMove);
+        window.addEventListener('mouseup', handleDragEnd);
+        window.addEventListener('touchmove', handleDragMove, { passive: false });
+        window.addEventListener('touchend', handleDragEnd);
+    }, [handleDragMove, handleDragEnd]);
+
+    const stackStyles = useMemo(() => {
+        return steps.map((_, idx) => {
+            const distance = (idx - activeStep + steps.length) % steps.length;
+            switch (distance) {
+                case 0:
+                    return { transform: 'translate(0px, 0px) rotate(-5deg) scale(1)', zIndex: 10, opacity: 1 };
+                case 1:
+                    return { transform: 'translate(0px, -5px) rotate(0deg) scale(0.96)', zIndex: 9, opacity: 1 };
+                case 2:
+                    return { transform: 'translate(0px, -10px) rotate(5deg) scale(0.92)', zIndex: 8, opacity: 1 };
+                case 3:
+                    return { transform: 'translate(0px, -15px) rotate(-5deg) scale(0.88)', zIndex: 7, opacity: 1 };
+                case 4:
+                    return { transform: 'translate(0px, -20px) rotate(0deg) scale(0.84)', zIndex: 6, opacity: 0 };
+                default:
+                    return { transform: 'translate(0px, -25px) rotate(5deg) scale(0.80)', zIndex: 0, opacity: 0 };
+            }
+        });
+    }, [activeStep]);
 
     return (
         <div className="w-full bg-white font-noria overflow-hidden py-8 lg:py-16">
@@ -286,7 +288,7 @@ const IntegrationSection = () => {
                                     <div
                                         key={`img-${idx}`}
                                         className={`absolute inset-0 transition-all duration-500 ease-out rounded-xl overflow-hidden shadow-2xl bg-white select-none ${idx === activeStep ? 'cursor-grab active:cursor-grabbing' : ''}`}
-                                        style={getStackStyles(idx)}
+                                        style={stackStyles[idx]}
                                         onMouseDown={mounted && idx === activeStep ? handleDragStart : undefined}
                                         onTouchStart={mounted && idx === activeStep ? handleDragStart : undefined}
                                     >
@@ -296,7 +298,7 @@ const IntegrationSection = () => {
                                             fill
                                             className="object-cover pointer-events-none"
                                             sizes="(max-width: 768px) 300px, 420px"
-                                            priority
+                                            priority={idx === 0}
                                         />
                                         {/* Overlay for text readability */}
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
