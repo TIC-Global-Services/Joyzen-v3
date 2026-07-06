@@ -178,7 +178,7 @@ const DoctorAdvantage = () => {
                     start: "top top",
                     end: isMobile ? "+=400%" : "+=400%",
                     pin: true,
-                    scrub: 0.5,
+                    scrub: true,
                     onUpdate: (self) => {
                         const progress = self.progress;
                         const frameIndex = Math.min(
