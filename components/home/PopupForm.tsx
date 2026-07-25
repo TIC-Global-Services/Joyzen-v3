@@ -31,7 +31,7 @@ const PopupForm = ({ isOpen, onClose }: PopupFormProps) => {
         }`
 
     const onSubmit = async (data: PopupFormData) => {
-        const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbyA4JtUq62yvksXHhICXf5TvVE-G5bOMJ87Qfrr_5aElr1XQ7ubJ3IK6r3FgUi0JrVC/exec"
+        const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbxoTZQTNxI-eNNnUU9b455petbSxiuysm2N9D8gavG2Vav_URjgALVHL0YFRYMWbENB/exec"
 
         try {
             await fetch(ENDPOINT_URL, {
@@ -97,13 +97,13 @@ const PopupForm = ({ isOpen, onClose }: PopupFormProps) => {
             />
 
             <div
-                className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl animate-fadeIn"
+                className="relative w-full max-w-lg bg-white/50 backdrop-blur-xl rounded-2xl shadow-2xl animate-fadeIn"
                 onClick={(e) => e.stopPropagation()}
             >
                 <button
                     type="button"
                     onClick={onClose}
-                    className="absolute top-4 right-4 z-10 p-1.5 rounded-full bg-white/80 border border-white/30 text-gray-500 hover:text-gray-800 hover:bg-white transition-all duration-200 cursor-pointer"
+                    className="absolute top-4 right-4 z-10 p-1.5 rounded-full bg-white/50 border border-white/30 text-gray-500 hover:text-gray-800 hover:bg-white transition-all duration-200 cursor-pointer"
                 >
                     <X size={18} />
                 </button>

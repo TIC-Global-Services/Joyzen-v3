@@ -125,7 +125,7 @@ const IntakeForm = () => {
 
 
     const onSubmit = async (data: IntakeFormData) => {
-        const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbyA4JtUq62yvksXHhICXf5TvVE-G5bOMJ87Qfrr_5aElr1XQ7ubJ3IK6r3FgUi0JrVC/exec";
+        const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbw9H5o2VJwrLJtMPjItSXdDVgBFUqk1qt1uLldjhsArLFUVr9cBaqzF2ofVqROvFIh4/exec";
 
         try {
             await fetch(ENDPOINT_URL, {
