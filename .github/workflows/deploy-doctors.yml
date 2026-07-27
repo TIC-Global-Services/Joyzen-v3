@@ -24,13 +24,12 @@ jobs:
       - name: Build (static export)
         run: npm run build
 
-      - name: Deploy to Hostinger via rsync/ssh
-        uses: burnett01/rsync-deployments@7.0.1
+      - name: Deploy to Hostinger via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          switches: -avzr --delete
-          path: out/
-          remote_path: domains/joyzen.in/public_html/doctors/
-          remote_host: ${{ secrets.HOSTINGER_SSH_HOST }}
-          remote_port: ${{ secrets.HOSTINGER_SSH_PORT }}
-          remote_user: ${{ secrets.HOSTINGER_SSH_USER }}
-          remote_key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./out/
+          server-dir: ./
+          dangerous-clean-slate: true
