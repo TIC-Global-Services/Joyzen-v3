@@ -152,7 +152,7 @@ const PopupForm = ({ isOpen, onClose }: PopupFormProps) => {
             />
 
             <div
-                className={`relative w-full max-w-lg bg-white/50 backdrop-blur-xl rounded-2xl shadow-2xl transition-all duration-300 ease-out transform ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-3 scale-[0.98]'}`}
+                className={`relative w-full max-w-lg bg-white/70 backdrop-blur-xl rounded-2xl shadow-2xl transition-all duration-300 ease-out transform ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-3 scale-[0.98]'}`}
                 onClick={(e) => e.stopPropagation()}
             >
                 <button

@@ -65,9 +65,6 @@ const Footer = () => {
 
       <div className='flex px-[10%] md:px-[5%] text-xs md:text-sm text-black flex-col absolute bottom-[8%] md:bottom-[5%] z-40 left-0 w-full sm:flex-row justify-center items-center md:justify-between'>
         <span className="text-center sm:text-left">2026 Joyzen. Built for life. Designed for longevity.</span>
-        <Link href="https://www.theinternetcompany.one/" target="_blank" rel="noopener noreferrer">
-          <span className="text-center md:text-right">Designed and Developed by TIC Global Services</span>
-        </Link>
       </div>
     </footer>
   );
