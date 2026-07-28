@@ -113,6 +113,17 @@ body {
   font-family: var(--font-satoshi);
 }
 
+.popup-form-input:-webkit-autofill,
+.popup-form-input:-webkit-autofill:hover,
+.popup-form-input:-webkit-autofill:focus,
+.popup-form-input:-webkit-autofill:active {
+  -webkit-text-fill-color: #1f2937;
+  -webkit-box-shadow: 0 0 0 1000px rgba(255, 255, 255, 0.12) inset;
+  box-shadow: 0 0 0 1000px rgba(255, 255, 255, 0.12) inset;
+  caret-color: #1f2937;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
 /* Lenis smooth scroll — recommended styles */
 html.lenis {
   height: auto;
