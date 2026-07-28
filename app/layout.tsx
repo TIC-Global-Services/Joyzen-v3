@@ -17,14 +17,14 @@ import Preloader from "@/reUseable/Preloader";
 // });
 
 export const metadata:Metadata = {
-  title: "Joyzen Fertility Clinic | IVF & Reproductive Care in Chennai",
+  title: "Joyzen Fertility Clinic | IVF & Reproductive Care",
 
   description:
-    "Joyzen offers continuous fertility and reproductive healthcare in Chennai. Get personalized IVF care, hormone management, and lifestyle support with the same doctor online and in clinic.",
+    "Joyzen offers continuous fertility and reproductive healthcare. Get personalized IVF care, hormone management, and lifestyle support with the same doctor online and in clinic.",
 
   keywords: [
-    "Fertility clinic Chennai",
-    "IVF treatment Chennai",
+    "Fertility clinic",
+    "IVF treatment",
     "Reproductive healthcare India",
     "Fertility doctor online consultation",
     "Hormone treatment women",
