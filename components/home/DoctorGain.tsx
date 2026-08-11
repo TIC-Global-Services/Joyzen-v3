@@ -26,7 +26,7 @@ const cardData = [
     {
         num: "03",
         title: "More Trust",
-        description: "A practice built for the future of healthcare.",
+        description: "Stronger long-term patient relationships.",
         image: img3
     },
     {
