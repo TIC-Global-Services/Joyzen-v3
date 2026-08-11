@@ -17,27 +17,27 @@ import Preloader from "@/reUseable/Preloader";
 // });
 
 export const metadata:Metadata = {
-  title: "Joyzen Fertility Clinic | IVF & Reproductive Care",
+  title: "Joyzen | Health Tech Innovation for Human Longevity",
 
   description:
-    "Joyzen offers continuous fertility and reproductive healthcare. Get personalized IVF care, hormone management, and lifestyle support with the same doctor online and in clinic.",
+    "Joyzen brings innovation to health tech, advancing human longevity through continuous, connected healthcare with the same doctor guiding your journey online and in clinic.",
 
   keywords: [
-    "Fertility clinic",
-    "IVF treatment",
-    "Reproductive healthcare India",
-    "Fertility doctor online consultation",
-    "Hormone treatment women",
-    "Personalized fertility care",
-    "Joyzen fertility clinic",
-    "Continuous healthcare system"
+    "Health tech innovation",
+    "Human longevity",
+    "Longevity healthcare",
+    "Continuous healthcare system",
+    "Connected healthcare",
+    "Personalized long-term care",
+    "Joyzen health tech",
+    "Future of healthcare"
   ],
 
   openGraph: {
-    title: "Joyzen Fertility Clinic – Continuous Fertility Care",
+    title: "Joyzen – Health Tech Innovation for Human Longevity",
     description:
-      "A new way of reproductive healthcare with one doctor guiding your journey continuously, online and in clinic.",
-    url: "https://joyzen.in",
+      "A new way of healthcare driven by health tech innovation, with one doctor guiding your journey toward human longevity, continuously, online and in clinic.",
+    url: "https://doctors.joyzen.in",
     siteName: "Joyzen",
     locale: "en_IN",
     type: "website",
